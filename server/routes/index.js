@@ -1,0 +1,1 @@
+exports.recipeRouter = require('./recipeRouter');

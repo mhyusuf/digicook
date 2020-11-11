@@ -4,5 +4,6 @@ const { mongoURI } = require('../config/keys');
 module.exports = () =>
   mongoose.connect(mongoURI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   });

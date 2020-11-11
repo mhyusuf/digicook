@@ -1,10 +1,13 @@
 const express = require('express');
 
+const { recipeRouter } = require('./routes');
 const connectDB = require('./models');
 
+const PORT = process.env.PORT || 5000;
 const app = express();
 
-const PORT = process.env.PORT || 5000;
+app.use(express.json());
+app.use('/api/recipes', recipeRouter);
 
 connectDB().then(() => {
   console.log('Connected to MongoDB');
