@@ -6,4 +6,10 @@ const userSchema = new Schema({
   email: String
 });
 
+userSchema.virtual('collections', {
+  ref: 'Collection',
+  localField: '_id',
+  foreignField: '_user'
+});
+
 module.exports = model('User', userSchema);

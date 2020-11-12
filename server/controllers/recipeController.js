@@ -11,8 +11,15 @@ exports.getRecipes = async (req, res) => {
 
 exports.postRecipe = async (req, res) => {
   try {
-    const { name, category, instructions, image, ingredients } = req.body;
-    const recipe = await Recipe.create({ name, category, instructions, image, ingredients });
+    const { name, category, instructions, image, ingredients, collection } = req.body;
+    const recipe = await Recipe.create({
+      name,
+      category,
+      instructions,
+      image,
+      ingredients,
+      collection
+    });
     res.status(201).send(recipe);
   } catch (e) {
     res.sendStatus(500);
@@ -22,7 +29,7 @@ exports.postRecipe = async (req, res) => {
 exports.updateRecipe = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, category, instructions, image, ingredients } = req.body;
+    const { name, category, instructions, image, ingredients, collection } = req.body;
     const updatedRecipe = await Recipe.findByIdAndUpdate(
       id,
       {
@@ -30,7 +37,8 @@ exports.updateRecipe = async (req, res) => {
         category,
         instructions,
         image,
-        ingredients
+        ingredients,
+        collection
       },
       { new: true }
     );

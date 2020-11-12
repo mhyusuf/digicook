@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 
-const { authRouter, recipeRouter } = require('./routes');
+const { authRouter, collectionRouter, recipeRouter } = require('./routes');
 const connectDB = require('./models');
 const { cookieKey } = require('./config/keys');
 require('./services/passport');
@@ -10,6 +10,7 @@ require('./services/passport');
 const PORT = process.env.PORT || 5000;
 const app = express();
 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   cookieSession({
@@ -20,6 +21,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/auth', authRouter);
+app.use('/api/collections', collectionRouter);
 app.use('/api/recipes', recipeRouter);
 
 connectDB().then(() => {

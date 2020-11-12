@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 function Navbar({ children }) {
   const [showMenu, setShowMenu] = useState(false);
@@ -12,13 +13,11 @@ function Navbar({ children }) {
       <span className="Navbar__toggle" onClick={toggleMenu}>
         <i className="fas fa-bars"></i>
       </span>
-      <div className="Navbar__logo">
+      <NavLink to="/" className="Navbar__logo">
         <h2>digicook</h2>
-      </div>
+      </NavLink>
       <ul className={`Navbar__main ${showMenu ? 'active' : ''}`}>
-        <li>
-          { children }
-        </li>
+        {children}
       </ul>
     </nav>
   );
