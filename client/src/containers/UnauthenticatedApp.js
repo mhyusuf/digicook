@@ -2,6 +2,7 @@ import React from 'react';
 
 import Navbar from './Navbar';
 import AuthButton from '../components/AuthButton';
+import Search from '../components/Search';
 
 function UnauthenticatedApp() {
   return (
@@ -9,6 +10,7 @@ function UnauthenticatedApp() {
       <Navbar>
         <AuthButton isLoggedIn={false} />
       </Navbar>
+      <Search />
     </div>
   );
 };
