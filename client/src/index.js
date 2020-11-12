@@ -7,7 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import App from './containers/App';
 import reducers from './reducers';
-import './index.css';
+import './styles/styles.scss';
 
 const store = createStore(
   reducers, composeWithDevTools(

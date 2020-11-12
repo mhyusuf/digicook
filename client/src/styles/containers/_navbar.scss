@@ -1,0 +1,71 @@
+.Navbar {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  font-size: 1.8rem;
+  padding-bottom: $s-size;
+
+  &__toggle {
+    cursor: pointer;
+    font-size: 2.4rem;
+    position: absolute;
+    right: $l-size;
+    top: $m-size;
+  }
+
+  &__main {
+    display: none;
+    list-style: none;
+
+    li {
+      margin: $m-size auto;
+      text-align: center;
+    }
+
+    &.active {
+      display: block;
+    }
+  }
+
+  &__logo {
+    display: inline-block;
+    font-size: 2.2rem;
+    margin-left: $l-size;
+    margin-top: $m-size;
+  }
+}
+
+.nav-links {
+  text-decoration: none;
+}
+
+@media screen and (min-width: $desktop-breakpoint) {
+  .Navbar {
+    align-items: center;
+    display: flex;
+    height: 7rem;
+    justify-content: space-between;
+    padding-bottom: 0;
+
+    &__toggle {
+      display: none;
+    }
+
+    &__main {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      margin-right: $l-size;
+
+      li {
+        margin: 0;
+      }
+    }
+
+    &__logo {
+      margin-top: 0;
+    }
+  }
+
+  .nav-links {
+    margin-left: $xl-size;
+  }
+}
