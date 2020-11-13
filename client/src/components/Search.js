@@ -8,6 +8,6 @@ function Search() {
       <i className="Search__clear fas fa-times-circle"></i>
     </div>
   );
-};
+}
 
 export default Search;

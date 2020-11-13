@@ -5,7 +5,11 @@ import FormField from './FormField';
 import { createCollection } from '../actions';
 
 function CollectionCreate({ createCollection, history }) {
-  const [formValues, setFormValues] = useState({ name: '', description: '', image: '' });
+  const [formValues, setFormValues] = useState({
+    name: '',
+    description: '',
+    image: ''
+  });
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -14,14 +18,20 @@ function CollectionCreate({ createCollection, history }) {
     imageData.append('image', image);
     createCollection({ name, description, imageData }, history);
     setFormValues({ name: '', description: '', image: '' });
-  };
+  }
 
-  function handleChange (e) {
-    setFormValues(formValues => ({ ...formValues, [e.target.name] : e.target.value }));
-  };
+  function handleChange(e) {
+    setFormValues((formValues) => ({
+      ...formValues,
+      [e.target.name]: e.target.value
+    }));
+  }
 
-  function handleImageChange (e) {
-    setFormValues(formValues => ({ ...formValues, image: e.target.files[0] }))
+  function handleImageChange(e) {
+    setFormValues((formValues) => ({
+      ...formValues,
+      image: e.target.files[0]
+    }));
   }
 
   return (
@@ -29,10 +39,27 @@ function CollectionCreate({ createCollection, history }) {
       <h3 className="ui top attached header">Create collection</h3>
       <div className="ui attached segment">
         <form className="ui form" onSubmit={handleSubmit}>
-          <FormField label="Collection name" name="name" type="text" value={formValues.name} onChange={handleChange}/>
-          <FormField label="Description" name="description" type="textarea" value={formValues.description} onChange={handleChange}/>
-          <FormField label="Upload Image" name="image" type="file" onChange={handleImageChange}/>
-        <button className="ui submit button">Submit</button>
+          <FormField
+            label="Collection name"
+            name="name"
+            type="text"
+            value={formValues.name}
+            onChange={handleChange}
+          />
+          <FormField
+            label="Description"
+            name="description"
+            type="textarea"
+            value={formValues.description}
+            onChange={handleChange}
+          />
+          <FormField
+            label="Upload Image"
+            name="image"
+            type="file"
+            onChange={handleImageChange}
+          />
+          <button className="ui submit button">Submit</button>
         </form>
       </div>
     </>

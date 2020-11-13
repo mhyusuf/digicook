@@ -4,15 +4,27 @@ function FormInput(props) {
   const { label, name, type, onChange, value, children } = props;
 
   function renderInput() {
-    switch(type) {
+    switch (type) {
       case 'textarea':
-        return <textarea name={name} rows="2" value={value} onChange={onChange} />;
+        return (
+          <textarea name={name} rows="2" value={value} onChange={onChange} />
+        );
       case 'select':
         return (
-          <select name={name} value={value} onChange={onChange}>{children}</select>
+          <select name={name} value={value} onChange={onChange}>
+            {children}
+          </select>
         );
       default:
-        return <input id={name} name={name} type={type} value={value} onChange={onChange} />;
+        return (
+          <input
+            id={name}
+            name={name}
+            type={type}
+            value={value}
+            onChange={onChange}
+          />
+        );
     }
   }
 
@@ -22,6 +34,6 @@ function FormInput(props) {
       {renderInput()}
     </div>
   );
-};
+}
 
 export default FormInput;

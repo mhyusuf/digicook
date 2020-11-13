@@ -1,4 +1,5 @@
 const Recipe = require('../models/recipe');
+const Collection = require('../models/collection');
 const { processImage } = require('../services/imageUpload');
 
 exports.getRecipes = async (req, res) => {
@@ -32,6 +33,7 @@ exports.postRecipe = async (req, res) => {
       _collection: collection,
       _user: req.user
     });
+    await Collection.findByIdAndUpdate(collection, { $addToSet: { _recipes: recipe._id } });
     res.status(201).send(recipe);
   } catch (e) {
     res.sendStatus(500);

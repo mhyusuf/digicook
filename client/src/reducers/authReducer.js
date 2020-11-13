@@ -1,12 +1,12 @@
 import { GET_USER } from '../actions/types';
 
-const authReducer =  (state = null, action) => {
+const authReducer = (state = null, action) => {
   switch (action.type) {
     case GET_USER:
       return action.payload || false;
     default:
-      return state
-  };
+      return state;
+  }
 };
 
 export default authReducer;

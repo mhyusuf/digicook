@@ -10,9 +10,8 @@ import reducers from './reducers';
 import './styles/styles.scss';
 
 const store = createStore(
-  reducers, composeWithDevTools(
-    applyMiddleware(reduxThunk)
-  )
+  reducers,
+  composeWithDevTools(applyMiddleware(reduxThunk))
 );
 
 ReactDOM.render(

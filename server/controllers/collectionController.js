@@ -24,6 +24,16 @@ exports.getCollectionImage = async (req, res) => {
   }
 };
 
+exports.getCollectionDetails = async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const collection = await Collection.findById(_id).populate('_recipes');
+    res.send(collection);
+  } catch (e) {
+    res.sendStatus(404);
+  }
+};
+
 exports.postCollection = async (req, res) => {
   try {
     const { name, description } = req.body;

@@ -5,9 +5,11 @@ import CollectionListItem from './CollectionListItem';
 function CollectionList({ collections }) {
   return (
     <div className="ui cards">
-      {collections.map((collection) => <CollectionListItem key={collection._id} collection= {collection} />)}
+      {collections.map((collection) => (
+        <CollectionListItem key={collection._id} collection={collection} />
+      ))}
     </div>
   );
-};
+}
 
 export default CollectionList;

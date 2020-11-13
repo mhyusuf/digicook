@@ -6,7 +6,7 @@ function Navbar({ children }) {
 
   function toggleMenu() {
     setShowMenu((state) => setShowMenu(!state));
-  };
+  }
 
   return (
     <nav className="Navbar">
@@ -16,11 +16,9 @@ function Navbar({ children }) {
       <NavLink to="/" className="Navbar__logo">
         <h2>digicook</h2>
       </NavLink>
-      <ul className={`Navbar__main ${showMenu ? 'active' : ''}`}>
-        {children}
-      </ul>
+      <ul className={`Navbar__main ${showMenu ? 'active' : ''}`}>{children}</ul>
     </nav>
   );
-};
+}
 
 export default Navbar;

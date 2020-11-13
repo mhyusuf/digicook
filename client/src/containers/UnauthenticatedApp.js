@@ -18,6 +18,6 @@ function UnauthenticatedApp() {
       </BrowserRouter>
     </div>
   );
-};
+}
 
 export default UnauthenticatedApp;

@@ -3,17 +3,31 @@ import React from 'react';
 function IngredientField({ idx, onChange, value, onRemove }) {
   return (
     <>
-      {idx === 0 &&
+      {idx === 0 && (
         <div className="field">
           <label>Ingredients</label>
         </div>
-      }
+      )}
       <div className="fields">
         <div className="eight wide field">
-          <input placeholder="Ingredient" type="text" data-idx={idx} onChange={onChange} name="name" value={value.name}/>
+          <input
+            placeholder="Ingredient"
+            type="text"
+            data-idx={idx}
+            onChange={onChange}
+            name="name"
+            value={value.name}
+          />
         </div>
         <div className="seven wide field">
-          <input placeholder="Quantity" type="text" data-idx={idx} onChange={onChange} name="quantity" value={value.quantity}/>
+          <input
+            placeholder="Quantity"
+            type="text"
+            data-idx={idx}
+            onChange={onChange}
+            name="quantity"
+            value={value.quantity}
+          />
         </div>
         <button
           className={`ui button`}
@@ -28,6 +42,6 @@ function IngredientField({ idx, onChange, value, onRemove }) {
       </div>
     </>
   );
-};
+}
 
 export default IngredientField;

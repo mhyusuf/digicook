@@ -8,6 +8,6 @@ function Landing() {
       <Search />
     </div>
   );
-};
+}
 
 export default Landing;

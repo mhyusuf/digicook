@@ -5,6 +5,7 @@ const { upload } = require('../services/imageUpload');
 const {
   getCollections,
   getCollectionImage,
+  getCollectionDetails,
   postCollection,
   postCollectionImage,
   updateCollection,
@@ -13,6 +14,7 @@ const {
 
 router.get('/', getCollections);
 router.get('/:id/image', getCollectionImage);
+router.get('/:id', getCollectionDetails);
 router.post('/', requireLogin, postCollection);
 router.post('/:id/image', requireLogin, upload.single('image'), postCollectionImage);
 router.put('/:id', requireLogin, updateCollection);

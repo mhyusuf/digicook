@@ -12,19 +12,17 @@ function Recipes({ _id, collections, getUserCollections }) {
 
   return (
     <div>
-      <div className="ui top attached header">
-        My collections
-      </div>
+      <div className="ui top attached header">My collections</div>
       <div className="ui attached segment">
         <Link to="/my-recipes/create-collection">Add collection</Link>
         <CollectionList collections={collections} />
       </div>
     </div>
   );
-};
+}
 
 function mapStateToProps({ auth, collections }) {
-  return { _id: auth._id, collections }
+  return { _id: auth._id, collections };
 }
 
 export default connect(mapStateToProps, { getUserCollections })(Recipes);
