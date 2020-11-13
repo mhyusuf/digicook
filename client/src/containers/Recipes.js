@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-function Recipes() {
+import { getUserCollections } from '../actions';
+import CollectionList from '../components/CollectionList';
+
+function Recipes({ _id, collections, getUserCollections }) {
+  useEffect(() => {
+    getUserCollections(_id);
+  }, []);
+
   return (
     <div>
-      <h1>Collections</h1>
-      <Link to="/my-recipes/create-collection">Add collection</Link>
+      <div className="ui top attached header">
+        My collections
+      </div>
+      <div className="ui attached segment">
+        <Link to="/my-recipes/create-collection">Add collection</Link>
+        <CollectionList collections={collections} />
+      </div>
     </div>
   );
 };
 
-export default Recipes;
+function mapStateToProps({ auth, collections }) {
+  return { _id: auth._id, collections }
+}
+
+export default connect(mapStateToProps, { getUserCollections })(Recipes);

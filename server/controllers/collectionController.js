@@ -1,7 +1,28 @@
 const Collection = require('../models/collection');
 const { processImage } = require('../services/imageUpload');
 
-exports.getCollections = () => {};
+exports.getCollections = async (req, res) => {
+  // query all collections
+  // query collections for a single user
+  try {
+    const match = {};
+    if (req.query.user) match._user = req.query.user;
+    const collections = await Collection.find(match).populate('_user');
+    res.send(collections);
+  } catch (e) {
+    res.sendStatus(500);
+  }
+};
+
+exports.getCollectionImage = async (req, res) => {
+  try {
+    const collection = await Collection.findById(req.params.id);
+    res.set('Content-Type', 'image/png');
+    res.send(collection.image);
+  } catch (e) {
+    res.sendStatus(404);
+  }
+};
 
 exports.postCollection = async (req, res) => {
   try {
@@ -15,7 +36,6 @@ exports.postCollection = async (req, res) => {
 
 exports.postCollectionImage = async (req, res) => {
   try {
-    console.log(req.body, req.file);
     const _id = req.params.id;
     const _user = req.user._id;
     const collection = await Collection.findOne({ _id, _user });
@@ -29,7 +49,6 @@ exports.postCollectionImage = async (req, res) => {
     await collection.save();
     res.send();
   } catch (e) {
-    console.log(e.message);
     res.sendStatus(400);
   }
 };

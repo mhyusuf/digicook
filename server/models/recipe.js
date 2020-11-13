@@ -15,12 +15,19 @@ const recipeSchema = new Schema(
       required: true
     },
     image: {
-      type: String,
-      required: true
+      type: Buffer
     },
     ingredients: {
       type: [{ name: String, quantity: String }],
       required: true
+    },
+    _collection: {
+      type: Schema.Types.ObjectId,
+      ref: 'Collection'
+    },
+    _user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
     }
   },
   {

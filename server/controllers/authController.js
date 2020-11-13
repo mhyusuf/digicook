@@ -1,5 +1,5 @@
 exports.login = (req, res) => {
-  res.redirect('/my-recipes');
+  res.redirect('/my-collections');
 };
 
 exports.logout = (req, res) => {

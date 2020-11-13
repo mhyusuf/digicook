@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import FormField from './FormField';
 import { createCollection } from '../actions';
 
-function CollectionCreate({ createCollection }) {
+function CollectionCreate({ createCollection, history }) {
   const [formValues, setFormValues] = useState({ name: '', description: '', image: '' });
 
   function handleSubmit(e) {
@@ -12,7 +12,8 @@ function CollectionCreate({ createCollection }) {
     const { name, description, image } = formValues;
     const imageData = new FormData();
     imageData.append('image', image);
-    createCollection({ name, description, imageData });
+    createCollection({ name, description, imageData }, history);
+    setFormValues({ name: '', description: '', image: '' });
   };
 
   function handleChange (e) {

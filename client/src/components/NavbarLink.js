@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 function NavbarLink({text}) {
   return (
     <li>
-      <NavLink to="/my-recipes" className="nav-links">{text}</NavLink>
+      <NavLink to="/my-collections" className="nav-links">{text}</NavLink>
     </li>
   );
 };

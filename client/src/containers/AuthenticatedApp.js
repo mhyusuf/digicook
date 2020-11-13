@@ -7,6 +7,7 @@ import AuthButton from '../components/AuthButton';
 import Landing from './Landing';
 import Recipes from './Recipes';
 import CollectionCreate from '../components/CollectionCreate';
+import RecipeCreate from '../components/RecipeCreate';
 
 function AuthenticatedApp() {
   return (
@@ -18,8 +19,9 @@ function AuthenticatedApp() {
         </Navbar>
         <div className="wrapper">
           <Route exact path="/" component={Landing} />
-          <Route exact path="/my-recipes" component={Recipes} />
-          <Route path="/my-recipes/create-collection" component={CollectionCreate} />
+          <Route exact path="/my-collections" component={Recipes} />
+          <Route path="/my-collections/create-collection" component={CollectionCreate} />
+          <Route path="/my-collections/:id/create-recipe" component={RecipeCreate} />
         </div>
       </BrowserRouter>
     </div>
