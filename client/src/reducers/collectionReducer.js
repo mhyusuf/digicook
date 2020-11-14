@@ -1,9 +1,16 @@
-import { GET_COLLECTIONS } from '../actions/types';
+import { GET_COLLECTION_DETAIL, GET_COLLECTION_LIST } from '../actions/types';
 
-const collectionReducer = (state = [], action) => {
+const initialState = {
+  collectionList: [],
+  collectionDetail: {}
+};
+
+const collectionReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_COLLECTIONS:
-      return action.payload;
+    case GET_COLLECTION_LIST:
+      return { ...state, collectionList: action.payload };
+    case GET_COLLECTION_DETAIL:
+      return { ...state, collectionDetail: action.payload };
     default:
       return state;
   }

@@ -21,7 +21,7 @@ function CollectionDetail({ match, collection, getCollectionDetail }) {
 }
 
 function mapStateToProps({ collections }) {
-  return { collection: collections };
+  return { collection: collections.collectionDetail };
 }
 
 export default connect(mapStateToProps, { getCollectionDetail })(

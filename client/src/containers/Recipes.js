@@ -22,7 +22,7 @@ function Recipes({ _id, collections, getUserCollections }) {
 }
 
 function mapStateToProps({ auth, collections }) {
-  return { _id: auth._id, collections };
+  return { _id: auth._id, collections: collections.collectionList };
 }
 
 export default connect(mapStateToProps, { getUserCollections })(Recipes);

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { GET_USER, GET_COLLECTIONS } from './types';
+import { GET_USER, GET_COLLECTION_LIST, GET_COLLECTION_DETAIL } from './types';
 
 export const getUser = () => async (dispatch) => {
   const { data } = await axios.get('/auth/current-user');
@@ -9,7 +9,7 @@ export const getUser = () => async (dispatch) => {
 
 export const getUserCollections = (_id) => async (dispatch) => {
   const { data } = await axios.get(`/api/collections?user=${_id}`);
-  dispatch({ type: GET_COLLECTIONS, payload: data });
+  dispatch({ type: GET_COLLECTION_LIST, payload: data });
 };
 
 export const createCollection = (values, history) => async (dispatch) => {
@@ -25,7 +25,7 @@ export const createCollection = (values, history) => async (dispatch) => {
 
 export const getCollectionDetail = (_id) => async (dispatch) => {
   const { data } = await axios.get(`/api/collections/${_id}`);
-  dispatch({ type: GET_COLLECTIONS, payload: data });
+  dispatch({ type: GET_COLLECTION_DETAIL, payload: data });
 };
 
 export const createRecipe = (values, history) => async (dispatch) => {
