@@ -8,13 +8,14 @@ import CollectionList from '../components/CollectionList';
 function Recipes({ _id, collections, getUserCollections }) {
   useEffect(() => {
     getUserCollections(_id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div>
       <div className="ui top attached header">My collections</div>
       <div className="ui attached segment">
-        <Link to="/my-recipes/create-collection">Add collection</Link>
+        <Link to="/my-collections/create-collection">Add collection</Link>
         <CollectionList collections={collections} />
       </div>
     </div>
