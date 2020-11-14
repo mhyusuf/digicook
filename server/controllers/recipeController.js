@@ -23,7 +23,15 @@ exports.getRecipeImage = async (req, res) => {
 
 exports.postRecipe = async (req, res) => {
   try {
-    const { name, category, instructions, image, ingredients, collection } = req.body;
+    const {
+      name,
+      category,
+      instructions,
+      image,
+      ingredients,
+      collection
+    } = req.body;
+    console.log(ingredients);
     const recipe = await Recipe.create({
       name,
       category,
@@ -33,7 +41,9 @@ exports.postRecipe = async (req, res) => {
       _collection: collection,
       _user: req.user
     });
-    await Collection.findByIdAndUpdate(collection, { $addToSet: { _recipes: recipe._id } });
+    await Collection.findByIdAndUpdate(collection, {
+      $addToSet: { _recipes: recipe._id }
+    });
     res.status(201).send(recipe);
   } catch (e) {
     res.sendStatus(500);
@@ -62,7 +72,14 @@ exports.postRecipeImage = async (req, res) => {
 exports.updateRecipe = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, category, instructions, image, ingredients, collection } = req.body;
+    const {
+      name,
+      category,
+      instructions,
+      image,
+      ingredients,
+      collection
+    } = req.body;
     const updatedRecipe = await Recipe.findByIdAndUpdate(
       id,
       {

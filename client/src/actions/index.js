@@ -34,14 +34,14 @@ export const createRecipe = (values, history) => async (dispatch) => {
     category,
     instructions,
     imageData,
-    ingedients,
+    ingredients,
     collection
   } = values;
   const recipeRes = await axios.post('/api/recipes', {
     name,
     category,
     instructions,
-    ingedients,
+    ingredients,
     collection
   });
   const recipeId = recipeRes.data._id;
