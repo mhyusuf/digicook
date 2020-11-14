@@ -4,6 +4,7 @@ import {
   GET_USER,
   GET_COLLECTION_LIST,
   GET_COLLECTION_DETAIL,
+  DELETE_COLLECTION,
   GET_RECIPE,
   DELETE_RECIPE
 } from './types';
@@ -27,6 +28,20 @@ export const createCollection = (values, history) => async (dispatch) => {
   const collectionId = collectionRes.data._id;
   await axios.post(`/api/collections/${collectionId}/image`, imageData);
   history.push('/my-collections');
+};
+
+export const editCollection = (_id, updates, history) => async (dispatch) => {
+  const { name, description, imageData } = updates;
+  await axios.put(`/api/collections/${_id}`, { name, description });
+  if (imageData.get('image')) {
+    await axios.post(`/api/collections/${_id}/image`);
+  }
+  history.goBack();
+};
+
+export const deleteCollection = (_id, history) => async (dispatch) => {
+  await axios.delete(`/api/collections/${_id}`);
+  dispatch({ type: DELETE_COLLECTION, payload: _id });
 };
 
 export const getCollectionDetail = (_id) => async (dispatch) => {

@@ -10,13 +10,21 @@ function RecipeEdit({ recipe, getRecipe, editRecipe, match }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const initialState = {
+    name: recipe.name,
+    category: recipe.category,
+    image: '',
+    ingredients: recipe.ingredients,
+    instructions: recipe.instructions
+  };
+
   return (
     <>
       <h3 className="ui top attached header">Edit recipe</h3>
       {recipe._id ? (
         <RecipeForm
           submitHandler={(...args) => editRecipe(recipe._id, ...args)}
-          initialState={recipe}
+          initialState={initialState}
         />
       ) : (
         'Loading'

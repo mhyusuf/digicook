@@ -2,7 +2,8 @@ import {
   DELETE_RECIPE,
   GET_COLLECTION_DETAIL,
   GET_COLLECTION_LIST,
-  GET_RECIPE
+  GET_RECIPE,
+  DELETE_COLLECTION
 } from '../actions/types';
 
 const initialState = {
@@ -23,6 +24,13 @@ const collectionReducer = (state = initialState, action) => {
       return { ...state, collectionList: action.payload };
     case GET_COLLECTION_DETAIL:
       return { ...state, collectionDetail: action.payload };
+    case DELETE_COLLECTION:
+      return {
+        ...state,
+        collectionList: state.collectionList.filter(
+          ({ _id }) => _id !== action.payload
+        )
+      };
     case GET_RECIPE:
       return { ...state, recipe: action.payload };
     case DELETE_RECIPE:

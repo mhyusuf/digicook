@@ -1,4 +1,5 @@
 const Collection = require('../models/collection');
+const Recipe = require('../models/recipe');
 const { processImage } = require('../services/imageUpload');
 
 exports.getCollections = async (req, res) => {
@@ -63,6 +64,31 @@ exports.postCollectionImage = async (req, res) => {
   }
 };
 
-exports.updateCollection = () => {};
+exports.updateCollection = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, description } = req.body;
+    const updatedCollection = await Collection.findByIdAndUpdate(
+      id,
+      {
+        name,
+        description
+      },
+      { new: true }
+    );
+    res.send(updatedCollection);
+  } catch (e) {
+    res.sendStatus(404);
+  }
+};
 
-exports.deleteCollection = () => {};
+exports.deleteCollection = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedCollection = await Collection.findByIdAndDelete(id);
+    await Recipe.deleteMany({ _collection: deletedCollection._id });
+    res.sendStatus(204);
+  } catch (e) {
+    res.sendStatus(404);
+  }
+};

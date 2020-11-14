@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-function CollectionListItem({ collection, history }) {
+import { deleteCollection } from '../actions';
+
+function CollectionListItem({ collection, history, deleteCollection }) {
   return (
     <Link to={`/my-collections/${collection._id}`} className="card">
       <div className="image">
@@ -36,7 +39,10 @@ function CollectionListItem({ collection, history }) {
           </Link>
         </div>
         <div className="item">
-          <button className="ui button">
+          <button
+            className="ui button"
+            onClick={() => deleteCollection(collection._id)}
+          >
             <i class="trash alternate icon"></i>
             Delete
           </button>
@@ -46,4 +52,6 @@ function CollectionListItem({ collection, history }) {
   );
 }
 
-export default withRouter(CollectionListItem);
+export default withRouter(
+  connect(null, { deleteCollection })(CollectionListItem)
+);
