@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-import { GET_USER, GET_COLLECTION_LIST, GET_COLLECTION_DETAIL } from './types';
+import {
+  GET_USER,
+  GET_COLLECTION_LIST,
+  GET_COLLECTION_DETAIL,
+  GET_RECIPE
+} from './types';
 
 export const getUser = () => async (dispatch) => {
   const { data } = await axios.get('/auth/current-user');
@@ -47,4 +52,32 @@ export const createRecipe = (values, history) => async (dispatch) => {
   const recipeId = recipeRes.data._id;
   await axios.post(`/api/recipes/${recipeId}/image`, imageData);
   history.push('/my-collections');
+};
+
+export const getRecipe = (_id) => async (dispatch) => {
+  const { data } = await axios.get(`/api/recipes/${_id}`);
+  dispatch({ type: GET_RECIPE, payload: data });
+};
+
+export const editRecipe = (_id, updates, history) => async (dispatch) => {
+  const {
+    name,
+    category,
+    instructions,
+    imageData,
+    ingredients,
+    collection
+  } = updates;
+  const recipeRes = await axios.put(`/api/recipes/${_id}`, {
+    name,
+    category,
+    instructions,
+    ingredients,
+    collection
+  });
+  if (imageData.get('image')) {
+    const recipeId = recipeRes.data._id;
+    await axios.post(`/api/recipes/${recipeId}/image`, imageData);
+  }
+  history.goBack();
 };

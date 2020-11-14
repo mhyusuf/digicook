@@ -1,8 +1,19 @@
-import { GET_COLLECTION_DETAIL, GET_COLLECTION_LIST } from '../actions/types';
+import {
+  GET_COLLECTION_DETAIL,
+  GET_COLLECTION_LIST,
+  GET_RECIPE
+} from '../actions/types';
 
 const initialState = {
   collectionList: [],
-  collectionDetail: {}
+  collectionDetail: {},
+  recipe: {
+    name: '',
+    category: '',
+    image: '',
+    ingredients: [{ name: '', quantity: '' }],
+    instructions: ''
+  }
 };
 
 const collectionReducer = (state = initialState, action) => {
@@ -11,6 +22,8 @@ const collectionReducer = (state = initialState, action) => {
       return { ...state, collectionList: action.payload };
     case GET_COLLECTION_DETAIL:
       return { ...state, collectionDetail: action.payload };
+    case GET_RECIPE:
+      return { ...state, recipe: action.payload };
     default:
       return state;
   }

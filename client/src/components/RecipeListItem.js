@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function RecipeListItem({ recipe }) {
   return (
@@ -6,7 +7,12 @@ function RecipeListItem({ recipe }) {
       <div className="ui top bottom attached header RecipeListItem__header">
         {recipe.name}
         <div>
-          <button className="ui button">Edit</button>
+          <Link
+            to={`/my-collections/${recipe._collection}/edit-recipe/${recipe._id}`}
+            className="ui button"
+          >
+            Edit
+          </Link>
           <button className="ui button">Delete</button>
         </div>
       </div>

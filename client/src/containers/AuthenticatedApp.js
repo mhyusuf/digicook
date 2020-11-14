@@ -9,6 +9,7 @@ import Recipes from './Recipes';
 import CollectionCreate from '../components/CollectionCreate';
 import CollectionDetail from '../components/CollectionDetail';
 import RecipeCreate from '../components/RecipeCreate';
+import RecipeEdit from '../components/RecipeEdit';
 
 function AuthenticatedApp() {
   return (
@@ -33,6 +34,10 @@ function AuthenticatedApp() {
           <Route
             path="/my-collections/:id/create-recipe"
             component={RecipeCreate}
+          />
+          <Route
+            path="/my-collections/:collectionId/edit-recipe/:recipeId"
+            component={RecipeEdit}
           />
         </div>
       </BrowserRouter>
