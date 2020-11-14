@@ -1,7 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-function RecipeListItem({ recipe }) {
+import { deleteRecipe } from '../actions';
+
+function RecipeListItem({ recipe, deleteRecipe }) {
+  function handleDelete() {
+    deleteRecipe(recipe._id);
+  }
+
   return (
     <>
       <div className="ui top bottom attached header RecipeListItem__header">
@@ -13,7 +20,9 @@ function RecipeListItem({ recipe }) {
           >
             Edit
           </Link>
-          <button className="ui button">Delete</button>
+          <button className="ui button" onClick={handleDelete}>
+            Delete
+          </button>
         </div>
       </div>
       <div className="ui attached segment">
@@ -40,4 +49,4 @@ function RecipeListItem({ recipe }) {
   );
 }
 
-export default RecipeListItem;
+export default connect(null, { deleteRecipe })(RecipeListItem);

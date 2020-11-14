@@ -34,7 +34,6 @@ exports.getRecipeImage = async (req, res) => {
 exports.postRecipe = async (req, res) => {
   try {
     const { name, category, instructions, image, ingredients, collection } = req.body;
-    console.log(ingredients);
     const recipe = await Recipe.create({
       name,
       category,
@@ -97,7 +96,10 @@ exports.updateRecipe = async (req, res) => {
 exports.deleteRecipe = async (req, res) => {
   try {
     const { id } = req.params;
-    await Recipe.findByIdAndDelete(id);
+    const deletedRecipe = await Recipe.findByIdAndDelete(id);
+    await Collection.findByIdAndUpdate(deletedRecipe._collection, {
+      $pull: { _recipes: deletedRecipe._id }
+    });
     res.sendStatus(204);
   } catch (e) {
     res.sendStatus(404);

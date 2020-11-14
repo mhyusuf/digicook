@@ -4,7 +4,8 @@ import {
   GET_USER,
   GET_COLLECTION_LIST,
   GET_COLLECTION_DETAIL,
-  GET_RECIPE
+  GET_RECIPE,
+  DELETE_RECIPE
 } from './types';
 
 export const getUser = () => async (dispatch) => {
@@ -80,4 +81,9 @@ export const editRecipe = (_id, updates, history) => async (dispatch) => {
     await axios.post(`/api/recipes/${recipeId}/image`, imageData);
   }
   history.goBack();
+};
+
+export const deleteRecipe = (_id, history) => async (dispatch) => {
+  await axios.delete(`/api/recipes/${_id}`);
+  dispatch({ type: DELETE_RECIPE, payload: _id });
 };
