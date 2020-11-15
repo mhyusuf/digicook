@@ -3,10 +3,16 @@
 
 @import 'containers/app';
 @import 'containers/authenticated-app';
+@import 'containers/recipes';
 @import 'containers/navbar';
 @import 'containers/unauthenticated_app';
 
 @import 'components/auth-button';
+@import 'components/collection-create';
+@import 'components/collection-edit';
 @import 'components/collection-list-item';
+@import 'components/modal';
+@import 'components/recipe-create';
+@import 'components/recipe-edit';
 @import 'components/recipe-list-item';
 @import 'components/search';

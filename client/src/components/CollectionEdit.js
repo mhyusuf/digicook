@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import CollectionForm from './CollectionForm';
 import { getCollectionDetail, editCollection } from '../actions';
@@ -23,7 +24,15 @@ function CollectionEdit({
 
   return (
     <>
-      <h3 className="ui top attached header">Edit collection</h3>
+      <div className="ui top attached header CollectionEdit__header">
+        Edit collection
+        <div>
+          <Link className="ui button" to="/my-collections">
+            <i className="angle left icon"></i>
+            Back to My Collections
+          </Link>
+        </div>
+      </div>
       <div className="ui attached segment">
         {collection._id ? (
           <CollectionForm

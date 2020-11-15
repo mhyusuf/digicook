@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import ModalOverlay from './ModalOverlay';
+import ModalConfirm from './ModalConfirm';
 import { deleteCollection } from '../actions';
 
 function CollectionListItem({ collection, history, deleteCollection }) {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  function toggleModal() {
+    setShowDeleteModal((state) => !state);
+  }
   return (
     <div className="card">
       <div
@@ -45,15 +51,24 @@ function CollectionListItem({ collection, history, deleteCollection }) {
           </Link>
         </div>
         <div className="item">
-          <button
-            className="ui button"
-            onClick={() => deleteCollection(collection._id)}
-          >
+          <button className="ui button" onClick={toggleModal}>
             <i className="trash alternate icon"></i>
             Delete
           </button>
         </div>
       </div>
+      <ModalOverlay show={showDeleteModal}>
+        <ModalConfirm
+          headerText="Delete collection"
+          onCancel={toggleModal}
+          onConfirm={() => deleteCollection(collection._id)}
+        >
+          <p>Are you sure you want to delete this collection?</p>
+          <div className="ui warning message">
+            Warning: this will also delete all recipes in this collection.
+          </div>
+        </ModalConfirm>
+      </ModalOverlay>
     </div>
   );
 }

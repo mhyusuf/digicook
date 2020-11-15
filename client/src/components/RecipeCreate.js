@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { createRecipe } from '../actions';
 import RecipeForm from './RecipeForm';
@@ -15,7 +16,15 @@ function RecipeCreate({ createRecipe }) {
 
   return (
     <>
-      <h3 className="ui top attached header">Create recipe</h3>
+      <div className="ui top attached header RecipeCreate__header">
+        Create recipe
+        <div>
+          <Link className="ui button" to="/my-collections">
+            <i className="angle left icon"></i>
+            Back to My Collections
+          </Link>
+        </div>
+      </div>
       <RecipeForm submitHandler={createRecipe} initialState={initalFormState} />
     </>
   );

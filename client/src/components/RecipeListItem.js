@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import ModalOverlay from './ModalOverlay';
+import ModalConfirm from './ModalConfirm';
 import { deleteRecipe } from '../actions';
 
 function RecipeListItem({ recipe, deleteRecipe }) {
-  function handleDelete() {
-    deleteRecipe(recipe._id);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  function toggleModal() {
+    setShowDeleteModal((state) => !state);
   }
 
   return (
@@ -20,7 +23,7 @@ function RecipeListItem({ recipe, deleteRecipe }) {
           >
             Edit
           </Link>
-          <button className="ui button" onClick={handleDelete}>
+          <button className="ui button" onClick={toggleModal}>
             Delete
           </button>
         </div>
@@ -45,6 +48,15 @@ function RecipeListItem({ recipe, deleteRecipe }) {
         <h3 className="ui header">Instructions</h3>
         <p>{recipe.instructions}</p>
       </div>
+      <ModalOverlay show={showDeleteModal}>
+        <ModalConfirm
+          headerText="Delete recipe"
+          onCancel={toggleModal}
+          onConfirm={() => deleteRecipe(recipe._id)}
+        >
+          <p>Are you sure you want to delete this recipe?</p>
+        </ModalConfirm>
+      </ModalOverlay>
     </>
   );
 }

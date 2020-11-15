@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import RecipeForm from './RecipeForm';
 import { getRecipe, editRecipe } from '../actions';
 
-function RecipeEdit({ recipe, getRecipe, editRecipe, match }) {
+function RecipeEdit({ recipe, getRecipe, editRecipe, match, history }) {
   useEffect(() => {
     getRecipe(match.params.recipeId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -20,7 +21,15 @@ function RecipeEdit({ recipe, getRecipe, editRecipe, match }) {
 
   return (
     <>
-      <h3 className="ui top attached header">Edit recipe</h3>
+      <div className="ui top attached header RecipeEdit__header">
+        Edit recipe
+        <div>
+          <button className="ui button" onClick={() => history.goBack()}>
+            <i className="angle left icon"></i>
+            Go back
+          </button>
+        </div>
+      </div>
       {recipe._id ? (
         <RecipeForm
           submitHandler={(...args) => editRecipe(recipe._id, ...args)}

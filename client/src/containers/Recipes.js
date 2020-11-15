@@ -13,9 +13,16 @@ function Recipes({ _id, collections, getUserCollections }) {
 
   return (
     <div>
-      <div className="ui top attached header">My collections</div>
+      <div className="ui top attached header Recipes__header">
+        My collections
+        <div>
+          <Link className="ui button" to="/my-collections/create-collection">
+            <i className="add icon"></i>
+            Add collection
+          </Link>
+        </div>
+      </div>
       <div className="ui attached segment">
-        <Link to="/my-collections/create-collection">Add collection</Link>
         <CollectionList collections={collections} />
       </div>
     </div>
