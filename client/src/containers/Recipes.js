@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { getUserCollections } from '../actions';
 import CollectionList from '../components/CollectionList';
+import Loader from '../components/Loader';
 
 function Recipes({ _id, collections, getUserCollections }) {
   useEffect(() => {
@@ -12,19 +13,28 @@ function Recipes({ _id, collections, getUserCollections }) {
   }, []);
 
   return (
-    <div>
-      <div className="ui top attached header Recipes__header">
-        My collections
-        <div>
-          <Link className="ui button" to="/my-collections/create-collection">
-            <i className="add icon"></i>
-            Add collection
-          </Link>
-        </div>
-      </div>
-      <div className="ui attached segment">
-        <CollectionList collections={collections} />
-      </div>
+    <div className="Recipes">
+      {collections.length ? (
+        <>
+          <div className="ui top attached header Recipes__header">
+            My collections
+            <div>
+              <Link
+                className="ui button"
+                to="/my-collections/create-collection"
+              >
+                <i className="add icon"></i>
+                Add collection
+              </Link>
+            </div>
+          </div>
+          <div className="ui attached segment Recipes__content">
+            <CollectionList collections={collections} />
+          </div>
+        </>
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 }

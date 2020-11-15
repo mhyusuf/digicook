@@ -8,12 +8,20 @@ import ModalConfirm from './ModalConfirm';
 import { deleteCollection } from '../actions';
 
 function CollectionListItem({ collection, history, deleteCollection }) {
+  const [imageLoaded, setImageLoaded] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
     setShowDeleteModal((state) => !state);
   }
   return (
     <div className="card">
+      {!imageLoaded && (
+        <div className="image">
+          <div className="ui placeholder">
+            <div className="square image"></div>
+          </div>
+        </div>
+      )}
       <div
         className="image"
         onClick={() => history.push(`/my-collections/${collection._id}`)}
@@ -21,6 +29,7 @@ function CollectionListItem({ collection, history, deleteCollection }) {
         <img
           alt={`${collection.name}`}
           src={`/api/collections/${collection._id}/image`}
+          onLoad={() => setImageLoaded(true)}
         />
       </div>
       <div
