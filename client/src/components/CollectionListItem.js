@@ -7,14 +7,20 @@ import { deleteCollection } from '../actions';
 
 function CollectionListItem({ collection, history, deleteCollection }) {
   return (
-    <Link to={`/my-collections/${collection._id}`} className="card">
-      <div className="image">
+    <div className="card">
+      <div
+        className="image"
+        onClick={() => history.push(`/my-collections/${collection._id}`)}
+      >
         <img
           alt={`${collection.name}`}
           src={`/api/collections/${collection._id}/image`}
         />
       </div>
-      <div className="content">
+      <div
+        className="content"
+        onClick={() => history.push(`/my-collections/${collection._id}`)}
+      >
         <div className="header">{collection.name}</div>
         <div className="meta">{collection._user.name}</div>
         <div className="description">{collection.description}</div>
@@ -34,7 +40,7 @@ function CollectionListItem({ collection, history, deleteCollection }) {
             className="ui button"
             to={`/my-collections/${collection._id}/edit`}
           >
-            <i class="pencil alternate icon"></i>
+            <i className="pencil alternate icon"></i>
             Edit
           </Link>
         </div>
@@ -43,12 +49,12 @@ function CollectionListItem({ collection, history, deleteCollection }) {
             className="ui button"
             onClick={() => deleteCollection(collection._id)}
           >
-            <i class="trash alternate icon"></i>
+            <i className="trash alternate icon"></i>
             Delete
           </button>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 
