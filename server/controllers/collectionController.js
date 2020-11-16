@@ -3,12 +3,11 @@ const Recipe = require('../models/recipe');
 const { processImage } = require('../services/imageUpload');
 
 exports.getCollections = async (req, res) => {
-  // query all collections
-  // query collections for a single user
   try {
     const match = {};
-    const { q, user } = req.query;
+    const { q, user, pub } = req.query;
     if (user) match._user = req.query.user;
+    if (pub === 'true') match.isPrivate = false;
     if (q) {
       match.name = {
         $regex: q,
@@ -59,11 +58,12 @@ exports.getCollectionDetails = async (req, res) => {
 
 exports.postCollection = async (req, res) => {
   try {
-    const { name, description } = req.body;
+    const { name, description, isPrivate } = req.body;
     const collection = await Collection.create({
       name,
       _user: req.user,
-      description
+      description,
+      isPrivate
     });
     res.status(201).send(collection);
   } catch (e) {

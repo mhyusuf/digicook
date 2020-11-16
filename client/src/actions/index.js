@@ -6,12 +6,20 @@ import {
   GET_COLLECTION_DETAIL,
   DELETE_COLLECTION,
   GET_RECIPE,
-  DELETE_RECIPE
+  GET_RECIPE_LIST,
+  DELETE_RECIPE,
+  SHOW_MENU,
+  HIDE_MENU
 } from './types';
 
 export const getUser = () => async (dispatch) => {
   const { data } = await axios.get('/auth/current-user');
   dispatch({ type: GET_USER, payload: data });
+};
+
+export const getPublicCollections = () => async (dispatch) => {
+  const { data } = await axios.get('/api/collections?pub=true');
+  dispatch({ type: GET_COLLECTION_LIST, payload: data });
 };
 
 export const getUserCollections = (_id, query) => async (dispatch) => {
@@ -23,10 +31,11 @@ export const getUserCollections = (_id, query) => async (dispatch) => {
 };
 
 export const createCollection = (values, history) => async (dispatch) => {
-  const { name, description, imageData } = values;
+  const { name, description, isPrivate, imageData } = values;
   const collectionRes = await axios.post('/api/collections', {
     name,
-    description
+    description,
+    isPrivate
   });
   const collectionId = collectionRes.data._id;
   await axios.post(`/api/collections/${collectionId}/image`, imageData);
@@ -34,8 +43,8 @@ export const createCollection = (values, history) => async (dispatch) => {
 };
 
 export const editCollection = (_id, updates, history) => async (dispatch) => {
-  const { name, description, imageData } = updates;
-  await axios.put(`/api/collections/${_id}`, { name, description });
+  const { name, description, isPrivate, imageData } = updates;
+  await axios.put(`/api/collections/${_id}`, { name, description, isPrivate });
   if (imageData.get('image')) {
     await axios.post(`/api/collections/${_id}/image`);
   }
@@ -79,6 +88,11 @@ export const getRecipe = (_id) => async (dispatch) => {
   dispatch({ type: GET_RECIPE, payload: data });
 };
 
+export const getPublicRecipes = () => async (dispatch) => {
+  const { data } = await axios.get('/api/recipes?pub=true');
+  dispatch({ type: GET_RECIPE_LIST, payload: data });
+};
+
 export const editRecipe = (_id, updates, history) => async (dispatch) => {
   const {
     name,
@@ -105,4 +119,12 @@ export const editRecipe = (_id, updates, history) => async (dispatch) => {
 export const deleteRecipe = (_id, history) => async (dispatch) => {
   await axios.delete(`/api/recipes/${_id}`);
   dispatch({ type: DELETE_RECIPE, payload: _id });
+};
+
+export const showMenu = () => {
+  return { type: SHOW_MENU, payload: true };
+};
+
+export const hideMenu = () => {
+  return { type: HIDE_MENU, payload: false };
 };

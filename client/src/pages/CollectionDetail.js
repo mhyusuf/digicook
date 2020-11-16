@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { getCollectionDetail } from '../actions';
 import RecipeList from '../containers/RecipeList';
 import Search from '../components/Search';
 
-function CollectionDetail({ match, collection, getCollectionDetail }) {
+function CollectionDetail({ match, collection, getCollectionDetail, history }) {
   const [query, setQuery] = useState('');
   useEffect(() => {
     getCollectionDetail(match.params.id, query);
@@ -19,10 +18,10 @@ function CollectionDetail({ match, collection, getCollectionDetail }) {
         {collection.name}
         <Search value={query} onChange={(e) => setQuery(e.target.value)} />
         <div>
-          <Link className="ui button" to="/my-collections">
+          <button className="ui button" onClick={() => history.goBack()}>
             <i className="angle left icon"></i>
-            Back to My Collections
-          </Link>
+            Go back
+          </button>
         </div>
       </div>
       <RecipeList recipes={collection._recipes} />

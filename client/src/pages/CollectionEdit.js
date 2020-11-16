@@ -19,7 +19,8 @@ function CollectionEdit({
   const initialState = {
     name: collection.name,
     description: collection.description,
-    image: ''
+    image: '',
+    isPrivate: collection.isPrivate
   };
 
   return (

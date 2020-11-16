@@ -3,12 +3,14 @@ import {
   GET_COLLECTION_DETAIL,
   GET_COLLECTION_LIST,
   GET_RECIPE,
+  GET_RECIPE_LIST,
   DELETE_COLLECTION
 } from '../actions/types';
 
 const initialState = {
   collectionList: [],
   collectionDetail: {},
+  recipeList: [],
   recipe: {
     name: '',
     category: '',
@@ -31,6 +33,8 @@ const collectionReducer = (state = initialState, action) => {
           ({ _id }) => _id !== action.payload
         )
       };
+    case GET_RECIPE_LIST:
+      return { ...state, recipeList: action.payload };
     case GET_RECIPE:
       return { ...state, recipe: action.payload };
     case DELETE_RECIPE:

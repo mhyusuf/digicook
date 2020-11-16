@@ -6,7 +6,14 @@ import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from '../components/ModalConfirm';
 import { getRecipe, deleteRecipe } from '../actions';
 
-function RecipeDetail({ recipe, getRecipe, deleteRecipe, match }) {
+function RecipeDetail({
+  recipe,
+  getRecipe,
+  deleteRecipe,
+  match,
+  history,
+  menus
+}) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
     setShowDeleteModal((state) => !state);
@@ -22,15 +29,25 @@ function RecipeDetail({ recipe, getRecipe, deleteRecipe, match }) {
       <div className="ui top bottom attached header RecipeDetail__header">
         {recipe.name}
         <div>
-          <Link
-            to={`/my-collections/${recipe._collection}/edit-recipe/${recipe._id}`}
-            className="ui button"
-          >
-            Edit
-          </Link>
-          <button className="ui button" onClick={toggleModal}>
-            Delete
+          <button className="ui button" onClick={() => history.goBack()}>
+            <i className="angle left icon"></i>
+            Go back
           </button>
+          {menus && (
+            <>
+              <Link
+                to={`/my-collections/${recipe._collection}/edit-recipe/${recipe._id}`}
+                className="ui button"
+              >
+                <i className="pencil alternate icon"></i>
+                Edit
+              </Link>
+              <button className="ui button" onClick={toggleModal}>
+                <i className="trash alternate icon"></i>
+                Delete
+              </button>
+            </>
+          )}
         </div>
       </div>
       <div className="ui attached segment">
@@ -83,8 +100,8 @@ function RecipeDetail({ recipe, getRecipe, deleteRecipe, match }) {
   );
 }
 
-function mapStateToProps({ collections }) {
-  return { recipe: collections.recipe };
+function mapStateToProps({ collections, menus }) {
+  return { recipe: collections.recipe, menus };
 }
 
 export default connect(mapStateToProps, { getRecipe, deleteRecipe })(

@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { getUserCollections } from '../actions';
+import { getUserCollections, showMenu } from '../actions';
 import CollectionList from '../containers/CollectionList';
 import Loader from '../components/Loader';
 import Search from '../components/Search';
 
-function MyColletions({ _id, collections, getUserCollections }) {
+function MyColletions({ _id, collections, getUserCollections, showMenu }) {
   const [isLoading, setIsLoading] = useState(true);
   const [query, setQuery] = useState('');
   useEffect(() => {
     getUserCollections(_id, query);
     setIsLoading(false);
+    showMenu();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
@@ -46,4 +47,6 @@ function mapStateToProps({ auth, collections }) {
   return { _id: auth._id, collections: collections.collectionList };
 }
 
-export default connect(mapStateToProps, { getUserCollections })(MyColletions);
+export default connect(mapStateToProps, { getUserCollections, showMenu })(
+  MyColletions
+);

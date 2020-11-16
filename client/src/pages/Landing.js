@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
-import Search from '../components/Search';
+import { hideMenu } from '../actions';
+import Discover from '../containers/Discover';
 
-function Landing() {
+function Landing({ hideMenu }) {
+  useEffect(() => {
+    hideMenu();
+  });
   return (
     <div>
-      <Search />
+      <Discover />
     </div>
   );
 }
 
-export default Landing;
+export default connect(null, { hideMenu })(Landing);

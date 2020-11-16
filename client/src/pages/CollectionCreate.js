@@ -9,7 +9,8 @@ function CollectionCreate({ createCollection }) {
   const initialState = {
     name: '',
     description: '',
-    image: ''
+    image: '',
+    isPrivate: false
   };
 
   return (
@@ -34,4 +35,3 @@ function CollectionCreate({ createCollection }) {
 }
 
 export default connect(null, { createCollection })(CollectionCreate);
-// export default CollectionCreate;

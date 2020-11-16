@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import FormField from '../components/FormField';
+import StatusRadio from '../components/StatusRadio';
 
 function CollectionForm({ initialState, submitHandler, history }) {
   const [formValues, setFormValues] = useState(initialState);
 
   function handleSubmit(e) {
     e.preventDefault();
-    const { name, description, image } = formValues;
+    const { name, description, image, isPrivate } = formValues;
     const imageData = new FormData();
     imageData.append('image', image);
-    submitHandler({ name, description, imageData }, history);
-    setFormValues({ name: '', description: '', image: '' });
+    submitHandler({ name, description, isPrivate, imageData }, history);
+    setFormValues({ name: '', description: '', image: '', isPrivate: false });
   }
 
   function handleChange(e) {
@@ -26,6 +27,13 @@ function CollectionForm({ initialState, submitHandler, history }) {
     setFormValues((formValues) => ({
       ...formValues,
       image: e.target.files[0]
+    }));
+  }
+
+  function handleStatusChange(status) {
+    setFormValues((formValues) => ({
+      ...formValues,
+      isPrivate: status
     }));
   }
 
@@ -50,6 +58,10 @@ function CollectionForm({ initialState, submitHandler, history }) {
         name="image"
         type="file"
         onChange={handleImageChange}
+      />
+      <StatusRadio
+        value={formValues.isPrivate}
+        onStatusChange={handleStatusChange}
       />
       <button className="ui submit button">Submit</button>
     </form>

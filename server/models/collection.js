@@ -12,6 +12,10 @@ const collectionSchema = new Schema({
   image: {
     type: Buffer
   },
+  isPrivate: {
+    type: Boolean,
+    default: false
+  },
   _user: {
     type: Schema.Types.ObjectId,
     ref: 'User'

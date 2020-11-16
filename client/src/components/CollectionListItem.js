@@ -7,7 +7,7 @@ import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from './ModalConfirm';
 import { deleteCollection } from '../actions';
 
-function CollectionListItem({ collection, history, deleteCollection }) {
+function CollectionListItem({ collection, history, deleteCollection, menus }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
@@ -41,32 +41,37 @@ function CollectionListItem({ collection, history, deleteCollection }) {
           <div className="meta">{collection._user.name}</div>
           <div className="description">{collection.description}</div>
         </div>
-        <div className="ui bottom attached menu" style={{ overflow: 'hidden' }}>
-          <div className="item">
-            <Link
-              className="ui button"
-              to={`/my-collections/${collection._id}/create-recipe`}
-            >
-              <i className="add icon"></i>
-              Add recipe
-            </Link>
+        {menus && (
+          <div
+            className="ui bottom attached menu"
+            style={{ overflow: 'hidden' }}
+          >
+            <div className="item">
+              <Link
+                className="ui button"
+                to={`/my-collections/${collection._id}/create-recipe`}
+              >
+                <i className="add icon"></i>
+                Add recipe
+              </Link>
+            </div>
+            <div className="item">
+              <Link
+                className="ui button"
+                to={`/my-collections/${collection._id}/edit`}
+              >
+                <i className="pencil alternate icon"></i>
+                Edit
+              </Link>
+            </div>
+            <div className="item">
+              <button className="ui button" onClick={toggleModal}>
+                <i className="trash alternate icon"></i>
+                Delete
+              </button>
+            </div>
           </div>
-          <div className="item">
-            <Link
-              className="ui button"
-              to={`/my-collections/${collection._id}/edit`}
-            >
-              <i className="pencil alternate icon"></i>
-              Edit
-            </Link>
-          </div>
-          <div className="item">
-            <button className="ui button" onClick={toggleModal}>
-              <i className="trash alternate icon"></i>
-              Delete
-            </button>
-          </div>
-        </div>
+        )}
       </div>
       <ModalOverlay show={showDeleteModal}>
         <ModalConfirm
@@ -84,6 +89,10 @@ function CollectionListItem({ collection, history, deleteCollection }) {
   );
 }
 
+function mapStateToProps({ menus }) {
+  return { menus };
+}
+
 export default withRouter(
-  connect(null, { deleteCollection })(CollectionListItem)
+  connect(mapStateToProps, { deleteCollection })(CollectionListItem)
 );

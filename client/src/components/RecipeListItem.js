@@ -6,11 +6,12 @@ import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from './ModalConfirm';
 import { deleteRecipe } from '../actions';
 
-function RecipeListItem({ recipe, deleteRecipe }) {
+function RecipeListItem({ recipe, deleteRecipe, menus }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
     setShowDeleteModal((state) => !state);
   }
+  console.log(recipe);
   return (
     <>
       <div className="ui card RecipeListItem">
@@ -29,26 +30,28 @@ function RecipeListItem({ recipe, deleteRecipe }) {
             <p>{recipe.category}</p>
           </div>
         </Link>
-        <div
-          className="ui two item bottom attached menu"
-          style={{ overflow: 'hidden' }}
-        >
-          <div className="item">
-            <Link
-              className="ui button"
-              to={`/my-collections/${recipe._collection}/edit-recipe/${recipe._id}`}
-            >
-              <i className="pencil alternate icon"></i>
-              Edit
-            </Link>
+        {menus && (
+          <div
+            className="ui two item bottom attached menu"
+            style={{ overflow: 'hidden' }}
+          >
+            <div className="item">
+              <Link
+                className="ui button"
+                to={`/my-collections/${recipe._collection}/edit-recipe/${recipe._id}`}
+              >
+                <i className="pencil alternate icon"></i>
+                Edit
+              </Link>
+            </div>
+            <div className="item" onClick={toggleModal}>
+              <button className="ui button">
+                <i className="trash alternate icon"></i>
+                Delete
+              </button>
+            </div>
           </div>
-          <div className="item" onClick={toggleModal}>
-            <button className="ui button">
-              <i className="trash alternate icon"></i>
-              Delete
-            </button>
-          </div>
-        </div>
+        )}
       </div>
       <ModalOverlay show={showDeleteModal}>
         <ModalConfirm
@@ -63,4 +66,8 @@ function RecipeListItem({ recipe, deleteRecipe }) {
   );
 }
 
-export default connect(null, { deleteRecipe })(RecipeListItem);
+function mapStateToProps({ menus }) {
+  return { menus };
+}
+
+export default connect(mapStateToProps, { deleteRecipe })(RecipeListItem);
