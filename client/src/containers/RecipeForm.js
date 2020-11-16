@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import FormField from './FormField';
-import IngredientField from './IngredientField';
+import FormField from '../components/FormField';
+import IngredientField from '../components/IngredientField';
 import { CATEGORY_OPTIONS } from '../categoryOptions';
 
 function RecipeForm({ initialState, submitHandler, history, match }) {

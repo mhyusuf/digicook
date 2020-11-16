@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { getCollectionDetail } from '../actions';
-import RecipeList from './RecipeList';
+import RecipeList from '../containers/RecipeList';
 
 function CollectionDetail({ match, collection, getCollectionDetail }) {
   useEffect(() => {

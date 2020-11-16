@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { getUserCollections } from '../actions';
-import CollectionList from '../components/CollectionList';
+import CollectionList from '../containers/CollectionList';
 import Loader from '../components/Loader';
 
-function Recipes({ _id, collections, getUserCollections }) {
+function MyColletions({ _id, collections, getUserCollections }) {
   useEffect(() => {
     getUserCollections(_id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -43,4 +43,4 @@ function mapStateToProps({ auth, collections }) {
   return { _id: auth._id, collections: collections.collectionList };
 }
 
-export default connect(mapStateToProps, { getUserCollections })(Recipes);
+export default connect(mapStateToProps, { getUserCollections })(MyColletions);

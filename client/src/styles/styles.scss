@@ -1,20 +1,21 @@
 @import 'base/settings';
 @import 'base/base';
 
-@import 'containers/app';
-@import 'containers/authenticated-app';
-@import 'containers/recipes';
+@import 'pages/app';
+@import 'pages/authenticated-app';
+@import 'pages/collection-create';
+@import 'pages/collection-edit';
+@import 'pages/my-collections';
+@import 'pages/recipe-create';
+@import 'pages/recipe-edit';
+@import 'pages/unauthenticated_app';
+
 @import 'containers/navbar';
-@import 'containers/unauthenticated_app';
 
 @import 'components/auth-button';
-@import 'components/collection-create';
-@import 'components/collection-edit';
 @import 'components/collection-list-item';
 @import 'components/loader';
-@import 'components/modal';
+@import 'containers/modal';
 @import 'components/placeholder-card';
-@import 'components/recipe-create';
-@import 'components/recipe-edit';
 @import 'components/recipe-list-item';
 @import 'components/search';

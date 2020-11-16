@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CollectionListItem from './CollectionListItem';
+import CollectionListItem from '../components/CollectionListItem';
 
 function CollectionList({ collections }) {
   return (

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import RecipeForm from './RecipeForm';
+import RecipeForm from '../containers/RecipeForm';
 import { getRecipe, editRecipe } from '../actions';
 
 function RecipeEdit({ recipe, getRecipe, editRecipe, match, history }) {

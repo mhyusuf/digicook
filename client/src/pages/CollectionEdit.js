@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import CollectionForm from './CollectionForm';
+import CollectionForm from '../containers/CollectionForm';
 import { getCollectionDetail, editCollection } from '../actions';
 
 function CollectionEdit({

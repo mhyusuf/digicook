@@ -1,7 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-import Navbar from './Navbar';
+import Navbar from '../containers/Navbar';
 import AuthButton from '../components/AuthButton';
 import Search from '../components/Search';
 

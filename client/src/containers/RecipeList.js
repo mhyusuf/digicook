@@ -1,6 +1,6 @@
 import React from 'react';
 
-import RecipeListItem from './RecipeListItem';
+import RecipeListItem from '../components/RecipeListItem';
 
 function RecipeList({ recipes }) {
   return recipes ? (

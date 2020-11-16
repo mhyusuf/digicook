@@ -1,16 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import Navbar from './Navbar';
+import Navbar from '../containers/Navbar';
 import NavbarLink from '../components/NavbarLink';
 import AuthButton from '../components/AuthButton';
 import Landing from './Landing';
-import Recipes from './Recipes';
-import CollectionCreate from '../components/CollectionCreate';
-import CollectionDetail from '../components/CollectionDetail';
-import CollectionEdit from '../components/CollectionEdit';
-import RecipeCreate from '../components/RecipeCreate';
-import RecipeEdit from '../components/RecipeEdit';
+import MyCollections from './MyCollections';
+import CollectionCreate from './CollectionCreate';
+import CollectionDetail from './CollectionDetail';
+import CollectionEdit from './CollectionEdit';
+import RecipeCreate from './RecipeCreate';
+import RecipeEdit from './RecipeEdit';
 
 function AuthenticatedApp() {
   return (
@@ -23,7 +23,7 @@ function AuthenticatedApp() {
         <div className="wrapper">
           <Switch>
             <Route exact path="/" component={Landing} />
-            <Route exact path="/my-collections" component={Recipes} />
+            <Route exact path="/my-collections" component={MyCollections} />
             <Route
               path="/my-collections/create-collection"
               component={CollectionCreate}

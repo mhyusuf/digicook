@@ -18,3 +18,8 @@ body {
   max-width: 96rem;
   padding: 0 $m-size;
 }
+
+.segment,
+.attached.header {
+  border: none !important;
+}
