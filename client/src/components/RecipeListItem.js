@@ -29,21 +29,33 @@ function RecipeListItem({ recipe, deleteRecipe }) {
         </div>
       </div>
       <div className="ui attached segment">
-        <div>
-          <img src={`/api/recipes/${recipe._id}/image`} alt={recipe.name} />
-        </div>
-        <h3 className="ui header">Ingredients</h3>
-        <div className="ui list">
-          {recipe.ingredients.map(({ _id, name, quantity }) => {
-            return (
-              <div key={_id} className="item">
-                <p>
-                  <span>{quantity}: </span>
-                  {name}
-                </p>
-              </div>
-            );
-          })}
+        <div className="RecipeListItem__top-box">
+          <div className="RecipeListItem__img-box">
+            <img src={`/api/recipes/${recipe._id}/image`} alt={recipe.name} />
+          </div>
+          <div>
+            <table
+              className="ui celled table"
+              style={{ textTransform: 'capitalize' }}
+            >
+              <thead>
+                <tr>
+                  <th>Ingredient</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recipe.ingredients.map(({ _id, name, quantity }) => {
+                  return (
+                    <tr key={_id} className="item">
+                      <td data-label="Ingredient">{name}</td>
+                      <td date-label="Quantity">{quantity}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
         <h3 className="ui header">Instructions</h3>
         <p>{recipe.instructions}</p>

@@ -3,4 +3,18 @@
     display: flex;
     justify-content: space-between;
   }
+
+  &__top-box {
+    display: flex;
+  }
+
+  &__img-box {
+    margin-right: $xl-size;
+  }
+
+  table {
+    display: block;
+    height: 40rem;
+    overflow-y: scroll;
+  }
 }

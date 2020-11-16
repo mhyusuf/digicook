@@ -1,39 +1,42 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { getUserCollections } from '../actions';
 import CollectionList from '../containers/CollectionList';
 import Loader from '../components/Loader';
+import Search from '../components/Search';
 
 function MyColletions({ _id, collections, getUserCollections }) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [query, setQuery] = useState('');
   useEffect(() => {
-    getUserCollections(_id);
+    getUserCollections(_id, query);
+    setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [query]);
 
   return (
     <div className="Recipes">
+      {isLoading && <Loader />}
+      <div className="ui top attached header Recipes__header">
+        My collections
+        <Search value={query} onChange={(e) => setQuery(e.target.value)} />
+        <div>
+          <Link className="ui button" to="/my-collections/create-collection">
+            <i className="add icon"></i>
+            Add collection
+          </Link>
+        </div>
+      </div>
       {collections.length ? (
-        <>
-          <div className="ui top attached header Recipes__header">
-            My collections
-            <div>
-              <Link
-                className="ui button"
-                to="/my-collections/create-collection"
-              >
-                <i className="add icon"></i>
-                Add collection
-              </Link>
-            </div>
-          </div>
-          <div className="ui attached segment Recipes__content">
-            <CollectionList collections={collections} />
-          </div>
-        </>
+        <div className="ui attached segment Recipes__content">
+          <CollectionList collections={collections} />
+        </div>
       ) : (
-        <Loader />
+        <div className="ui visible message">
+          <p>No collections found</p>
+        </div>
       )}
     </div>
   );

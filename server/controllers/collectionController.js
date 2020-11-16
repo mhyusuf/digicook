@@ -7,10 +7,18 @@ exports.getCollections = async (req, res) => {
   // query collections for a single user
   try {
     const match = {};
-    if (req.query.user) match._user = req.query.user;
+    const { q, user } = req.query;
+    if (user) match._user = req.query.user;
+    if (q) {
+      match.name = {
+        $regex: q,
+        $options: 'i'
+      };
+    }
     const collections = await Collection.find(match).populate('_user');
     res.send(collections);
   } catch (e) {
+    console.log(e);
     res.sendStatus(500);
   }
 };
@@ -38,7 +46,11 @@ exports.getCollectionDetails = async (req, res) => {
 exports.postCollection = async (req, res) => {
   try {
     const { name, description } = req.body;
-    const collection = await Collection.create({ name, _user: req.user, description });
+    const collection = await Collection.create({
+      name,
+      _user: req.user,
+      description
+    });
     res.status(201).send(collection);
   } catch (e) {
     res.sendStatus(500);

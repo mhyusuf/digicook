@@ -14,8 +14,11 @@ export const getUser = () => async (dispatch) => {
   dispatch({ type: GET_USER, payload: data });
 };
 
-export const getUserCollections = (_id) => async (dispatch) => {
-  const { data } = await axios.get(`/api/collections?user=${_id}`);
+export const getUserCollections = (_id, query) => async (dispatch) => {
+  const queryString = query ? `&q=${query}` : '';
+  const { data } = await axios.get(
+    `/api/collections?user=${_id}${queryString}`
+  );
   dispatch({ type: GET_COLLECTION_LIST, payload: data });
 };
 
