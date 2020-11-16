@@ -8,6 +8,7 @@ import Landing from './Landing';
 import MyCollections from './MyCollections';
 import CollectionCreate from './CollectionCreate';
 import CollectionDetail from './CollectionDetail';
+import RecipeDetail from './RecipeDetail';
 import CollectionEdit from './CollectionEdit';
 import RecipeCreate from './RecipeCreate';
 import RecipeEdit from './RecipeEdit';
@@ -32,6 +33,10 @@ function AuthenticatedApp() {
               exact
               path="/my-collections/:id"
               component={CollectionDetail}
+            />
+            <Route
+              path="/my-collections/:collectionId/recipes/:recipeId"
+              component={RecipeDetail}
             />
             <Route path="/my-collections/:id/edit" component={CollectionEdit} />
             <Route

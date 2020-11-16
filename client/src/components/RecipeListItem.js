@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from './ModalConfirm';
@@ -11,54 +11,44 @@ function RecipeListItem({ recipe, deleteRecipe }) {
   function toggleModal() {
     setShowDeleteModal((state) => !state);
   }
-
   return (
     <>
-      <div className="ui top bottom attached header RecipeListItem__header">
-        {recipe.name}
-        <div>
-          <Link
-            to={`/my-collections/${recipe._collection}/edit-recipe/${recipe._id}`}
-            className="ui button"
-          >
-            Edit
-          </Link>
-          <button className="ui button" onClick={toggleModal}>
-            Delete
-          </button>
-        </div>
-      </div>
-      <div className="ui attached segment">
-        <div className="RecipeListItem__top-box">
-          <div className="RecipeListItem__img-box">
-            <img src={`/api/recipes/${recipe._id}/image`} alt={recipe.name} />
+      <div className="ui card RecipeListItem">
+        <Link
+          className="image"
+          to={`/my-collections/${recipe._collection}/recipes/${recipe._id}`}
+        >
+          <img src={`/api/recipes/${recipe._id}/image`} alt={recipe.name} />
+        </Link>
+        <Link
+          className="content"
+          to={`/my-collections/${recipe._collection}/recipes/${recipe._id}`}
+        >
+          <div className="header">{recipe.name}</div>
+          <div className="meta">
+            <p>{recipe.category}</p>
           </div>
-          <div>
-            <table
-              className="ui celled table"
-              style={{ textTransform: 'capitalize' }}
+        </Link>
+        <div
+          className="ui two item bottom attached menu"
+          style={{ overflow: 'hidden' }}
+        >
+          <div className="item">
+            <Link
+              className="ui button"
+              to={`/my-collections/${recipe._collection}/edit-recipe/${recipe._id}`}
             >
-              <thead>
-                <tr>
-                  <th>Ingredient</th>
-                  <th>Quantity</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recipe.ingredients.map(({ _id, name, quantity }) => {
-                  return (
-                    <tr key={_id} className="item">
-                      <td data-label="Ingredient">{name}</td>
-                      <td date-label="Quantity">{quantity}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+              <i className="pencil alternate icon"></i>
+              Edit
+            </Link>
+          </div>
+          <div className="item" onClick={toggleModal}>
+            <button className="ui button">
+              <i className="trash alternate icon"></i>
+              Delete
+            </button>
           </div>
         </div>
-        <h3 className="ui header">Instructions</h3>
-        <p>{recipe.instructions}</p>
       </div>
       <ModalOverlay show={showDeleteModal}>
         <ModalConfirm

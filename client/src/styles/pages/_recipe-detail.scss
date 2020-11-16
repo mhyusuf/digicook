@@ -1,0 +1,21 @@
+.RecipeDetail {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__top-box {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__img-box {
+    margin-right: $xl-size;
+  }
+
+  table {
+    display: block;
+    height: 36rem;
+    overflow-y: scroll;
+  }
+}

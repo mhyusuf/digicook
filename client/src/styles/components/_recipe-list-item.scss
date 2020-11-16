@@ -1,20 +1,13 @@
 .RecipeListItem {
-  &__header {
-    display: flex;
-    justify-content: space-between;
-  }
+  text-transform: capitalize;
 
-  &__top-box {
-    display: flex;
-  }
+  cursor: pointer;
+  transition: box-shadow 0.1s ease, transform 0.1s ease,
+    -webkit-box-shadow 0.1s ease, -webkit-transform 0.1s ease,
+    -moz-box-shadow 0.1s ease, -moz-transform-shadow 0.1s ease;
 
-  &__img-box {
-    margin-right: $xl-size;
-  }
-
-  table {
-    display: block;
-    height: 40rem;
-    overflow-y: scroll;
+  &:hover {
+    box-shadow: 0 1px 3px 0 #bcbdbd, 0 0 0 1px #d5d5d5;
+    transform: translateY(-3px);
   }
 }
