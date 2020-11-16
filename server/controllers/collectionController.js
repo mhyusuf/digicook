@@ -35,10 +35,24 @@ exports.getCollectionImage = async (req, res) => {
 
 exports.getCollectionDetails = async (req, res) => {
   try {
+    const match = {};
+    const { q } = req.query;
+    if (q) {
+      match.name = {
+        $regex: q,
+        $options: 'i'
+      };
+    }
     const _id = req.params.id;
-    const collection = await Collection.findById(_id).populate('_recipes');
+    const collection = await Collection.findById(_id)
+      .populate({
+        path: '_recipes',
+        match
+      })
+      .exec();
     res.send(collection);
   } catch (e) {
+    console.log(e.message);
     res.sendStatus(404);
   }
 };

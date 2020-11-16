@@ -9,9 +9,9 @@ import Search from '../components/Search';
 function CollectionDetail({ match, collection, getCollectionDetail }) {
   const [query, setQuery] = useState('');
   useEffect(() => {
-    getCollectionDetail(match.params.id);
+    getCollectionDetail(match.params.id, query);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [query]);
 
   return collection ? (
     <div>

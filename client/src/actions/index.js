@@ -47,8 +47,9 @@ export const deleteCollection = (_id, history) => async (dispatch) => {
   dispatch({ type: DELETE_COLLECTION, payload: _id });
 };
 
-export const getCollectionDetail = (_id) => async (dispatch) => {
-  const { data } = await axios.get(`/api/collections/${_id}`);
+export const getCollectionDetail = (_id, query) => async (dispatch) => {
+  const queryString = query ? `?q=${query}` : '';
+  const { data } = await axios.get(`/api/collections/${_id}${queryString}`);
   dispatch({ type: GET_COLLECTION_DETAIL, payload: data });
 };
 
