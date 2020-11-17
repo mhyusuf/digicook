@@ -21,7 +21,7 @@ function Discover({
 
   return (
     <>
-      <div className="ui top attached tabular menu">
+      <div className="ui top attached tabular menu Discover__header">
         <div
           className={`item ${renderCollections ? 'active' : ''}`}
           onClick={() => setRenderCollections(true)}
@@ -38,6 +38,9 @@ function Discover({
           attached
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          placeholder={`Search ${
+            renderCollections ? 'collections' : 'recipes'
+          }`}
         />
       </div>
       <div className="ui bottom attached segment">

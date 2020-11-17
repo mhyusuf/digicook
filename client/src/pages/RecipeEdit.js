@@ -20,13 +20,15 @@ function RecipeEdit({ recipe, getRecipe, editRecipe, match, history }) {
 
   return (
     <>
-      <div className="ui top attached header RecipeEdit__header">
-        Edit recipe
-        <div>
-          <button className="ui button" onClick={() => history.goBack()}>
-            <i className="angle left icon"></i>
-            Go back
-          </button>
+      <div className="ui top attached tabular menu RecipeEdit__header">
+        <div className="item active">Edit recipe</div>
+        <div className="right menu">
+          <div className="item">
+            <button className="ui button" onClick={() => history.goBack()}>
+              <i className="angle left icon"></i>
+              Go back
+            </button>
+          </div>
         </div>
       </div>
       {recipe._id ? (

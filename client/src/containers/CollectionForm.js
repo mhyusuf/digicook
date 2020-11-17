@@ -38,7 +38,7 @@ function CollectionForm({ initialState, submitHandler, history }) {
   }
 
   return (
-    <form className="ui form" onSubmit={handleSubmit}>
+    <form className="ui form CollectionForm" onSubmit={handleSubmit}>
       <FormField
         label="Collection name"
         name="name"

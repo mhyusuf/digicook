@@ -1,15 +1,27 @@
 .Recipes {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 12rem);
-
   &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+    .item {
+      font-size: $m-size;
+    }
 
-  &__content {
-    flex-grow: 1;
+    .item:not(:last-of-type) {
+      cursor: pointer;
+    }
+  }
+}
+
+@media screen and (max-width: $desktop-breakpoint) {
+  .Recipes {
+    &__header {
+      flex-wrap: wrap;
+
+      .right {
+        margin: auto !important;
+      }
+
+      .button {
+        font-size: $s-size !important;
+      }
+    }
   }
 }

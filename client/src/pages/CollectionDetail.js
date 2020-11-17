@@ -14,14 +14,20 @@ function CollectionDetail({ match, collection, getCollectionDetail, history }) {
 
   return collection ? (
     <div>
-      <div className="ui top attached header CollectionDetail__header">
-        {collection.name}
-        <Search value={query} onChange={(e) => setQuery(e.target.value)} />
-        <div>
-          <button className="ui button" onClick={() => history.goBack()}>
-            <i className="angle left icon"></i>
-            Go back
-          </button>
+      <div className="ui attached tabular menu CollectionDetail__header">
+        <div className="item active">{collection.name}</div>
+        <div className="right menu">
+          <Search
+            attached
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder={`Search ${collection.name}`}
+          />
+          <div className="item">
+            <button className="ui button" onClick={() => history.goBack()}>
+              <i className="angle left icon"></i>Go back
+            </button>
+          </div>
         </div>
       </div>
       <RecipeList recipes={collection._recipes} />

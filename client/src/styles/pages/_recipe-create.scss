@@ -1,6 +1,11 @@
 .RecipeCreate {
   &__header {
-    display: flex;
-    justify-content: space-between;
+    .item {
+      font-size: $m-size;
+    }
+
+    .item:not(:last-of-type) {
+      cursor: pointer;
+    }
   }
 }

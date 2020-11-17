@@ -28,15 +28,23 @@
 
   &__logo {
     display: inline-block;
-    font-size: 2.2rem;
     margin-left: $l-size;
     margin-top: $m-size;
     text-decoration: none;
+
+    h2 {
+      font-size: 2.4rem;
+    }
   }
 }
 
 .nav-links {
   text-decoration: none;
+}
+
+.nav-link-active {
+  color: black;
+  font-weight: bold;
 }
 
 @media screen and (min-width: $desktop-breakpoint) {

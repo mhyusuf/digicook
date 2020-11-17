@@ -16,13 +16,15 @@ function RecipeCreate({ createRecipe }) {
 
   return (
     <>
-      <div className="ui top attached header RecipeCreate__header">
-        Create recipe
-        <div>
-          <Link className="ui button" to="/collections/user">
-            <i className="angle left icon"></i>
-            Back to My Collections
-          </Link>
+      <div className="ui top attached tabular menu RecipeCreate__header">
+        <div className="item active">Create recipe</div>
+        <div className="right menu">
+          <div className="item">
+            <Link className="ui button" to="/collections/user">
+              <i className="angle left icon"></i>
+              Back to My Collections
+            </Link>
+          </div>
         </div>
       </div>
       <RecipeForm submitHandler={createRecipe} initialState={initalFormState} />

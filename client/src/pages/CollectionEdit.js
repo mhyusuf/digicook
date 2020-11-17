@@ -25,13 +25,15 @@ function CollectionEdit({
 
   return (
     <>
-      <div className="ui top attached header CollectionEdit__header">
-        Edit collection
-        <div>
-          <Link className="ui button" to="/collections/user">
-            <i className="angle left icon"></i>
-            Back to My Collections
-          </Link>
+      <div className="ui top attached tabular menu CollectionEdit__header">
+        <div className="item active">Edit collection</div>
+        <div className="right menu">
+          <div className="item">
+            <Link className="ui button" to="/collections/user">
+              <i className="angle left icon"></i>
+              Back to My Collections
+            </Link>
+          </div>
         </div>
       </div>
       <div className="ui attached segment">

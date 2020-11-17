@@ -6,7 +6,7 @@ function DiscoverRecipes({ recipes }) {
   return recipes.length ? (
     <RecipeList recipes={recipes} />
   ) : (
-    <div className="ui visible message">
+    <div className="ui visible message not-found">
       <p>No recipes found</p>
     </div>
   );

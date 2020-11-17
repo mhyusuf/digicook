@@ -1,7 +1,16 @@
 .RecipeDetail {
   &__header {
-    display: flex;
-    justify-content: space-between;
+    .header__buttons {
+      margin-left: 0.5rem !important;
+    }
+
+    .item {
+      font-size: $m-size;
+    }
+
+    .item:not(:last-of-type) {
+      cursor: pointer;
+    }
   }
 
   &__top-box {
@@ -16,6 +25,45 @@
   table {
     display: block;
     height: 36rem;
+    min-width: 28rem;
     overflow-y: scroll;
+    table-layout: fixed;
+    text-transform: capitalize;
+
+    th {
+      font-size: $m-size;
+    }
+
+    td {
+      font-size: 1.4rem;
+    }
+  }
+
+  h3 {
+    font-size: 1.8rem !important;
+  }
+
+  p {
+    font-size: $m-size !important;
+  }
+}
+
+@media screen and (max-width: $desktop-breakpoint) {
+  .RecipeDetail {
+    &__header {
+      flex-wrap: wrap;
+
+      .right {
+        margin: auto !important;
+      }
+
+      .button {
+        font-size: $s-size !important;
+      }
+    }
+
+    table {
+      margin: $m-size auto !important;
+    }
   }
 }

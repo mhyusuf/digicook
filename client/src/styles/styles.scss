@@ -12,7 +12,10 @@
 @import 'pages/recipe-edit';
 @import 'pages/unauthenticated_app';
 
+@import 'containers/collection-form';
+@import 'containers/discover';
 @import 'containers/navbar';
+@import 'containers/recipe-form';
 
 @import 'components/auth-button';
 @import 'components/collection-list-item';

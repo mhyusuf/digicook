@@ -26,45 +26,45 @@ function RecipeDetail({
 
   return (
     <>
-      <div className="ui top bottom attached header RecipeDetail__header">
-        {recipe.name}
-        <div>
-          <button className="ui button" onClick={() => history.goBack()}>
-            <i className="angle left icon"></i>
-            Go back
-          </button>
-          {menus && (
-            <>
-              <Link
-                to={`/collections/${recipe._collection}/edit-recipe/${recipe._id}`}
-                className="ui button"
-              >
-                <i className="pencil alternate icon"></i>
-                Edit
-              </Link>
-              <button className="ui button" onClick={toggleModal}>
-                <i className="trash alternate icon"></i>
-                Delete
-              </button>
-            </>
-          )}
+      <div className="ui top attached tabular menu RecipeDetail__header">
+        <div className="item active">{recipe.name}</div>
+        <div className="right menu">
+          <div className="item">
+            <button
+              className="ui button header__buttons"
+              onClick={() => history.goBack()}
+            >
+              <i className="angle left icon"></i>
+              Go back
+            </button>
+            {menus && (
+              <>
+                <Link
+                  to={`/collections/${recipe._collection}/edit-recipe/${recipe._id}`}
+                  className="ui button header__buttons"
+                >
+                  <i className="pencil alternate icon"></i>
+                  Edit
+                </Link>
+                <button
+                  className="ui button header__buttons"
+                  onClick={toggleModal}
+                >
+                  <i className="trash alternate icon"></i>
+                  Delete
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
-      <div className="ui attached segment">
+      <div className="ui attached segment RecipeDetail">
         <div className="RecipeDetail__top-box">
           <div className="RecipeDetail__img-box">
             <img src={`/api/recipes/${recipe._id}/image`} alt={recipe.name} />
           </div>
           <div>
-            <table
-              className="ui celled table"
-              style={{
-                display: 'block',
-                height: '36rem',
-                overflowY: 'scroll',
-                textTransform: 'capitalize'
-              }}
-            >
+            <table className="ui celled table">
               <thead>
                 <tr>
                   <th>Ingredient</th>

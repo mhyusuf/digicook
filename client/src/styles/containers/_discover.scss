@@ -1,4 +1,4 @@
-.CollectionDetail {
+.Discover {
   &__header {
     .item {
       font-size: $m-size;
@@ -11,16 +11,12 @@
 }
 
 @media screen and (max-width: $desktop-breakpoint) {
-  .CollectionDetail {
+  .Discover {
     &__header {
       flex-wrap: wrap;
 
       .right {
         margin: auto !important;
-      }
-
-      .button {
-        font-size: $s-size !important;
       }
     }
   }

@@ -24,6 +24,12 @@ body {
   border: none !important;
 }
 
-p {
-  font-size: $m-size;
+.not-found {
+  font-size: $m-size !important;
+}
+
+@media screen and (max-width: $desktop-breakpoint) {
+  .cards {
+    justify-content: center !important;
+  }
 }

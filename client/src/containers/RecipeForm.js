@@ -73,7 +73,7 @@ function RecipeForm({ initialState, submitHandler, history, match }) {
   }
 
   return (
-    <div className="ui attached segment">
+    <div className="ui attached segment RecipeForm">
       <form className="ui form" onSubmit={handleSubmit}>
         <FormField
           label="Recipe name"

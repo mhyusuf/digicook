@@ -12,22 +12,33 @@ function MyColletions({ _id, collections, getUserCollections, showMenu }) {
   const [query, setQuery] = useState('');
   useEffect(() => {
     getUserCollections(_id, query);
-    setIsLoading(false);
+    setIsLoading(true);
     showMenu();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
+  useEffect(() => {
+    setIsLoading(false);
+  }, [collections]);
+
   return (
     <div className="Recipes">
       {isLoading && <Loader />}
-      <div className="ui top attached header Recipes__header">
-        My collections
-        <Search value={query} onChange={(e) => setQuery(e.target.value)} />
-        <div>
-          <Link className="ui button" to="/collections/create-collection">
-            <i className="add icon"></i>
-            Add collection
-          </Link>
+      <div className="ui top attached tabular menu Recipes__header">
+        <div className="item active">My collections</div>
+        <div className="right menu">
+          <Search
+            attached
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search my collections"
+          />
+          <div className="item">
+            <Link className="ui button" to="/collections/create-collection">
+              <i className="add icon"></i>
+              Add collection
+            </Link>
+          </div>
         </div>
       </div>
       {collections.length ? (
@@ -35,7 +46,7 @@ function MyColletions({ _id, collections, getUserCollections, showMenu }) {
           <CollectionList collections={collections} />
         </div>
       ) : (
-        <div className="ui visible message">
+        <div className="ui visible message not-found">
           <p>No collections found</p>
         </div>
       )}
