@@ -17,8 +17,9 @@ export const getUser = () => async (dispatch) => {
   dispatch({ type: GET_USER, payload: data });
 };
 
-export const getPublicCollections = () => async (dispatch) => {
-  const { data } = await axios.get('/api/collections?pub=true');
+export const getPublicCollections = (query) => async (dispatch) => {
+  const queryString = query ? `&q=${query}` : '';
+  const { data } = await axios.get(`/api/collections?pub=true${queryString}`);
   dispatch({ type: GET_COLLECTION_LIST, payload: data });
 };
 
@@ -88,8 +89,9 @@ export const getRecipe = (_id) => async (dispatch) => {
   dispatch({ type: GET_RECIPE, payload: data });
 };
 
-export const getPublicRecipes = () => async (dispatch) => {
-  const { data } = await axios.get('/api/recipes?pub=true');
+export const getPublicRecipes = (query) => async (dispatch) => {
+  const queryString = query ? `&q=${query}` : '';
+  const { data } = await axios.get(`/api/recipes?pub=true${queryString}`);
   dispatch({ type: GET_RECIPE_LIST, payload: data });
 };
 

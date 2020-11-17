@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
+import { getPublicCollections, getPublicRecipes } from '../actions';
 import DiscoverCollections from './DiscoverCollections';
 import DiscoverRecipes from './DiscoverRecipes';
+import Search from '../components/Search';
 
-function Discover() {
+function Discover({
+  collections,
+  recipes,
+  getPublicCollections,
+  getPublicRecipes
+}) {
   const [renderCollections, setRenderCollections] = useState(true);
+  const [query, setQuery] = useState('');
+  useEffect(() => {
+    renderCollections ? getPublicCollections(query) : getPublicRecipes(query);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [renderCollections, query]);
 
   return (
     <>
@@ -21,20 +34,31 @@ function Discover() {
         >
           Recipes
         </div>
-        <div className="right menu">
-          <div className="item">
-            <div className="ui transparent icon input">
-              <input type="text" />
-              <i className="search link icon"></i>
-            </div>
-          </div>
-        </div>
+        <Search
+          attached
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
       </div>
       <div className="ui bottom attached segment">
-        {renderCollections ? <DiscoverCollections /> : <DiscoverRecipes />}
+        {renderCollections ? (
+          <DiscoverCollections collections={collections} />
+        ) : (
+          <DiscoverRecipes recipes={recipes} />
+        )}
       </div>
     </>
   );
 }
 
-export default Discover;
+function mapStateToProps({ collections }) {
+  return {
+    collections: collections.collectionList,
+    recipes: collections.recipeList
+  };
+}
+
+export default connect(mapStateToProps, {
+  getPublicCollections,
+  getPublicRecipes
+})(Discover);

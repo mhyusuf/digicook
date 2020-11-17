@@ -4,9 +4,7 @@ const { processImage } = require('../services/imageUpload');
 
 exports.getRecipes = async (req, res) => {
   try {
-    // const { pub } = req.query;
-    // const match = {};
-    // if (pub === 'true') match.isPrivate = false;
+    const { q } = req.query;
     const recipes = await Recipe.aggregate([
       {
         $lookup: {
@@ -17,7 +15,12 @@ exports.getRecipes = async (req, res) => {
         }
       },
       { $unwind: { path: '$_collection' } },
-      { $match: { '_collection.isPrivate': false } }
+      {
+        $match: {
+          '_collection.isPrivate': false,
+          name: { $regex: q || '', $options: 'i' }
+        }
+      }
     ]);
     res.send(recipes);
   } catch (e) {
