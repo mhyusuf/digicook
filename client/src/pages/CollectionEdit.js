@@ -28,7 +28,7 @@ function CollectionEdit({
       <div className="ui top attached header CollectionEdit__header">
         Edit collection
         <div>
-          <Link className="ui button" to="/my-collections">
+          <Link className="ui button" to="/collections/user">
             <i className="angle left icon"></i>
             Back to My Collections
           </Link>

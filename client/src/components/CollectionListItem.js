@@ -25,7 +25,7 @@ function CollectionListItem({ collection, history, deleteCollection, menus }) {
         )}
         <div
           className="image"
-          onClick={() => history.push(`/my-collections/${collection._id}`)}
+          onClick={() => history.push(`/collections/${collection._id}`)}
         >
           <img
             alt={`${collection.name}`}
@@ -35,7 +35,7 @@ function CollectionListItem({ collection, history, deleteCollection, menus }) {
         </div>
         <div
           className="content"
-          onClick={() => history.push(`/my-collections/${collection._id}`)}
+          onClick={() => history.push(`/collections/${collection._id}`)}
         >
           <div className="header">{collection.name}</div>
           <div className="meta">{collection._user.name}</div>
@@ -49,7 +49,7 @@ function CollectionListItem({ collection, history, deleteCollection, menus }) {
             <div className="item">
               <Link
                 className="ui button"
-                to={`/my-collections/${collection._id}/create-recipe`}
+                to={`/collections/${collection._id}/create-recipe`}
               >
                 <i className="add icon"></i>
                 Add recipe
@@ -58,7 +58,7 @@ function CollectionListItem({ collection, history, deleteCollection, menus }) {
             <div className="item">
               <Link
                 className="ui button"
-                to={`/my-collections/${collection._id}/edit`}
+                to={`/collections/${collection._id}/edit`}
               >
                 <i className="pencil alternate icon"></i>
                 Edit

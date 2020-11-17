@@ -11,19 +11,18 @@ function RecipeListItem({ recipe, deleteRecipe, menus }) {
   function toggleModal() {
     setShowDeleteModal((state) => !state);
   }
-  console.log(recipe);
   return (
     <>
       <div className="ui card RecipeListItem">
         <Link
           className="image"
-          to={`/my-collections/${recipe._collection}/recipes/${recipe._id}`}
+          to={`/collections/${recipe._collection}/recipes/${recipe._id}`}
         >
           <img src={`/api/recipes/${recipe._id}/image`} alt={recipe.name} />
         </Link>
         <Link
           className="content"
-          to={`/my-collections/${recipe._collection}/recipes/${recipe._id}`}
+          to={`/collections/${recipe._collection}/recipes/${recipe._id}`}
         >
           <div className="header">{recipe.name}</div>
           <div className="meta">
@@ -38,7 +37,7 @@ function RecipeListItem({ recipe, deleteRecipe, menus }) {
             <div className="item">
               <Link
                 className="ui button"
-                to={`/my-collections/${recipe._collection}/edit-recipe/${recipe._id}`}
+                to={`/collections/${recipe._collection}/edit-recipe/${recipe._id}`}
               >
                 <i className="pencil alternate icon"></i>
                 Edit

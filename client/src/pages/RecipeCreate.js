@@ -19,7 +19,7 @@ function RecipeCreate({ createRecipe }) {
       <div className="ui top attached header RecipeCreate__header">
         Create recipe
         <div>
-          <Link className="ui button" to="/my-collections">
+          <Link className="ui button" to="/collections/user">
             <i className="angle left icon"></i>
             Back to My Collections
           </Link>

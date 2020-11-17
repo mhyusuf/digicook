@@ -18,33 +18,30 @@ function AuthenticatedApp() {
     <div className="AuthenticatedApp">
       <BrowserRouter>
         <Navbar>
-          <NavbarLink text="My Recipes" />
+          <NavbarLink text="Home" to="/" />
+          <NavbarLink text="My Recipes" to="/collections/user" />
           <AuthButton isLoggedIn={true} />
         </Navbar>
         <div className="wrapper">
           <Switch>
             <Route exact path="/" component={Landing} />
-            <Route exact path="/my-collections" component={MyCollections} />
+            <Route exact path="/collections/user" component={MyCollections} />
             <Route
-              path="/my-collections/create-collection"
+              path="/collections/create-collection"
               component={CollectionCreate}
             />
+            <Route exact path="/collections/:id" component={CollectionDetail} />
             <Route
-              exact
-              path="/my-collections/:id"
-              component={CollectionDetail}
-            />
-            <Route
-              path="/my-collections/:collectionId/recipes/:recipeId"
+              path="/collections/:collectionId/recipes/:recipeId"
               component={RecipeDetail}
             />
-            <Route path="/my-collections/:id/edit" component={CollectionEdit} />
+            <Route path="/collections/:id/edit" component={CollectionEdit} />
             <Route
-              path="/my-collections/:id/create-recipe"
+              path="/collections/:id/create-recipe"
               component={RecipeCreate}
             />
             <Route
-              path="/my-collections/:collectionId/edit-recipe/:recipeId"
+              path="/collections/:collectionId/edit-recipe/:recipeId"
               component={RecipeEdit}
             />
           </Switch>

@@ -18,7 +18,7 @@ function CollectionCreate({ createCollection }) {
       <div className="ui top attached header CollectionCreate__header">
         Create collection
         <div>
-          <Link className="ui button" to="/my-collections">
+          <Link className="ui button" to="/collections/user">
             <i className="angle left icon"></i>
             Back to My Collections
           </Link>

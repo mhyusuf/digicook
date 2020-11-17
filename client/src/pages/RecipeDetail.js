@@ -36,7 +36,7 @@ function RecipeDetail({
           {menus && (
             <>
               <Link
-                to={`/my-collections/${recipe._collection}/edit-recipe/${recipe._id}`}
+                to={`/collections/${recipe._collection}/edit-recipe/${recipe._id}`}
                 className="ui button"
               >
                 <i className="pencil alternate icon"></i>

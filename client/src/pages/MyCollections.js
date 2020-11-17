@@ -24,7 +24,7 @@ function MyColletions({ _id, collections, getUserCollections, showMenu }) {
         My collections
         <Search value={query} onChange={(e) => setQuery(e.target.value)} />
         <div>
-          <Link className="ui button" to="/my-collections/create-collection">
+          <Link className="ui button" to="/collections/create-collection">
             <i className="add icon"></i>
             Add collection
           </Link>

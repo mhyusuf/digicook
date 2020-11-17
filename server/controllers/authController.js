@@ -1,5 +1,5 @@
 exports.login = (req, res) => {
-  res.redirect('/my-collections');
+  res.redirect('/collections/user');
 };
 
 exports.logout = (req, res) => {
