@@ -1,9 +1,12 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 import Navbar from '../containers/Navbar';
 import AuthButton from '../components/AuthButton';
-import Search from '../components/Search';
+import SignupMessage from '../components/SignupMessage';
+import Landing from './Landing';
+import CollectionDetail from './CollectionDetail';
+import RecipeDetail from './RecipeDetail';
 
 function UnauthenticatedApp() {
   return (
@@ -13,7 +16,17 @@ function UnauthenticatedApp() {
           <AuthButton isLoggedIn={false} />
         </Navbar>
         <div className="wrapper">
-          <Search />
+          <SignupMessage />
+          <Route exact path="/" component={Landing} />
+          <Route
+            exact
+            path="/my-collections/:id"
+            component={CollectionDetail}
+          />
+          <Route
+            path="/my-collections/:collectionId/recipes/:recipeId"
+            component={RecipeDetail}
+          />
         </div>
       </BrowserRouter>
     </div>
