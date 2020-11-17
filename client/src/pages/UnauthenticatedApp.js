@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Navbar from '../containers/Navbar';
 import NavbarLink from '../components/NavbarLink';
@@ -19,12 +19,14 @@ function UnauthenticatedApp() {
         </Navbar>
         <div className="wrapper">
           <SignupMessage />
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/collections/:id" component={CollectionDetail} />
-          <Route
-            path="/collections/:collectionId/recipes/:recipeId"
-            component={RecipeDetail}
-          />
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/collections/:id" component={CollectionDetail} />
+            <Route
+              path="/collections/:collectionId/recipes/:recipeId"
+              component={RecipeDetail}
+            />
+          </Switch>
         </div>
       </BrowserRouter>
     </div>

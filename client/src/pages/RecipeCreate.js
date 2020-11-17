@@ -20,7 +20,7 @@ function RecipeCreate({ createRecipe }) {
         <div className="item active">Create recipe</div>
         <div className="right menu">
           <div className="item">
-            <Link className="ui button" to="/collections/user">
+            <Link className="ui button" to="/user">
               <i className="angle left icon"></i>
               Back to My Collections
             </Link>

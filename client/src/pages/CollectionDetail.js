@@ -11,7 +11,7 @@ function CollectionDetail({ match, collection, getCollectionDetail, history }) {
     getCollectionDetail(match.params.id, query);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
-
+  console.log('rendered');
   return collection ? (
     <div>
       <div className="ui attached tabular menu CollectionDetail__header">

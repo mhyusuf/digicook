@@ -9,7 +9,7 @@ function StatusRadio({ value, onStatusChange }) {
           <input
             type="radio"
             checked={!value}
-            onClick={() => onStatusChange(false)}
+            onChange={() => onStatusChange(false)}
           />
           <label>Public</label>
         </div>
@@ -19,7 +19,7 @@ function StatusRadio({ value, onStatusChange }) {
           <input
             type="radio"
             checked={value}
-            onClick={() => onStatusChange(true)}
+            onChange={() => onStatusChange(true)}
           />
           <label>Private</label>
         </div>

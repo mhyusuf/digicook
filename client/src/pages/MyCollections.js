@@ -7,7 +7,7 @@ import CollectionList from '../containers/CollectionList';
 import Loader from '../components/Loader';
 import Search from '../components/Search';
 
-function MyColletions({ _id, collections, getUserCollections, showMenu }) {
+function MyCollections({ _id, collections, getUserCollections, showMenu }) {
   const [isLoading, setIsLoading] = useState(true);
   const [query, setQuery] = useState('');
   useEffect(() => {
@@ -34,7 +34,7 @@ function MyColletions({ _id, collections, getUserCollections, showMenu }) {
             placeholder="Search my collections"
           />
           <div className="item">
-            <Link className="ui button" to="/collections/create-collection">
+            <Link className="ui button" to="/create-collection">
               <i className="add icon"></i>
               Add collection
             </Link>
@@ -59,5 +59,5 @@ function mapStateToProps({ auth, collections }) {
 }
 
 export default connect(mapStateToProps, { getUserCollections, showMenu })(
-  MyColletions
+  MyCollections
 );

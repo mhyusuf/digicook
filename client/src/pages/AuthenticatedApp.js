@@ -19,15 +19,16 @@ function AuthenticatedApp() {
       <BrowserRouter>
         <Navbar>
           <NavbarLink text="Home" to="/" />
-          <NavbarLink text="My Recipes" to="/collections/user" />
+          <NavbarLink text="My Recipes" to="/user" />
           <AuthButton isLoggedIn={true} />
         </Navbar>
         <div className="wrapper">
           <Switch>
             <Route exact path="/" component={Landing} />
-            <Route exact path="/collections/user" component={MyCollections} />
+            <Route exact path="/user" component={MyCollections} />
             <Route
-              path="/collections/create-collection"
+              exact
+              path="/create-collection"
               component={CollectionCreate}
             />
             <Route exact path="/collections/:id" component={CollectionDetail} />
