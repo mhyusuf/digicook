@@ -40,7 +40,7 @@ export const createCollection = (values, history) => async (dispatch) => {
   });
   const collectionId = collectionRes.data._id;
   await axios.post(`/api/collections/${collectionId}/image`, imageData);
-  history.push('/collections/user');
+  history.push('/user');
 };
 
 export const editCollection = (_id, updates, history) => async (dispatch) => {
@@ -81,7 +81,7 @@ export const createRecipe = (values, history) => async (dispatch) => {
   });
   const recipeId = recipeRes.data._id;
   await axios.post(`/api/recipes/${recipeId}/image`, imageData);
-  history.push('/collections/user');
+  history.push('/user');
 };
 
 export const getRecipe = (_id) => async (dispatch) => {
