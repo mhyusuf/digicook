@@ -34,14 +34,14 @@ function RecipeForm({ initialState, submitHandler, history, match }) {
   }
 
   function handleChange(e) {
-    setFormValues((formValues) => ({
+    setFormValues(formValues => ({
       ...formValues,
       [e.target.name]: e.target.value
     }));
   }
 
   function handleImageChange(e) {
-    setFormValues((formValues) => ({
+    setFormValues(formValues => ({
       ...formValues,
       image: e.target.files[0]
     }));
@@ -49,7 +49,7 @@ function RecipeForm({ initialState, submitHandler, history, match }) {
 
   function addIngredientField(e) {
     e.preventDefault();
-    setFormValues((formValues) => {
+    setFormValues(formValues => {
       return {
         ...formValues,
         ingredients: [...formValues.ingredients, { name: '', quantity: '' }]
@@ -90,7 +90,7 @@ function RecipeForm({ initialState, submitHandler, history, match }) {
           onChange={handleChange}
         >
           <option value=""></option>
-          {CATEGORY_OPTIONS.map((category) => {
+          {CATEGORY_OPTIONS.map(category => {
             return (
               <option key={category} value={category}>
                 {category}

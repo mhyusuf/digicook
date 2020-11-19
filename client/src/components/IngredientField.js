@@ -32,7 +32,7 @@ function IngredientField({ idx, onChange, value, onRemove }) {
         <button
           className={`ui button`}
           disabled={idx === 0 ? true : false}
-          onClick={(e) => {
+          onClick={e => {
             e.preventDefault();
             onRemove(idx);
           }}

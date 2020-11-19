@@ -18,9 +18,8 @@ function CollectionDetail({ match, collection, getCollectionDetail, history }) {
         <div className="item active">{collection.name}</div>
         <div className="right menu">
           <Search
-            attached
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={e => setQuery(e.target.value)}
             placeholder={`Search ${collection.name}`}
           />
           <div className="item">

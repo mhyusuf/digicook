@@ -10,6 +10,7 @@ function CollectionForm({ initialState, submitHandler, history }) {
   function handleSubmit(e) {
     e.preventDefault();
     const { name, description, image, isPrivate } = formValues;
+    // The FormData type is why we later use the 'multer' library
     const imageData = new FormData();
     imageData.append('image', image);
     submitHandler({ name, description, isPrivate, imageData }, history);
@@ -17,21 +18,21 @@ function CollectionForm({ initialState, submitHandler, history }) {
   }
 
   function handleChange(e) {
-    setFormValues((formValues) => ({
+    setFormValues(formValues => ({
       ...formValues,
       [e.target.name]: e.target.value
     }));
   }
 
   function handleImageChange(e) {
-    setFormValues((formValues) => ({
+    setFormValues(formValues => ({
       ...formValues,
       image: e.target.files[0]
     }));
   }
 
   function handleStatusChange(status) {
-    setFormValues((formValues) => ({
+    setFormValues(formValues => ({
       ...formValues,
       isPrivate: status
     }));

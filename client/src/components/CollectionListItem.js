@@ -11,7 +11,7 @@ function CollectionListItem({ collection, history, deleteCollection, menus }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
-    setShowDeleteModal((state) => !state);
+    setShowDeleteModal(state => !state);
   }
   return (
     <>

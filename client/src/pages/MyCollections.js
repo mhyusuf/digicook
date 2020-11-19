@@ -4,33 +4,25 @@ import { connect } from 'react-redux';
 
 import { getUserCollections, showMenu } from '../actions';
 import CollectionList from '../containers/CollectionList';
-// import Loader from '../components/Loader';
 import Search from '../components/Search';
 
 function MyCollections({ _id, collections, getUserCollections, showMenu }) {
-  // const [isLoading, setIsLoading] = useState(true);
   const [query, setQuery] = useState('');
   useEffect(() => {
     getUserCollections(_id, query);
-    // setIsLoading(true);
     showMenu();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
-  // useEffect(() => {
-  //   setIsLoading(false);
-  // }, [collections]);
 
   return (
     <div className="Recipes">
-      {/* {isLoading && <Loader />} */}
       <div className="ui top attached tabular menu Recipes__header">
         <div className="item active">My collections</div>
         <div className="right menu">
           <Search
-            attached
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={e => setQuery(e.target.value)}
             placeholder="Search my collections"
           />
           <div className="item">

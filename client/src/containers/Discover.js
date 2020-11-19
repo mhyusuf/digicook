@@ -6,6 +6,7 @@ import DiscoverCollections from './DiscoverCollections';
 import DiscoverRecipes from './DiscoverRecipes';
 import Search from '../components/Search';
 
+// Deconstruct states and methods as props
 function Discover({
   collections,
   recipes,
@@ -35,9 +36,8 @@ function Discover({
           Recipes
         </div>
         <Search
-          attached
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={e => setQuery(e.target.value)}
           placeholder={`Search ${
             renderCollections ? 'collections' : 'recipes'
           }`}
@@ -54,13 +54,15 @@ function Discover({
   );
 }
 
-function mapStateToProps({ collections }) {
+// Get states from the global state
+function mapStateToProps(state) {
   return {
-    collections: collections.collectionList,
-    recipes: collections.recipeList
+    collections: state.collections.collectionList,
+    recipes: state.collections.recipeList
   };
 }
 
+// Makes selected states and methods (collections, recipes) avalible as props
 export default connect(mapStateToProps, {
   getPublicCollections,
   getPublicRecipes

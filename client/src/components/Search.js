@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Search({ value, onChange, attached, placeholder }) {
-  return attached ? (
+function Search({ value, onChange, placeholder }) {
+  return (
     <div className="right menu">
       <div className="item">
         <div className="ui transparent icon input">
@@ -13,13 +13,6 @@ function Search({ value, onChange, attached, placeholder }) {
           />
           <i className="search link icon"></i>
         </div>
-      </div>
-    </div>
-  ) : (
-    <div className="ui search">
-      <div className="ui input icon">
-        <input className="prompt" value={value} onChange={onChange} />
-        <i className="search icon"></i>
       </div>
     </div>
   );

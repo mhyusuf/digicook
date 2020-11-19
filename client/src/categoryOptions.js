@@ -1,3 +1,5 @@
+
+// This is a hard-coded ENUM to display in the select-input when filtering recipies
 export const CATEGORY_OPTIONS = [
   'beef',
   'chicken',
