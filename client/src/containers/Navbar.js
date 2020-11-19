@@ -5,7 +5,7 @@ function Navbar({ children }) {
   const [showMenu, setShowMenu] = useState(false);
 
   function toggleMenu() {
-    setShowMenu((state) => setShowMenu(!state));
+    setShowMenu(state => !state);
   }
 
   return (

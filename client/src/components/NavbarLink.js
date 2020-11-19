@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 function NavbarLink({ text, to }) {
   return (
     <li>
-      <NavLink
+      <NavLink // Component imported from react-router-dom
         activeClassName="nav-link-active"
         exact
         to={to}

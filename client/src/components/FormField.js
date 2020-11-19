@@ -7,7 +7,7 @@ function FormInput(props) {
     switch (type) {
       case 'textarea':
         return (
-          <textarea name={name} rows="2" value={value} onChange={onChange} />
+          <textarea name={name} rows={2} value={value} onChange={onChange} />
         );
       case 'select':
         return (

@@ -6,7 +6,7 @@ import Discover from '../containers/Discover';
 
 function Landing({ hideMenu }) {
   useEffect(() => {
-    hideMenu();
+    hideMenu(); // Hide menu on load
   });
   return (
     <div>

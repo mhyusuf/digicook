@@ -9,7 +9,7 @@ import { deleteRecipe } from '../actions';
 function RecipeListItem({ recipe, deleteRecipe, menus }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
-    setShowDeleteModal((state) => !state);
+    setShowDeleteModal(state => !state);
   }
   return (
     <>

@@ -16,7 +16,7 @@ function RecipeDetail({
 }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
-    setShowDeleteModal((state) => !state);
+    setShowDeleteModal(state => !state);
   }
 
   useEffect(() => {
