@@ -2,18 +2,27 @@ const Recipe = require('../models/recipe');
 const Collection = require('../models/collection');
 const { processImage } = require('../services/imageUpload');
 
+
+// Sends back an array of Recipe objects to client, given a string as req.query.q
 exports.getRecipes = async (req, res) => {
   try {
     const { q } = req.query;
+    // Aggregate is a Mongo method that executes database operations in given order
     const recipes = await Recipe.aggregate([
       {
+        // In the 'collections' table, populate each repice's collection field with the collection object
+        // $lookup also functions as .populate to join related entities
         $lookup: {
           from: 'collections',
+          // Local to the recipe object, the field is called _collection
           localField: '_collection',
+          // Local to the collection object, the field is called _id
           foreignField: '_id',
+          // This is used to reference as an internal variable in the lines below 
           as: '_collection'
         }
       },
+      // Turns the single object array into a single object
       { $unwind: { path: '$_collection' } },
       {
         $match: {
@@ -22,12 +31,14 @@ exports.getRecipes = async (req, res) => {
         }
       }
     ]);
+    // Returns an array of populated Recipe objects
     res.send(recipes);
   } catch (e) {
     res.sendStatus(500);
   }
 };
 
+// Given a req.param id, sends back a DB Recipe object to client
 exports.getRecipe = async (req, res) => {
   try {
     const { id } = req.params;
@@ -38,6 +49,7 @@ exports.getRecipe = async (req, res) => {
   }
 };
 
+// Given a req.params id, sends back a DB Recipe object's image to client
 exports.getRecipeImage = async (req, res) => {
   try {
     const recipe = await Recipe.findById(req.params.id);
@@ -48,6 +60,7 @@ exports.getRecipeImage = async (req, res) => {
   }
 };
 
+// Creates and sends back a new Recipe object to client, given the parameters on req.body and req.user
 exports.postRecipe = async (req, res) => {
   try {
     const { name, category, instructions, image, ingredients, collection } = req.body;
@@ -69,6 +82,8 @@ exports.postRecipe = async (req, res) => {
   }
 };
 
+// Finds recipe by ID and adds image property of type Buffer to Recipe object
+// Sends status code back to client
 exports.postRecipeImage = async (req, res) => {
   try {
     const _id = req.params.id;
@@ -88,6 +103,7 @@ exports.postRecipeImage = async (req, res) => {
   }
 };
 
+// Sends back updated Recipe object to client, given req.params id and req.body paramters
 exports.updateRecipe = async (req, res) => {
   try {
     const { id } = req.params;
@@ -110,6 +126,8 @@ exports.updateRecipe = async (req, res) => {
   }
 };
 
+// Deletes DB Recipe, given req.params id
+// Sends back status code to client
 exports.deleteRecipe = async (req, res) => {
   try {
     const { id } = req.params;

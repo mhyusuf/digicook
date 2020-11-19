@@ -1,5 +1,6 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require('mongoose'); // Import mongoose schema class
 
+// Create new recipie schema
 const recipeSchema = new Schema(
   {
     name: {
@@ -15,7 +16,7 @@ const recipeSchema = new Schema(
       required: true
     },
     image: {
-      type: Buffer
+      type: Buffer // Store buffer stream of bytes
     },
     ingredients: {
       type: [{ name: String, quantity: String }],
@@ -31,8 +32,8 @@ const recipeSchema = new Schema(
     }
   },
   {
-    timestamps: true
+    timestamps: true // Add created at / updated at properties to document
   }
 );
 
-module.exports = model('Recipe', recipeSchema);
+module.exports = model('Recipe', recipeSchema); // Export model
