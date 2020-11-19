@@ -1,6 +1,8 @@
 const multer = require('multer');
 const sharp = require('sharp');
 
+// Defines object of type Multer, which imposes limits on what can be uploaded
+// This config specifies max file size and accepted file extensions
 const upload = multer({
   limits: { fileSize: 1000000 },
   fileFilter(req, file, cb) {
@@ -15,6 +17,8 @@ const upload = multer({
   }
 });
 
+// Defines a function that takes in a Buffer, and two numerical dimensions,
+// Then passed to a sharp method that returns a displayable image file
 const processImage = async ({ buffer, width, height }) =>
   await sharp(buffer).resize({ width, height }).png().toBuffer();
 

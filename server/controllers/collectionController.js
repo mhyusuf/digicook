@@ -2,18 +2,24 @@ const Collection = require('../models/collection');
 const Recipe = require('../models/recipe');
 const { processImage } = require('../services/imageUpload');
 
+// Sends back collections to client from following parameters on req object:
+// q (search query string), user (_user mongo string), pub (Boolean, if public/private)
 exports.getCollections = async (req, res) => {
   try {
     const match = {};
     const { q, user, pub } = req.query;
+    // If a user is logged in, assign it to the match obj
     if (user) match._user = req.query.user;
     if (pub === 'true') match.isPrivate = false;
+    // If a query string is provided, filter by passing it as RegEx, case-insensitive
     if (q) {
       match.name = {
         $regex: q,
         $options: 'i'
       };
     }
+    // Assign and return matching collections,
+    // replacing the _user string id with the full user obj
     const collections = await Collection.find(match).populate('_user');
     res.send(collections);
   } catch (e) {
@@ -22,6 +28,7 @@ exports.getCollections = async (req, res) => {
   }
 };
 
+// Sends back png image to client of type Buffer given an id in the URL
 exports.getCollectionImage = async (req, res) => {
   try {
     const collection = await Collection.findById(req.params.id);
@@ -32,6 +39,8 @@ exports.getCollectionImage = async (req, res) => {
   }
 };
 
+// Sends back a single collection to client, with recipe objs in place of their _id references
+// Accepts a URL param of id, and a query param of q
 exports.getCollectionDetails = async (req, res) => {
   try {
     const match = {};
@@ -56,6 +65,7 @@ exports.getCollectionDetails = async (req, res) => {
   }
 };
 
+// Creates and sends back a new collection to client, given a name, description and isPrivate boolean
 exports.postCollection = async (req, res) => {
   try {
     const { name, description, isPrivate } = req.body;
@@ -71,17 +81,20 @@ exports.postCollection = async (req, res) => {
   }
 };
 
+// Sends back status code to client, given url param id and user object on request object
 exports.postCollectionImage = async (req, res) => {
   try {
     const _id = req.params.id;
     const _user = req.user._id;
     const collection = await Collection.findOne({ _id, _user });
     if (!collection) throw new Error();
+    // The following function comes from '../services/imageUpload'
     const buffer = await processImage({
       buffer: req.file.buffer,
       width: 360,
       height: 360
     });
+    // Save the image buffer to the DB collection object and save
     collection.image = buffer;
     await collection.save();
     res.send();
@@ -90,6 +103,7 @@ exports.postCollectionImage = async (req, res) => {
   }
 };
 
+// Sends back updated collection to client, given req.params id and req.body name and description
 exports.updateCollection = async (req, res) => {
   try {
     const { id } = req.params;
@@ -108,10 +122,12 @@ exports.updateCollection = async (req, res) => {
   }
 };
 
+// Sends back status code to client, given req.params id
 exports.deleteCollection = async (req, res) => {
   try {
     const { id } = req.params;
     const deletedCollection = await Collection.findByIdAndDelete(id);
+    // Deletes all recipes related to the collection (cascade)
     await Recipe.deleteMany({ _collection: deletedCollection._id });
     res.sendStatus(204);
   } catch (e) {

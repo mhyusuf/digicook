@@ -1,5 +1,6 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require('mongoose'); // Import mongoose schema class
 
+// Create new collection schema
 const collectionSchema = new Schema({
   name: {
     type: String,
@@ -30,4 +31,4 @@ const collectionSchema = new Schema({
 
 collectionSchema.index({ name: 'text', description: 'text' });
 
-module.exports = model('Collection', collectionSchema);
+module.exports = model('Collection', collectionSchema); // Export model

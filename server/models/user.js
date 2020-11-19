@@ -1,5 +1,6 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require('mongoose'); // Import mongoose schema class
 
+// Create new user schema
 const userSchema = new Schema({
   googleId: String,
   name: String,
@@ -12,4 +13,4 @@ userSchema.virtual('collections', {
   foreignField: '_user'
 });
 
-module.exports = model('User', userSchema);
+module.exports = model('User', userSchema); // Export model
