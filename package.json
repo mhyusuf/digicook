@@ -34,5 +34,13 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "eslint-plugin-jest-dom": "^3.2.4",
+    "eslint-plugin-testing-library": "^3.10.1"
+  },
+  "babel": {
+    "presets": [ "@babel/preset-react" ],
+    "plugins": []
   }
 }
