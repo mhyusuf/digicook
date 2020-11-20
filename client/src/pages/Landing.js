@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { hideMenu } from '../actions';
 import Discover from '../containers/Discover';
 
-function Landing({ hideMenu }) {
+export function Landing({ hideMenu }) {
   useEffect(() => {
     hideMenu(); // Hide menu on load
   });
