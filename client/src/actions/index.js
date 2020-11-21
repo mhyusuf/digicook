@@ -165,3 +165,22 @@ export const showMenu = () => {
 export const hideMenu = () => {
   return { type: HIDE_MENU, payload: false };
 };
+
+const actions = {
+  getUser,
+  getPublicCollections,
+  getUserCollections,
+  createCollection,
+  editCollection,
+  deleteCollection,
+  getCollectionDetail,
+  createRecipe,
+  getRecipe,
+  getPublicRecipes,
+  editRecipe,
+  deleteRecipe,
+  showMenu,
+  hideMenu,
+}
+
+export default actions;
