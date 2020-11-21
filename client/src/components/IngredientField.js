@@ -4,11 +4,11 @@ function IngredientField({ idx, onChange, value, onRemove }) {
   return (
     <>
       {idx === 0 && (
-        <div className="field">
+        <div data-test="IngredientFieldComponent-conditional" className="field">
           <label>Ingredients</label>
         </div>
       )}
-      <div className="fields">
+      <div data-test="IngredientFieldComponent" className="fields">
         <div className="eight wide field">
           <input
             placeholder="Ingredient"

@@ -48,7 +48,7 @@ describe('GetPublicCollections', () => {
       .then(() => {
         const newState = store.getState();
         expect(newState.collections.collectionList).toBe(expectedState);
-      })
+      });
 
   });
 

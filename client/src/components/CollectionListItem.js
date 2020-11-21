@@ -7,7 +7,7 @@ import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from './ModalConfirm';
 import { deleteCollection } from '../actions';
 
-function CollectionListItem({ collection, history, deleteCollection, menus }) {
+export function CollectionListItem({ collection, history, deleteCollection, menus }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
@@ -15,7 +15,7 @@ function CollectionListItem({ collection, history, deleteCollection, menus }) {
   }
   return (
     <>
-      <div className="card CollectionListItem" data-test="collectionListItem">
+      <div data-test="CollectionListItemComponent" className="card CollectionListItem">
         {!imageLoaded && (
           <div className="image">
             <div className="ui placeholder">
