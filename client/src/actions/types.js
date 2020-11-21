@@ -9,3 +9,18 @@ export const GET_RECIPE_LIST = 'GET_RECIPE_LIST';
 export const DELETE_RECIPE = 'DELETE_RECIPE';
 export const SHOW_MENU = 'SHOW_MENU';
 export const HIDE_MENU = 'HIDE_MENU';
+
+const actionTypes = {
+  GET_USER,
+  GET_COLLECTION_LIST,
+  GET_COLLECTION_DETAIL,
+  CREATE_COLLECTION,
+  DELETE_COLLECTION,
+  GET_RECIPE,
+  GET_RECIPE_LIST,
+  DELETE_RECIPE,
+  SHOW_MENU,
+  HIDE_MENU,
+}
+
+export default actionTypes;

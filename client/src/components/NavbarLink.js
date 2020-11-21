@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 function NavbarLink({ text, to }) {
   return (
-    <li>
+    <li data-test="NavbarLinkComponent">
       <NavLink // Component imported from react-router-dom
         activeClassName="nav-link-active"
         exact
