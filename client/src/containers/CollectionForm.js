@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import FormField from '../components/FormField';
 import StatusRadio from '../components/StatusRadio';
 
-function CollectionForm({ initialState, submitHandler, history }) {
+export function CollectionForm({ initialState, submitHandler, history }) {
   const [formValues, setFormValues] = useState(initialState);
 
   function handleSubmit(e) {
@@ -39,7 +39,7 @@ function CollectionForm({ initialState, submitHandler, history }) {
   }
 
   return (
-    <form className="ui form CollectionForm" onSubmit={handleSubmit}>
+    <form data-test="CollectionFormComponent" className="ui form CollectionForm" onSubmit={handleSubmit}>
       <FormField
         label="Collection name"
         name="name"

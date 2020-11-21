@@ -2,7 +2,7 @@ import React from 'react';
 
 function Search({ value, onChange, placeholder }) {
   return (
-    <div className="right menu">
+    <div data-test="SearchComponent" className="right menu">
       <div className="item">
         <div className="ui transparent icon input">
           <input

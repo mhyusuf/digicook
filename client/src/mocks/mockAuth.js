@@ -1,4 +1,4 @@
-exports.fakeAuthedUser = {
+exports.fakeAuthedState = {
   auth: {
     _id: '5fb64fcfe8d419ff602cd0cb',
     googleId: '107236975444538131971',
@@ -47,7 +47,7 @@ exports.fakeAuthedUser = {
   menus: true
 };
 
-exports.fakeUnauthedUser = {
+exports.fakeUnauthedState = {
   collections: {
     collectionList: [
       {

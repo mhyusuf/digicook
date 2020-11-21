@@ -2,13 +2,13 @@ import React from 'react';
 
 function AuthButton({ isLoggedIn }) {
   return isLoggedIn ? (
-    <li>
+    <li data-test="AuthButtonComponent, LoggedIn">
       <a href="/auth/logout" className="nav-links">
         Log out
       </a>
     </li>
   ) : (
-    <li>
+    <li data-test="AuthButtonComponent, LoggedOut">
       <a href="/auth/google" className="nav-links">
         Login with Google
       </a>
