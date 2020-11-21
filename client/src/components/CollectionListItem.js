@@ -15,7 +15,7 @@ function CollectionListItem({ collection, history, deleteCollection, menus }) {
   }
   return (
     <>
-      <div className="card CollectionListItem">
+      <div className="card CollectionListItem" data-test="collectionListItem">
         {!imageLoaded && (
           <div className="image">
             <div className="ui placeholder">
