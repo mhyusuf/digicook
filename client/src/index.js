@@ -1,4 +1,3 @@
-
 /* Import relevant modules inc. Redux */
 import React from 'react';
 import ReactDOM from 'react-dom';

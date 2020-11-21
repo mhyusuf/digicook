@@ -2,7 +2,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Loader from '../Loader'
-import findByDataTest from '../../../util/findByDataTest';
+import util from '../../util';
 
 const setUp = () => {
   const component = shallow(<Loader />);
@@ -17,7 +17,7 @@ describe('Loader Component', ()=> {
   });
 
   it('Should render without errors', ()=> {
-    const wrapper = findByDataTest(component, 'LoaderComponent');
+    const wrapper = util.findByDataTest(component, 'LoaderComponent');
     expect(wrapper.length).toEqual(1);
   })
 
