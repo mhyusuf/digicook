@@ -1,26 +1,30 @@
-const Collection = require('../models/collection');
-const Recipe = require('../models/recipe');
+import { Request, Response } from 'express';
+import { Model, Schema } from 'mongoose';
+import Collection, { ICollection } from '../models/collection';
+import Recipe, { IRecipe } from '../models/recipe';
+import User, { IUser } from '../models/user';
 const { processImage } = require('../services/imageUpload');
 
 // Sends back collections to client from following parameters on req object:
 // q (search query string), user (_user mongo string), pub (Boolean, if public/private)
-exports.getCollections = async (req, res) => {
+exports.getCollections = async (req: Request, res: Response) : Promise<void> => {
   try {
-    const match = {};
+    const matchObj: any = {};
     const { q, user, pub } = req.query;
-    // If a user is logged in, assign it to the match obj
-    if (user) match._user = req.query.user;
-    if (pub === 'true') match.isPrivate = false;
+    // If a user is logged in, assign it to the match obj - 
+    if (user) matchObj._user = req.query.user;
+    if (pub === 'true') matchObj.isPrivate = false;
     // If a query string is provided, filter by passing it as RegEx, case-insensitive
     if (q) {
-      match.name = {
+      matchObj.name = {
         $regex: q,
         $options: 'i'
       };
     }
+    
     // Assign and return matching collections,
     // replacing the _user string id with the full user obj
-    const collections = await Collection.find(match).populate('_user');
+    const collections: ICollection[] = await Collection.find(matchObj).populate('_user');
     res.send(collections);
   } catch (e) {
     console.log(e);
@@ -29,9 +33,9 @@ exports.getCollections = async (req, res) => {
 };
 
 // Sends back png image to client of type Buffer given an id in the URL
-exports.getCollectionImage = async (req, res) => {
+exports.getCollectionImage = async (req: Request, res: Response) : Promise<void> => {
   try {
-    const collection = await Collection.findById(req.params.id);
+    const collection: ICollection = await Collection.findById(req.params.id);
     res.set('Content-Type', 'image/png');
     res.send(collection.image);
   } catch (e) {
@@ -41,21 +45,21 @@ exports.getCollectionImage = async (req, res) => {
 
 // Sends back a single collection to client, with recipe objs in place of their _id references
 // Accepts a URL param of id, and a query param of q
-exports.getCollectionDetails = async (req, res) => {
+exports.getCollectionDetails = async (req: Request, res: Response) : Promise<void> => {
   try {
-    const match = {};
+    const matchObj: any = {};
     const { q } = req.query;
     if (q) {
-      match.name = {
+      matchObj.name = {
         $regex: q,
         $options: 'i'
       };
     }
     const _id = req.params.id;
-    const collection = await Collection.findById(_id)
+    const collection: ICollection = await Collection.findById(_id)
       .populate({
         path: '_recipes',
-        match
+        matchObj
       })
       .exec();
     res.send(collection);
@@ -66,14 +70,17 @@ exports.getCollectionDetails = async (req, res) => {
 };
 
 // Creates and sends back a new collection to client, given a name, description and isPrivate boolean
-exports.postCollection = async (req, res) => {
+exports.postCollection = async (req: Request, res: Response) : Promise<void> => {
   try {
-    const { name, description, isPrivate } = req.body;
-    const collection = await Collection.create({
+    const { name, description, isPrivate } = req.body.name;
+    const user: any = req.user;
+    const collection: ICollection = await Collection.create({
       name,
-      _user: req.user,
       description,
-      isPrivate
+      image: Buffer.from([]),
+      isPrivate,
+      _user: user,
+      _recipes: []
     });
     res.status(201).send(collection);
   } catch (e) {
@@ -82,11 +89,12 @@ exports.postCollection = async (req, res) => {
 };
 
 // Sends back status code to client, given url param id and user object on request object
-exports.postCollectionImage = async (req, res) => {
+exports.postCollectionImage = async (req: any, res: Response) : Promise<void> => {
   try {
-    const _id = req.params.id;
-    const _user = req.user._id;
-    const collection = await Collection.findOne({ _id, _user });
+    const _id: string = req.params.id;
+    const reqUser: IUser = req.user;
+    const _user: Schema.Types.ObjectId = reqUser._id;
+    const collection: ICollection = await Collection.findOne({ _id, _user });
     if (!collection) throw new Error();
     // The following function comes from '../services/imageUpload'
     const buffer = await processImage({
@@ -104,11 +112,11 @@ exports.postCollectionImage = async (req, res) => {
 };
 
 // Sends back updated collection to client, given req.params id and req.body name and description
-exports.updateCollection = async (req, res) => {
+exports.updateCollection = async (req: Request, res: Response) : Promise<void> => {
   try {
     const { id } = req.params;
     const { name, description } = req.body;
-    const updatedCollection = await Collection.findByIdAndUpdate(
+    const updatedCollection: ICollection = await Collection.findByIdAndUpdate(
       id,
       {
         name,
@@ -123,10 +131,10 @@ exports.updateCollection = async (req, res) => {
 };
 
 // Sends back status code to client, given req.params id
-exports.deleteCollection = async (req, res) => {
+exports.deleteCollection = async (req: Request, res: Response) : Promise<void> => {
   try {
     const { id } = req.params;
-    const deletedCollection = await Collection.findByIdAndDelete(id);
+    const deletedCollection: ICollection = await Collection.findByIdAndDelete(id);
     // Deletes all recipes related to the collection (cascade)
     await Recipe.deleteMany({ _collection: deletedCollection._id });
     res.sendStatus(204);

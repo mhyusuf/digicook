@@ -1,5 +1,5 @@
-const Recipe = require('../models/recipe');
-const Collection = require('../models/collection');
+import Collection from '../models/collection';
+import Recipe from '../models/recipe';
 const { processImage } = require('../services/imageUpload');
 
 

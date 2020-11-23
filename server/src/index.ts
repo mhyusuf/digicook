@@ -1,9 +1,12 @@
-
 // Import modules & keys
-const express = require('express');
-const passport = require('passport');
-const cookieSession = require('cookie-session');
-const { authRouter, collectionRouter, recipeRouter } = require('./routes');
+import express from 'express';
+import passport from 'passport';
+import cookieSession from 'cookie-session';
+
+const authRouter: express.Router = require('./routes/authRouter');
+const collectionRouter: express.Router = require('./routes/collectionRouter');
+const recipeRouter: express.Router = require('./routes/recipeRouter');
+
 const { cookieKey } = require('./config/keys');
 
 // Connect to Mongo database
@@ -12,7 +15,7 @@ const connectDB = require('./models');
 // Initialize passport
 require('./services/passport');
 
-// Set up Express app
+// Set up express app
 const PORT = process.env.PORT || 5000;
 const app = express();
 

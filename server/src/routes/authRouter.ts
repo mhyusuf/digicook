@@ -1,6 +1,5 @@
-
-
-const router = require('express').Router(); // Accesses Express router
+import Express from 'express';
+const router = Express.Router(); // Accesses Express router
 const passport = require('passport');
 const { login, logout, currentUser } = require('../controllers/authController'); // Import controler functions from authController
 

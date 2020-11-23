@@ -1,7 +1,17 @@
-const { Schema, model } = require('mongoose'); // Import mongoose schema class
+import { Schema, model, Document } from 'mongoose'; // Import mongoose schema class
+
+
+export interface ICollection extends Document {
+  name: string,
+  description: string,
+  image: Buffer,
+  isPrivate: boolean,
+  _user: Schema.Types.ObjectId,
+  _recipes: Schema.Types.ObjectId[]
+}
 
 // Create new collection schema
-const collectionSchema = new Schema({
+const collectionSchema: Schema = new Schema({
   name: {
     type: String,
     required: true
@@ -31,4 +41,4 @@ const collectionSchema = new Schema({
 
 collectionSchema.index({ name: 'text', description: 'text' });
 
-module.exports = model('Collection', collectionSchema); // Export model
+export default model<ICollection>('Collection', collectionSchema); // Export model

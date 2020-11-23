@@ -1,5 +1,5 @@
-
-const router = require('express').Router(); // Accesses Express router
+import Express from 'express';
+const router = Express.Router(); // Accesses Express router
 const requireLogin = require('../middleware/requireLogin'); // Import middlewear to validate logged in user
 const { upload } = require('../services/imageUpload'); // Import image upload function
 

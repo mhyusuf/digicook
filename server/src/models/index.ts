@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // Connect to Mongo DB using mongoose - set options to avoid console error messages
 module.exports = () =>

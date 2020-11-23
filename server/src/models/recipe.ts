@@ -1,6 +1,17 @@
-const { Schema, model } = require('mongoose'); // Import mongoose schema class
+import { Schema, model, Document } from 'mongoose'; // Import mongoose schema class
 
 // Create new recipie schema
+
+export interface IRecipe extends Document {
+  name: string,
+  category: string,
+  instructions: string,
+  image: Buffer,
+  ingredients: {name: string, quantity: string}[],
+  _collection: Schema.Types.ObjectId,
+  _user: Schema.Types.ObjectId,
+}
+
 const recipeSchema = new Schema(
   {
     name: {
@@ -36,4 +47,4 @@ const recipeSchema = new Schema(
   }
 );
 
-module.exports = model('Recipe', recipeSchema); // Export model
+export default model<IRecipe>('Recipe', recipeSchema); // Export model
