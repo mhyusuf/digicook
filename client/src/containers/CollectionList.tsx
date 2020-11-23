@@ -1,14 +1,9 @@
 import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-
-import CollectionListItem from '../components/CollectionListItem';
 import { ICollectionWithUserObj } from '../interfaces/model';
+import CollectionListItem from '../components/CollectionListItem';
 
-interface CollectionListProps extends RouteComponentProps {
-  collections: ICollectionWithUserObj[];
-}
 
-function CollectionList({ collections }: CollectionListProps) {
+function CollectionList({ collections }: {collections: ICollectionWithUserObj[]}) {
   return (
     <div data-test="CollectionListComponent" className="ui cards">
       {collections.map(collection => (

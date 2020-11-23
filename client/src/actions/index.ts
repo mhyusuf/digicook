@@ -76,7 +76,7 @@ export const editCollection = (_id: string, updates: ICollectionValues, history:
 // Requires authentication - passed through authMiddleware in route
 // Deletes collection in DB matching passed _id
 // Filters collections in store to exclude any matching passed _id
-export const deleteCollection = (_id: string, history: History<any>) => async (dispatch: Dispatch<any>) => {
+export const deleteCollection = (_id: string) => async (dispatch: Dispatch<any>) => {
   await axios.delete(`/api/collections/${_id}`);
   dispatch({ type: DELETE_COLLECTION, payload: _id });
 };

@@ -8,14 +8,13 @@ import ModalConfirm from './ModalConfirm';
 import { deleteCollection } from '../actions';
 import { ICollectionWithUserObj } from '../interfaces/model';
 import { History } from 'history';
-import { ActionCreator } from 'redux';
-import { Schema } from 'mongoose';
+
 
 
 interface CollectionListItemProps extends RouteComponentProps {
   collection: ICollectionWithUserObj;
   history: History<any>;
-  deleteCollection: (x: Schema.Types.ObjectId)=> ActionCreator<any>;
+  deleteCollection: (_id: string) => Promise<void>;
   menus: boolean;
 }
 

@@ -15,7 +15,7 @@ interface RecipeListItemProps extends RouteComponentProps {
   menus: boolean;
 }
 
-export function RecipeListItem({ recipe, deleteRecipe, menus }: RecipeListItemProps) {
+export function RecipeListItem({ recipe, deleteRecipe, menus }: any) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
     setShowDeleteModal(state => !state);

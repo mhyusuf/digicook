@@ -5,7 +5,7 @@ import { ActionCreator } from 'redux';
 
 interface ModalConfirmProps extends RouteComponentProps {
   headerText: string;
-  children: JSX.Element[];
+  children: JSX.Element | JSX.Element[];
   onCancel: () => void;
   onConfirm: () => ActionCreator<any>;
   history: History<any>;
@@ -13,7 +13,7 @@ interface ModalConfirmProps extends RouteComponentProps {
   match: any;
 }
 
-function ModalConfirm({ headerText, children, onCancel, onConfirm }: ModalConfirmProps) {
+function ModalConfirm({ headerText, children, onCancel, onConfirm }: any) {
   return (
     <div className="ui modal" style={{ display: 'block' }}>
       <div className="header">{headerText}</div>
