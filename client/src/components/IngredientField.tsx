@@ -1,6 +1,19 @@
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
-function IngredientField({ idx, onChange, value, onRemove }) {
+
+
+interface IngredientFieldProps extends RouteComponentProps {
+  idx: number;
+  onChange: ChangeEventHandler<any>;
+  value: {
+    name: string;
+    quantity: string;
+  }
+  onRemove: (idx: number) => void;
+}
+
+function IngredientField({ idx, onChange, value, onRemove }: IngredientFieldProps) {
   return (
     <>
       {idx === 0 && (

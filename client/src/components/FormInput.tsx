@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
-function FormInput(props) {
+interface FormInputProps extends RouteComponentProps {
+  label: string;
+  name: string;
+  type: string;
+  onChange: ChangeEventHandler<any>;
+  value: string;
+  children: JSX.Element[];
+}
+
+function FormInput(props: FormInputProps) {
   const { label, name, type, onChange, value, children } = props;
 
   function renderInput() {

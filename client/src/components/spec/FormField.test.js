@@ -1,7 +1,7 @@
 // import '@types/jest'
 import React from 'react';
 import { shallow } from 'enzyme';
-import FormField from '../FormField'
+import FormField from '../FormInput'
 import util from '../../util';
 
 // const { label, name, type, onChange, value, children } = props;

@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
 import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from './ModalConfirm';
 import { deleteRecipe } from '../actions';
+import { IRecipe } from '../interfaces/model';
+import { Schema } from 'mongoose';
+import { ActionCreator } from 'redux';
 
-export function RecipeListItem({ recipe, deleteRecipe, menus }) {
+interface RecipeListItemProps extends RouteComponentProps {
+  recipe: IRecipe;
+  deleteRecipe: (id: Schema.Types.ObjectId) => ActionCreator<any>;
+  menus: boolean;
+}
+
+export function RecipeListItem({ recipe, deleteRecipe, menus }: RecipeListItemProps) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
     setShowDeleteModal(state => !state);
@@ -65,7 +74,7 @@ export function RecipeListItem({ recipe, deleteRecipe, menus }) {
   );
 }
 
-function mapStateToProps({ menus }) {
+function mapStateToProps({ menus }:{menus: boolean}) {
   return { menus };
 }
 

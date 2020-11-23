@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from './ModalConfirm';
 import { deleteCollection } from '../actions';
+import { ICollectionWithUserObj } from '../interfaces/model';
+import { History } from 'history';
+import { ActionCreator } from 'redux';
+import { Schema } from 'mongoose';
 
-export function CollectionListItem({ collection, history, deleteCollection, menus }) {
+
+interface CollectionListItemProps extends RouteComponentProps {
+  collection: ICollectionWithUserObj;
+  history: History<any>;
+  deleteCollection: (x: Schema.Types.ObjectId)=> ActionCreator<any>;
+  menus: boolean;
+}
+
+export function CollectionListItem({ collection, history, deleteCollection, menus }: CollectionListItemProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
@@ -89,7 +101,7 @@ export function CollectionListItem({ collection, history, deleteCollection, menu
   );
 }
 
-function mapStateToProps({ menus }) {
+function mapStateToProps({ menus }: { menus: boolean }) {
   return { menus };
 }
 
