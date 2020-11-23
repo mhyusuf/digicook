@@ -25,9 +25,8 @@ passport.use(
     },
     // After login, Google returns accessToken, refreshToken and profile
     async (accessToken: string, refreshToken: string, profile: Profile, done: (error: Error, user: IUser) => void) => {
-      console.log(profile);
       const existingUser: IUser = await User.findOne({ googleId: profile.id }); // Find a user in our DB with google id
-
+      
       // If user exists, proceed to next callback
       if (existingUser) {
         return done(null, existingUser);

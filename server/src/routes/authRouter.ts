@@ -1,8 +1,8 @@
 import Express from 'express';
 const router = Express.Router(); // Accesses Express router
-const passport = require('passport');
-const { login, logout, currentUser } = require('../controllers/authController'); // Import controler functions from authController
-
+import passport from 'passport';
+import authController from '../controllers/authController'; // Import controler functions from authController
+const { login, logout, currentUser } = authController;
 // Navigate user to Google login form (hosted on Google servers), request profile and email information back
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
