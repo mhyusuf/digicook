@@ -8,7 +8,7 @@ interface ModalOverlayProps extends RouteComponentProps {
   match: any;
 }
 
-function ModalOverlay({ show, children }: ModalOverlayProps) {
+function ModalOverlay({ show, children }: any) {
   return show ? (
     <div className="Modal">
       <div className="Modal__overlay">{children}</div>
