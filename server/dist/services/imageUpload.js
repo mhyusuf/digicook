@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,12 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
-var multer = require('multer');
-var sharp = require('sharp');
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var multer_1 = __importDefault(require("multer"));
+var sharp_1 = __importDefault(require("sharp"));
 // Defines object of type Multer, which imposes limits on what can be uploaded
 // This config specifies max file size and accepted file extensions
-var upload = multer({
+var upload = multer_1.default({
     limits: { fileSize: 1000000 },
     fileFilter: function (req, file, cb) {
         if (!file.originalname.match(/\.(jpg|jpeg|png|gif|svg|tiff)$/)) {
@@ -52,9 +56,9 @@ var upload = multer({
 // Then passed to a sharp method that returns a displayable image file
 var processImage = function (_a) {
     var buffer = _a.buffer, width = _a.width, height = _a.height;
-    return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_b) {
+    return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_b) {
         switch (_b.label) {
-            case 0: return [4 /*yield*/, sharp(buffer).resize({ width: width, height: height }).png().toBuffer()];
+            case 0: return [4 /*yield*/, sharp_1.default(buffer).resize({ width: width, height: height }).png().toBuffer()];
             case 1: return [2 /*return*/, _b.sent()];
         }
     }); });

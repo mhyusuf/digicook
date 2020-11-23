@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var router = require('express').Router(); // Accesses Express router
+var express_1 = __importDefault(require("express"));
+var router = express_1.default.Router(); // Accesses Express router
 var requireLogin = require('../middleware/requireLogin'); // Import middlewear to validate logged in user
 var upload = require('../services/imageUpload').upload; // Import image upload function
 // Import collection controller functions
@@ -14,4 +18,4 @@ router.post('/', requireLogin, postCollection);
 router.post('/:id/image', requireLogin, upload.single('image'), postCollectionImage);
 router.put('/:id', requireLogin, updateCollection);
 router.delete('/:id', requireLogin, deleteCollection);
-exports.default = router;
+module.exports = router;

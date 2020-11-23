@@ -35,35 +35,36 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-;
-;
-var Collection = require('../models/collection');
-var Recipe = require('../models/recipe');
+var collection_1 = __importDefault(require("../models/collection"));
+var recipe_1 = __importDefault(require("../models/recipe"));
 var processImage = require('../services/imageUpload').processImage;
 // Sends back collections to client from following parameters on req object:
 // q (search query string), user (_user mongo string), pub (Boolean, if public/private)
 exports.getCollections = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var match, _a, q, user, pub, collections, e_1;
+    var matchObj, _a, q, user, pub, collections, e_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 2, , 3]);
-                match = void 0;
+                matchObj = {};
                 _a = req.query, q = _a.q, user = _a.user, pub = _a.pub;
-                // If a user is logged in, assign it to the match obj
+                // If a user is logged in, assign it to the match obj - 
                 if (user)
-                    match._user = req.query.user;
+                    matchObj._user = req.query.user;
                 if (pub === 'true')
-                    match.isPrivate = false;
+                    matchObj.isPrivate = false;
                 // If a query string is provided, filter by passing it as RegEx, case-insensitive
                 if (q) {
-                    match.name = {
+                    matchObj.name = {
                         $regex: q,
                         $options: 'i'
                     };
                 }
-                return [4 /*yield*/, Collection.find(match).populate('_user')];
+                return [4 /*yield*/, collection_1.default.find(matchObj).populate('_user')];
             case 1:
                 collections = _b.sent();
                 res.send(collections);
@@ -84,7 +85,7 @@ exports.getCollectionImage = function (req, res) { return __awaiter(void 0, void
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, Collection.findById(req.params.id)];
+                return [4 /*yield*/, collection_1.default.findById(req.params.id)];
             case 1:
                 collection = _a.sent();
                 res.set('Content-Type', 'image/png');
@@ -101,24 +102,24 @@ exports.getCollectionImage = function (req, res) { return __awaiter(void 0, void
 // Sends back a single collection to client, with recipe objs in place of their _id references
 // Accepts a URL param of id, and a query param of q
 exports.getCollectionDetails = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var match, q, _id, collection, e_3;
+    var matchObj, q, _id, collection, e_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                match = {};
+                matchObj = {};
                 q = req.query.q;
                 if (q) {
-                    match.name = {
+                    matchObj.name = {
                         $regex: q,
                         $options: 'i'
                     };
                 }
                 _id = req.params.id;
-                return [4 /*yield*/, Collection.findById(_id)
+                return [4 /*yield*/, collection_1.default.findById(_id)
                         .populate({
                         path: '_recipes',
-                        match: match
+                        matchObj: matchObj
                     })
                         .exec()];
             case 1:
@@ -136,17 +137,20 @@ exports.getCollectionDetails = function (req, res) { return __awaiter(void 0, vo
 }); };
 // Creates and sends back a new collection to client, given a name, description and isPrivate boolean
 exports.postCollection = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name_1, description, isPrivate, collection, e_4;
+    var _a, name_1, description, isPrivate, user, collection, e_4;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 2, , 3]);
                 _a = req.body, name_1 = _a.name, description = _a.description, isPrivate = _a.isPrivate;
-                return [4 /*yield*/, Collection.create({
+                user = req.user;
+                return [4 /*yield*/, collection_1.default.create({
                         name: name_1,
-                        _user: req.user,
                         description: description,
-                        isPrivate: isPrivate
+                        image: Buffer.from([]),
+                        isPrivate: isPrivate,
+                        _user: user._id,
+                        _recipes: []
                     })];
             case 1:
                 collection = _b.sent();
@@ -170,7 +174,7 @@ exports.postCollectionImage = function (req, res) { return __awaiter(void 0, voi
                 _id = req.params.id;
                 reqUser = req.user;
                 _user = reqUser._id;
-                return [4 /*yield*/, Collection.findOne({ _id: _id, _user: _user })];
+                return [4 /*yield*/, collection_1.default.findOne({ _id: _id, _user: _user })];
             case 1:
                 collection = _a.sent();
                 if (!collection)
@@ -206,7 +210,7 @@ exports.updateCollection = function (req, res) { return __awaiter(void 0, void 0
                 _b.trys.push([0, 2, , 3]);
                 id = req.params.id;
                 _a = req.body, name_2 = _a.name, description = _a.description;
-                return [4 /*yield*/, Collection.findByIdAndUpdate(id, {
+                return [4 /*yield*/, collection_1.default.findByIdAndUpdate(id, {
                         name: name_2,
                         description: description
                     }, { new: true })];
@@ -230,11 +234,11 @@ exports.deleteCollection = function (req, res) { return __awaiter(void 0, void 0
             case 0:
                 _a.trys.push([0, 3, , 4]);
                 id = req.params.id;
-                return [4 /*yield*/, Collection.findByIdAndDelete(id)];
+                return [4 /*yield*/, collection_1.default.findByIdAndDelete(id)];
             case 1:
                 deletedCollection = _a.sent();
                 // Deletes all recipes related to the collection (cascade)
-                return [4 /*yield*/, Recipe.deleteMany({ _collection: deletedCollection._id })];
+                return [4 /*yield*/, recipe_1.default.deleteMany({ _collection: deletedCollection._id })];
             case 2:
                 // Deletes all recipes related to the collection (cascade)
                 _a.sent();

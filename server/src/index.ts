@@ -6,8 +6,8 @@ import cookieSession from 'cookie-session';
 const authRouter: express.Router = require('./routes/authRouter');
 const collectionRouter: express.Router = require('./routes/collectionRouter');
 const recipeRouter: express.Router = require('./routes/recipeRouter');
+import keys from './config/keys';
 
-const { cookieKey } = require('./config/keys');
 
 // Connect to Mongo database
 const connectDB = require('./models');
@@ -22,6 +22,8 @@ const app = express();
 // Set up middleware to handle incoming data
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+const cookieKey: string = keys.cookieKey;
 
 // Initialize session
 app.use(

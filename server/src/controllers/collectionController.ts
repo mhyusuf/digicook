@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { Model, Schema } from 'mongoose';
 import Collection, { ICollection } from '../models/collection';
+import { RequestWithQueryParam, RequestWithCollectionInfo, RequestWithUserAuth } from '../interfaces/requests';
 import Recipe, { IRecipe } from '../models/recipe';
 import User, { IUser } from '../models/user';
 const { processImage } = require('../services/imageUpload');
@@ -45,10 +46,10 @@ exports.getCollectionImage = async (req: Request, res: Response) : Promise<void>
 
 // Sends back a single collection to client, with recipe objs in place of their _id references
 // Accepts a URL param of id, and a query param of q
-exports.getCollectionDetails = async (req: Request, res: Response) : Promise<void> => {
+exports.getCollectionDetails = async (req: RequestWithQueryParam, res: Response) : Promise<void> => {
   try {
     const matchObj: any = {};
-    const { q } = req.query;
+    const q: string = req.query.q;
     if (q) {
       matchObj.name = {
         $regex: q,
@@ -70,16 +71,16 @@ exports.getCollectionDetails = async (req: Request, res: Response) : Promise<voi
 };
 
 // Creates and sends back a new collection to client, given a name, description and isPrivate boolean
-exports.postCollection = async (req: Request, res: Response) : Promise<void> => {
+exports.postCollection = async (req: RequestWithCollectionInfo, res: Response) : Promise<void> => {
   try {
-    const { name, description, isPrivate } = req.body.name;
-    const user: any = req.user;
+    const { name, description, isPrivate } = req.body;
+    const user: IUser = req.user;
     const collection: ICollection = await Collection.create({
       name,
       description,
       image: Buffer.from([]),
       isPrivate,
-      _user: user,
+      _user: user._id,
       _recipes: []
     });
     res.status(201).send(collection);
@@ -89,7 +90,7 @@ exports.postCollection = async (req: Request, res: Response) : Promise<void> => 
 };
 
 // Sends back status code to client, given url param id and user object on request object
-exports.postCollectionImage = async (req: any, res: Response) : Promise<void> => {
+exports.postCollectionImage = async (req: RequestWithUserAuth, res: Response) : Promise<void> => {
   try {
     const _id: string = req.params.id;
     const reqUser: IUser = req.user;

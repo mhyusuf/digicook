@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,21 +35,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
-var passport = require('passport');
-var Strategy = require('passport-google-oauth20').Strategy;
-var _a = require('../config/keys'), googleClientID = _a.googleClientID, googleClientSecret = _a.googleClientSecret; // Import Google API keys
-var User = require('../models/user');
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var passport_1 = __importDefault(require("passport"));
+var passport_google_oauth20_1 = require("passport-google-oauth20");
+var keys_1 = __importDefault(require("../config/keys"));
+var user_1 = __importDefault(require("../models/user"));
 // Distill user object to just user id (on login attempt)
-passport.serializeUser(function (user, done) {
+passport_1.default.serializeUser(function (user, done) {
     done(null, user.id);
 });
 // Finds user information by id, returns user as object to be stored on req (when user is logged in)
-passport.deserializeUser(function (id, done) { return __awaiter(_this, void 0, void 0, function () {
+passport_1.default.deserializeUser(function (id, done) { return __awaiter(void 0, void 0, void 0, function () {
     var user;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, User.findById(id)];
+            case 0: return [4 /*yield*/, user_1.default.findById(id)];
             case 1:
                 user = _a.sent();
                 done(null, user);
@@ -56,26 +60,26 @@ passport.deserializeUser(function (id, done) { return __awaiter(_this, void 0, v
         }
     });
 }); });
-passport.use(new Strategy(
+passport_1.default.use(new passport_google_oauth20_1.Strategy(
 // Set up Google keys to be sent to Google Auth
 {
-    clientID: googleClientID,
-    clientSecret: googleClientSecret,
+    clientID: keys_1.default.googleClientID,
+    clientSecret: keys_1.default.googleClientSecret,
     callbackURL: '/auth/google/callback' // Define callback route to send users to after user submit login information
 }, 
 // After login, Google returns accessToken, refreshToken and profile
-function (accessToken, refreshToken, profile, done) { return __awaiter(_this, void 0, void 0, function () {
+function (accessToken, refreshToken, profile, done) { return __awaiter(void 0, void 0, void 0, function () {
     var existingUser, user;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, User.findOne({ googleId: profile.id })];
+            case 0: return [4 /*yield*/, user_1.default.findOne({ googleId: profile.id })];
             case 1:
                 existingUser = _a.sent();
                 // If user exists, proceed to next callback
                 if (existingUser) {
                     return [2 /*return*/, done(null, existingUser)];
                 }
-                return [4 /*yield*/, User.create({
+                return [4 /*yield*/, user_1.default.create({
                         googleId: profile.id,
                         name: profile.displayName,
                         email: profile._json.email

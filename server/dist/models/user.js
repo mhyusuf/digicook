@@ -1,6 +1,8 @@
-var _a = require('mongoose'), Schema = _a.Schema, model = _a.model; // Import mongoose schema class
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var mongoose_1 = require("mongoose"); // Import mongoose schema class
 // Create new user schema
-var userSchema = new Schema({
+var userSchema = new mongoose_1.Schema({
     googleId: String,
     name: String,
     email: String
@@ -10,4 +12,4 @@ userSchema.virtual('collections', {
     localField: '_id',
     foreignField: '_user'
 });
-module.exports = model('User', userSchema); // Export model
+exports.default = mongoose_1.model('User', userSchema); // Export model

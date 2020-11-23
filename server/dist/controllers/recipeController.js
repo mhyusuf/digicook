@@ -143,7 +143,7 @@ exports.postRecipe = function (req, res) { return __awaiter(void 0, void 0, void
                         image: image,
                         ingredients: ingredients,
                         _collection: collection,
-                        _user: req.user
+                        _user: req.user._id
                     })];
             case 1:
                 recipe = _b.sent();

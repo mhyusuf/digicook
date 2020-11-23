@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var router = require('express').Router(); // Accesses Express router
+var express_1 = __importDefault(require("express"));
+var router = express_1.default.Router(); // Accesses Express router
 var passport = require('passport');
 var _a = require('../controllers/authController'), login = _a.login, logout = _a.logout, currentUser = _a.currentUser; // Import controler functions from authController
 // Navigate user to Google login form (hosted on Google servers), request profile and email information back
@@ -13,4 +17,4 @@ login); // Proceeds to login callback (like redirect)
 router.get('/logout', logout);
 // Executes currentUser callback on /current-user request
 router.get('/current-user', currentUser);
-exports.default = router;
+module.exports = router;
