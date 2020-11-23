@@ -2,6 +2,7 @@
 import moxios from 'moxios';
 import util from '../util';
 import actions from '.';
+import mockState from '../mocks/mockState';
 
 describe('GetPublicCollections', () => {
 
@@ -15,25 +16,7 @@ describe('GetPublicCollections', () => {
 
   test('Store is correctly updated', () => {
 
-    const expectedState = [{
-          isPrivate: false,
-          _recipes: [],
-          _id: 'qwertyuiop',
-          name: 'Sample Collection 1',
-          _user: {},
-          description: 'Sample Collection 1 description',
-          __v: 0,
-          image: {}
-        },{
-          isPrivate: false,
-          _recipes: [],
-          _id: 'asdfghjkl',
-          name: 'Sample Collection 2',
-          _user: {},
-          description: 'Sample Collection 2 description',
-          __v: 0,
-          image: {}
-        }];
+    const expectedState = mockState.collections.collectionList;
     const store = util.testStore();
 
     moxios.wait(() => {
