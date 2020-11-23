@@ -1,8 +1,9 @@
 import Express from 'express';
 const router = Express.Router(); // Accesses Express router
 const requireLogin = require('../middleware/requireLogin'); // Import middlewear to validate logged in user
-const { upload } = require('../services/imageUpload'); // Import image upload function
+import uploadService from '../services/imageUpload'; // Import image upload function
 
+const {upload} = uploadService;
 // Import collection controller functions
 const {
   getCollections,

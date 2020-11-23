@@ -29,4 +29,4 @@ interface ProcessImageInput {
 const processImage = async ({ buffer, width, height }: ProcessImageInput) : Promise<Buffer> =>
   await sharp(buffer).resize({ width, height }).png().toBuffer();
 
-module.exports = { upload, processImage };
+export default { upload, processImage };

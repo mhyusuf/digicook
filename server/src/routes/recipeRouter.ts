@@ -1,9 +1,10 @@
 import Express from 'express';
 const router = Express.Router(); // Accesses Express router
 const requireLogin = require('../middleware/requireLogin'); // Import middleware to validate logged in user
-const { upload } = require('../services/imageUpload'); // Import image upload function
+import uploadService from '../services/imageUpload'; // Import image upload function
 
-// Import collection controller functions
+const {upload} = uploadService;
+// Import recipe controller functions
 const {
   getRecipes,
   getRecipe,
