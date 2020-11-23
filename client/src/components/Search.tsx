@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
-function Search({ value, onChange, placeholder }) {
+interface SearchProps extends RouteComponentProps {
+  value: string;
+  onChange: () => ChangeEventHandler<string>;
+  placeholder: string;
+}
+
+function Search({ value, onChange, placeholder }: SearchProps) {
   return (
     <div data-test="SearchComponent" className="right menu">
       <div className="item">

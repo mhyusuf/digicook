@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { History, LocationState } from 'history';
+import { History } from 'history';
 import { Dispatch } from 'redux';
 
 import {
@@ -49,7 +49,7 @@ export const getUserCollections = (_id: string, query: string) => async (dispatc
 // As a second call, adds image to newly created collection
 // Redirects to user page
 
-export const createCollection = (values: ICollectionValues, history: History<LocationState>) => async (dispatch: Dispatch<any>) => {
+export const createCollection = (values: ICollectionValues, history: History<any>) => async (dispatch: Dispatch<any>) => {
   const { name, description, isPrivate, imageData } = values;
   const collectionRes = await axios.post('/api/collections', {
     name,
@@ -64,7 +64,7 @@ export const createCollection = (values: ICollectionValues, history: History<Loc
 // Requires authentication - passed through authMiddleware in route
 // Updates collection in DB matching passed _id with passed parameters in 'update' obj
 // Redirects to previous page in navigation history
-export const editCollection = (_id: string, updates: ICollectionValues, history: History<LocationState>) => async (dispatch: Dispatch<any>) => {
+export const editCollection = (_id: string, updates: ICollectionValues, history: History<any>) => async (dispatch: Dispatch<any>) => {
   const { name, description, isPrivate, imageData } = updates;
   await axios.put(`/api/collections/${_id}`, { name, description, isPrivate });
   if (imageData && imageData.get('image')) {
@@ -76,7 +76,7 @@ export const editCollection = (_id: string, updates: ICollectionValues, history:
 // Requires authentication - passed through authMiddleware in route
 // Deletes collection in DB matching passed _id
 // Filters collections in store to exclude any matching passed _id
-export const deleteCollection = (_id: string, history: History<LocationState>) => async (dispatch: Dispatch<any>) => {
+export const deleteCollection = (_id: string, history: History<any>) => async (dispatch: Dispatch<any>) => {
   await axios.delete(`/api/collections/${_id}`);
   dispatch({ type: DELETE_COLLECTION, payload: _id });
 };
@@ -95,7 +95,7 @@ export const getCollectionDetail = (_id: string, query: string) => async (dispat
 // Redirects to user page
 
 
-export const createRecipe = (values: IRecipeValues, history: History<LocationState>) => async (dispatch: Dispatch<any>) => {
+export const createRecipe = (values: IRecipeValues, history: History<any>) => async (dispatch: Dispatch<any>) => {
   const {
     name,
     category,
@@ -133,7 +133,7 @@ export const getPublicRecipes = (query: string) => async (dispatch: Dispatch<any
 
 // Edits the Recipe object by a call to the recipeController
 // And potentially a second call to an image-exclusive route to update the image
-export const editRecipe = (_id: string, updates: IRecipeValues, history: History<LocationState>) => async (dispatch: Dispatch<any>) => {
+export const editRecipe = (_id: string, updates: IRecipeValues, history: History<any>) => async (dispatch: Dispatch<any>) => {
   const {
     name,
     category,
@@ -158,7 +158,7 @@ export const editRecipe = (_id: string, updates: IRecipeValues, history: History
 
 // Deletes recipe in DB matching passed _id
 // Filters recipes in store.collectionDetail to exclude any matching passed _id
-export const deleteRecipe = (_id: string, history: History<LocationState>) => async (dispatch: Dispatch<any>) => {
+export const deleteRecipe = (_id: string, history: History<any>) => async (dispatch: Dispatch<any>) => {
   await axios.delete(`/api/recipes/${_id}`);
   dispatch({ type: DELETE_RECIPE, payload: _id });
 };

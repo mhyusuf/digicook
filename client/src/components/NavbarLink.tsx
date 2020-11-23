@@ -1,7 +1,12 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, RouteComponentProps } from 'react-router-dom';
 
-function NavbarLink({ text, to }) {
+interface NavbarLinkProps extends RouteComponentProps {
+  text: string;
+  to: string;
+}
+
+function NavbarLink({ text, to }: NavbarLinkProps) {
   return (
     <li data-test="NavbarLinkComponent">
       <NavLink // Component imported from react-router-dom

@@ -1,6 +1,12 @@
 import React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
-function AuthButton({ isLoggedIn }) {
+
+interface AuthProps extends RouteComponentProps {
+  isLoggedIn: boolean;
+}
+
+function AuthButton({ isLoggedIn }: AuthProps) {
   return isLoggedIn ? (
     <li data-test="AuthButtonComponent, LoggedIn">
       <a href="/auth/logout" className="nav-links">

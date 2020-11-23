@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import FormField from '../components/FormField';
+import FormField from '../components/FormInput';
 import StatusRadio from '../components/StatusRadio';
 
 export function CollectionForm({ initialState, submitHandler, history }) {

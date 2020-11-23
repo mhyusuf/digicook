@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import FormField from '../components/FormField';
+import FormField from '../components/FormInput';
 import IngredientField from '../components/IngredientField';
 import { CATEGORY_OPTIONS } from '../categoryOptions';
 
