@@ -6,14 +6,14 @@ import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from './ModalConfirm';
 import { deleteRecipe } from '../actions';
 
-function RecipeListItem({ recipe, deleteRecipe, menus }) {
+export function RecipeListItem({ recipe, deleteRecipe, menus }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
     setShowDeleteModal(state => !state);
   }
   return (
     <>
-      <div className="ui card RecipeListItem">
+      <div data-test="RecipeListItemComponent" className="ui card RecipeListItem">
         <Link
           className="image"
           to={`/collections/${recipe._collection}/recipes/${recipe._id}`}

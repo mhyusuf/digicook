@@ -13,7 +13,7 @@ describe('NavbarLink Component', () => {
   let component;
   const sampleProps = {
     to: '/',
-    text: 'any string'
+    text: 'sample'
   };
   beforeEach(() => {
     component = setUp(sampleProps);
@@ -23,4 +23,10 @@ describe('NavbarLink Component', () => {
     const wrapper = util.findByDataTest(component, 'NavbarLinkComponent');
     expect(wrapper.length).toEqual(1);
   });
+
+  it('Should render passed text', () => {
+    const wrapper = util.findByDataTest(component, 'NavbarLinkComponent');
+    expect(wrapper.text()).toEqual('sample');
+  });
+  
 });

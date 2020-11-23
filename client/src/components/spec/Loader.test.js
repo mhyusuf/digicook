@@ -21,4 +21,9 @@ describe('Loader Component', ()=> {
     expect(wrapper.length).toEqual(1);
   })
 
+  it('Should render correct text', ()=> {
+    const wrapper = util.findByDataTest(component, 'LoaderComponent');
+    expect(wrapper.text()).toEqual("Loading");
+  })
+
 })
