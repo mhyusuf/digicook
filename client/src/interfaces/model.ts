@@ -5,7 +5,6 @@ export interface ICollection extends Document {
   description: string,
   image: Buffer,
   isPrivate: boolean,
-  _recipes: Schema.Types.ObjectId[]
 }
 
 export interface ICollectionWithUserObj extends ICollection {
@@ -14,15 +13,30 @@ export interface ICollectionWithUserObj extends ICollection {
 export interface ICollectionWithUserId extends ICollection {
   _user: Schema.Types.ObjectId;
 }
+export interface ICollectionWithRecipeObjs extends ICollection {
+  _recipes: IRecipe[]
+}
+export interface ICollectionWithRecipeIds extends ICollection {
+  _recipes: Schema.Types.ObjectId[]
+}
+
+export interface CollectionDetailCollection extends ICollectionWithUserId, ICollectionWithRecipeObjs{};
+export interface MyCollectionsCollection extends ICollectionWithRecipeIds, ICollectionWithUserObj{};
+
 
 export interface IRecipe extends Document {
   name: string,
   category: string,
   instructions: string,
   image: Buffer,
-  ingredients: {name: string, quantity: string}[],
+  ingredients: IIngredient[],
   _collection: Schema.Types.ObjectId | ICollection,
   _user: Schema.Types.ObjectId | IUser,
+}
+
+export interface IIngredient {
+  name: string,
+  quantity: string
 }
 
 export interface IUser extends Document {

@@ -1,11 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { connect } from 'react-redux';
-
+import { match, useHistory } from 'react-router-dom';
 import RecipeForm from '../containers/RecipeForm';
 import { getRecipe, editRecipe } from '../actions';
-import { ICollectionWithUserId, ICollectionWithUserObj } from '../interfaces/model';
+import { History } from 'history';
+import { IRecipe } from '../interfaces/model';
+import { IRecipeValues } from '../interfaces/inputs';
 
-function RecipeEdit({ recipe, getRecipe, editRecipe, match, history }: any) {
+interface MatchInterface {
+  recipeId: string
+}
+
+interface RecipeEditProps {
+  recipe: IRecipe;
+  getRecipe: (id: string) => void;
+  editRecipe: (id: string, updates: IRecipeValues, history: History<any>)=> void;
+  match: match<MatchInterface>;
+}
+
+const RecipeEdit: FunctionComponent<RecipeEditProps> = (props) => {
+  const {recipe, getRecipe, editRecipe, match} = props;
+  const history = useHistory();
   useEffect(() => {
     getRecipe(match.params.recipeId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -34,7 +49,7 @@ function RecipeEdit({ recipe, getRecipe, editRecipe, match, history }: any) {
       </div>
       {recipe._id ? (
         <RecipeForm
-          submitHandler={(...args: any) => editRecipe(recipe._id, ...args)}
+          submitHandler={(updates: IRecipeValues) => editRecipe(recipe._id, updates, history)}
           initialState={initialState}
         />
       ) : (

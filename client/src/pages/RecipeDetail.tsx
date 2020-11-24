@@ -1,19 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, FunctionComponent } from 'react';
+import { Link, match, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from '../components/ModalConfirm';
 import { getRecipe, deleteRecipe } from '../actions';
+import { IRecipe } from '../interfaces/model';
+import { IState } from '../interfaces/state';
 
-function RecipeDetail({
-  recipe,
-  getRecipe,
-  deleteRecipe,
-  match,
-  history,
-  menus
-}: any) {
+interface MatchInterface {
+  recipeId: string;
+}
+
+interface RecipeDetailProps extends RouteComponentProps{
+  recipe: IRecipe;
+  getRecipe: (x: string) => void;
+  deleteRecipe: (x: string) => void;
+  match: match<MatchInterface>;
+  menus: boolean;
+}
+
+const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
+  const { recipe, getRecipe, deleteRecipe, match, history, menus } = props;
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
     setShowDeleteModal(state => !state);
@@ -74,7 +82,7 @@ function RecipeDetail({
               <tbody>
                 {recipe.ingredients.map(({ _id, name, quantity }: any) => {
                   return (
-                    <tr key={_id} className="item">
+                    <tr key={`${_id}/${name}`} className="item">
                       <td data-label="Ingredient">{name}</td>
                       <td date-label="Quantity">{quantity}</td>
                     </tr>
@@ -100,10 +108,8 @@ function RecipeDetail({
   );
 }
 
-function mapStateToProps({ collections, menus }: any) {
+function mapStateToProps({ collections, menus }: IState) {
   return { recipe: collections.recipe, menus };
 }
 
-export default connect(mapStateToProps, { getRecipe, deleteRecipe })(
-  RecipeDetail
-);
+export default connect(mapStateToProps, { getRecipe, deleteRecipe })(RecipeDetail);

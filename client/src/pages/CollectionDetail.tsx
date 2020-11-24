@@ -1,11 +1,24 @@
-import React, { useState, useEffect, ChangeEventHandler, ChangeEvent } from 'react';
+import React, { useState, useEffect, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
-
 import { getCollectionDetail } from '../actions';
 import RecipeList from '../containers/RecipeList';
 import Search from '../components/Search';
+import { RouteComponentProps, match } from 'react-router-dom';
+import { CollectionDetailCollection } from '../interfaces/model';
 
-function CollectionDetail({ match, collection, getCollectionDetail, history }: any) {
+
+interface MatchInterface {
+  id: string;
+}
+
+interface CollectionDetailProps extends RouteComponentProps {
+  collection: CollectionDetailCollection;
+  getCollectionDetail: (id: string, query?: string) => void;
+  match: match<MatchInterface>
+}
+
+const CollectionDetail: FunctionComponent<CollectionDetailProps> = (props) => {
+  const { match, collection, getCollectionDetail, history } = props;
   const [query, setQuery] = useState('');
   useEffect(() => {
     getCollectionDetail(match.params.id, query);

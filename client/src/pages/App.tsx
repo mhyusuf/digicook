@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { ActionCreator } from 'redux';
 import { getUser } from '../actions';
 import { IUser } from '../interfaces/model';
 import { IState } from '../interfaces/state';
 import AuthenticatedApp from './AuthenticatedApp';
 import UnauthenticatedApp from './UnauthenticatedApp';
 
-function App ({ user, getUser }: {user?: IUser, getUser: () => void}) : JSX.Element {
+interface AppProps {
+  user?: IUser,
+  getUser: () => void
+}
+
+const App: FunctionComponent<AppProps> = (props) => {
+  const { user, getUser } = props;
   // When user enters page
   useEffect(() => {
     getUser(); // Try to get user obj (check if user is logged in)

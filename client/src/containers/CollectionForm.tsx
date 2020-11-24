@@ -1,44 +1,50 @@
-import React, { EventHandler, useState } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import React, { FunctionComponent, useState } from 'react';
 
 import FormField from '../components/FormInput';
 import StatusRadio from '../components/StatusRadio';
+import { ICollectionValues } from '../interfaces/inputs';
+import { History } from 'history';
+import { useHistory } from 'react-router-dom';
 
 interface CollectionFormProps {
-  props: RouteComponentProps;
-  submitHandler: EventHandler<any>;
-  initialState: any;
+  submitHandler: (updates: ICollectionValues, history: History<any>) => void;
+  initialState: ICollectionValues;
 }
 
-export function CollectionForm({ initialState, submitHandler, ...props }: any) {
+export const CollectionForm: FunctionComponent<CollectionFormProps> = (props) => {
+  const { initialState, submitHandler} = props;
+  const history = useHistory();
   const [formValues, setFormValues] = useState(initialState);
 
-  function handleSubmit(e: any) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const { name, description, image, isPrivate } = formValues;
     // The FormData type is why we later use the 'multer' library
     const imageData = new FormData();
     imageData.append('image', image);
-    submitHandler({ name, description, isPrivate, imageData }, props.history);
+    submitHandler({ name, description, isPrivate, imageData }, history);
     setFormValues({ name: '', description: '', image: '', isPrivate: false });
   }
 
-  function handleChange(e: any) {
-    setFormValues((formValues: any) => ({
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setFormValues((formValues: ICollectionValues) => ({
       ...formValues,
-      [e.target.name]: e.target.value
+      [e.currentTarget.name]: e.currentTarget.value
     }));
   }
 
-  function handleImageChange(e: any) {
-    setFormValues((formValues: any) => ({
+  
+  function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
+
+    setFormValues((formValues: ICollectionValues) => ({
       ...formValues,
-      image: e.target.files[0]
+      image: e.target.files && e.target.files[0]
     }));
   }
 
   function handleStatusChange(status: boolean) : void {
-    setFormValues((formValues: any) => ({
+    setFormValues((formValues: ICollectionValues) => ({
       ...formValues,
       isPrivate: status
     }));
@@ -75,4 +81,4 @@ export function CollectionForm({ initialState, submitHandler, ...props }: any) {
   );
 }
 
-export default withRouter(CollectionForm);
+export default CollectionForm;

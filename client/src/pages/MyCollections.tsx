@@ -1,12 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { getUserCollections, showMenu } from '../actions';
 import CollectionList from '../containers/CollectionList';
 import Search from '../components/Search';
+import { MyCollectionsCollection } from '../interfaces/model';
 
-function MyCollections({ _id, collections, getUserCollections, showMenu }: any) {
+
+
+interface MyCollectionsProps {
+  _id: string;
+  collections: MyCollectionsCollection[];
+  getUserCollections: (id: string, query:string) => void;
+  showMenu: ()=>void;
+}
+
+const MyCollections: FunctionComponent<MyCollectionsProps> = (props) => {
+  const { _id, collections, getUserCollections, showMenu } = props;
   const [query, setQuery] = useState('');
   useEffect(() => {
     getUserCollections(_id, query);
