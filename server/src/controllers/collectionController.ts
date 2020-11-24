@@ -4,7 +4,9 @@ import Collection, { ICollection } from '../models/collection';
 import { RequestWithQueryParam, RequestWithCollectionInfo, RequestWithUserAuth } from '../interfaces/requests';
 import Recipe, { IRecipe } from '../models/recipe';
 import User, { IUser } from '../models/user';
-const { processImage } = require('../services/imageUpload');
+
+import imgService from '../services/imageUpload';
+const { processImage } = imgService;
 
 // Sends back collections to client from following parameters on req object:
 // q (search query string), user (_user mongo string), pub (Boolean, if public/private)
@@ -28,7 +30,6 @@ exports.getCollections = async (req: Request, res: Response) : Promise<void> => 
     const collections: ICollection[] = await Collection.find(matchObj).populate('_user');
     res.send(collections);
   } catch (e) {
-    console.log(e);
     res.sendStatus(500);
   }
 };
@@ -65,7 +66,6 @@ exports.getCollectionDetails = async (req: RequestWithQueryParam, res: Response)
       .exec();
     res.send(collection);
   } catch (e) {
-    console.log(e.message);
     res.sendStatus(404);
   }
 };

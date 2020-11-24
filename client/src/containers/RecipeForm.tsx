@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import { withRouter, match, RouteComponentProps } from 'react-router-dom';
+import { withRouter, match, RouteComponentProps, useHistory } from 'react-router-dom';
 import { History } from 'history';
 import { IRecipeValues } from '../interfaces/inputs';
 import FormField from '../components/FormInput';
@@ -7,8 +7,7 @@ import IngredientField from '../components/IngredientField';
 import { CATEGORY_OPTIONS } from '../categoryOptions';
 
 interface MatchInterface {
-  collectionId: string;
-  recipeId: string;
+  id: string;
 }
 
 interface RecipeFormProps extends RouteComponentProps {
@@ -18,13 +17,15 @@ interface RecipeFormProps extends RouteComponentProps {
 }
 
 const RecipeForm: FunctionComponent<RecipeFormProps> = (props) => {
-  const { initialState, submitHandler, match, history } = props;
+  const { initialState, submitHandler, match} = props;
   const [formValues, setFormValues] = useState(initialState);
-  console.log(match.params.collectionId);
+  const history = useHistory();
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const { name, category, image, ingredients, instructions } = formValues;
+    const collection = match.params.id;
+    console.log(collection, "IN RECIPE FORM");
     const imageData = new FormData();
     imageData.append('image', image);
     submitHandler(
@@ -34,7 +35,7 @@ const RecipeForm: FunctionComponent<RecipeFormProps> = (props) => {
         imageData,
         ingredients,
         instructions,
-        collection: match.params.collectionId
+        collection
       },
       history
     );
@@ -57,7 +58,7 @@ const RecipeForm: FunctionComponent<RecipeFormProps> = (props) => {
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     setFormValues((formValues: IRecipeValues) => ({
       ...formValues,
-      image: e.target.files && e.target.files[0]
+      image: e.target.files ? e.target.files[0] : []
     }));
   }
 

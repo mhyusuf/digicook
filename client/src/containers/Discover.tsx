@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { getPublicCollections, getPublicRecipes } from '../actions';

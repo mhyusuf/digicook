@@ -26,7 +26,8 @@ interface ProcessImageInput {
   height: number
 }
 
-const processImage = async ({ buffer, width, height }: ProcessImageInput) : Promise<Buffer> =>
-  await sharp(buffer).resize({ width, height }).png().toBuffer();
+const processImage = async ({ buffer, width, height }: ProcessImageInput) : Promise<Buffer> => {
+  return await sharp(buffer).resize({ width, height }).png().toBuffer();
+}
 
 export default { upload, processImage };

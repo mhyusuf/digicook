@@ -2,9 +2,11 @@ import Collection, {ICollection} from '../models/collection';
 import Recipe, {IRecipe} from '../models/recipe';
 import User, {IUser} from '../models/user';
 import { RequestWithQueryParam, RequestWithRecipeInfo, RequestWithUserAuth } from '../interfaces/requests';
-import { Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import { Request, Response } from 'express';
-const { processImage } = require('../services/imageUpload');
+
+import imgService from '../services/imageUpload';
+const { processImage } = imgService;
 
 // Sends back an array of Recipe objects to client, given a string as req.query.q
 exports.getRecipes = async (req: RequestWithQueryParam, res: Response) : Promise<void> => {
@@ -68,13 +70,15 @@ exports.getRecipeImage = async (req: Request, res: Response) : Promise<void> => 
 exports.postRecipe = async (req: RequestWithRecipeInfo, res: Response) : Promise<void> => {
   try {
     const { name, category, instructions, image, ingredients, collection } = req.body;
+    const collectionObj = await Collection.findById(collection);
+    console.log(collectionObj);
     const recipe = await Recipe.create({
       name,
       category,
       instructions,
       image,
       ingredients,
-      _collection: collection,
+      _collection: collectionObj._id,
       _user: req.user._id
     });
     await Collection.findByIdAndUpdate(collection, {
@@ -90,9 +94,9 @@ exports.postRecipe = async (req: RequestWithRecipeInfo, res: Response) : Promise
 // Sends status code back to client
 exports.postRecipeImage = async (req: RequestWithUserAuth, res: Response) : Promise<void> => {
   try {
-    const _id: string = req.params.id;
+    const idStr: string = req.params.id;
     const _user: Schema.Types.ObjectId = req.user._id;
-    const recipe = await Recipe.findOne({ _id, _user });
+    const recipe = await Recipe.findOne({ _id: mongoose.Types.ObjectId(idStr), _user });
     if (!recipe) throw new Error();
     const buffer = await processImage({
       buffer: req.file.buffer,
@@ -103,7 +107,8 @@ exports.postRecipeImage = async (req: RequestWithUserAuth, res: Response) : Prom
     await recipe.save();
     res.send();
   } catch (e) {
-    res.sendStatus(400);
+    res.status(400);
+    res.send(e.message);
   }
 };
 
@@ -126,7 +131,8 @@ exports.updateRecipe = async (req: RequestWithRecipeInfo, res: Response) : Promi
     );
     res.send(updatedRecipe);
   } catch (e) {
-    res.sendStatus(404);
+    res.status(404);
+    res.send(e.message);
   }
 };
 
