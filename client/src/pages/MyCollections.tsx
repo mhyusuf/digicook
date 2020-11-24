@@ -6,7 +6,7 @@ import { getUserCollections, showMenu } from '../actions';
 import CollectionList from '../containers/CollectionList';
 import Search from '../components/Search';
 
-function MyCollections({ _id, collections, getUserCollections, showMenu }) {
+function MyCollections({ _id, collections, getUserCollections, showMenu }: any) {
   const [query, setQuery] = useState('');
   useEffect(() => {
     getUserCollections(_id, query);
@@ -22,7 +22,7 @@ function MyCollections({ _id, collections, getUserCollections, showMenu }) {
         <div className="right menu">
           <Search
             value={query}
-            onChange={e => setQuery(e.target.value)}
+            onChange={(e: any) => setQuery(e.target.value)}
             placeholder="Search my collections"
           />
           <div className="item">
@@ -46,7 +46,7 @@ function MyCollections({ _id, collections, getUserCollections, showMenu }) {
   );
 }
 
-function mapStateToProps({ auth, collections }) {
+function mapStateToProps({ auth, collections }: any) {
   return { _id: auth._id, collections: collections.collectionList };
 }
 

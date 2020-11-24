@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { ICollectionWithUserObj } from '../interfaces/model';
 import CollectionListItem from '../components/CollectionListItem';
 
 
-function CollectionList({ collections }: {collections: ICollectionWithUserObj[]}) {
+interface CollectionListProps {
+  collections: ICollectionWithUserObj[]
+}
+
+const CollectionList: FunctionComponent<CollectionListProps> = (props) => {
+  const { collections } = props;
   return (
     <div data-test="CollectionListComponent" className="ui cards">
       {collections.map(collection => (

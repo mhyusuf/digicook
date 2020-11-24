@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 
 import { getPublicCollections, getPublicRecipes } from '../actions';
@@ -12,7 +12,7 @@ function Discover({
   recipes,
   getPublicCollections,
   getPublicRecipes
-}) {
+}: any) {
   const [renderCollections, setRenderCollections] = useState(true);
   const [query, setQuery] = useState('');
   useEffect(() => {
@@ -37,7 +37,7 @@ function Discover({
         </div>
         <Search
           value={query}
-          onChange={e => setQuery(e.target.value)}
+          onChange={(e: any) => setQuery(e.target.value)}
           placeholder={`Search ${
             renderCollections ? 'collections' : 'recipes'
           }`}
@@ -55,7 +55,7 @@ function Discover({
 }
 
 // Get states from the global state
-function mapStateToProps(state) {
+function mapStateToProps(state: any) {
   return {
     collections: state.collections.collectionList,
     recipes: state.collections.recipeList

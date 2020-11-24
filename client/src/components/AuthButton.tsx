@@ -1,8 +1,7 @@
 import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 
 
-interface AuthProps extends RouteComponentProps {
+interface AuthProps {
   isLoggedIn: boolean;
 }
 

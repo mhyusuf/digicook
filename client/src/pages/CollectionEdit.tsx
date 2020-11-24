@@ -10,7 +10,7 @@ function CollectionEdit({
   getCollectionDetail,
   editCollection,
   match
-}) {
+}: any) {
   useEffect(() => {
     getCollectionDetail(match.params.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,7 +40,7 @@ function CollectionEdit({
         {collection._id ? (
           <CollectionForm
             initialState={initialState}
-            submitHandler={(...args) => editCollection(collection._id, ...args)}
+            submitHandler={(...args: any) => editCollection(collection._id, ...args)}
           />
         ) : (
           'Loading'
@@ -50,7 +50,7 @@ function CollectionEdit({
   );
 }
 
-function mapStateToProps({ collections }) {
+function mapStateToProps({ collections }: any) {
   return { collection: collections.collectionDetail };
 }
 

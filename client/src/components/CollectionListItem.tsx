@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import React, { FunctionComponent, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from './ModalConfirm';
 import { deleteCollection } from '../actions';
 import { ICollectionWithUserObj } from '../interfaces/model';
-import { History } from 'history';
 
 
-
-interface CollectionListItemProps extends RouteComponentProps {
+interface CollectionListItemProps {
   collection: ICollectionWithUserObj;
-  history: History<any>;
-  deleteCollection: (_id: string) => Promise<void>;
+  deleteCollection: (_id: string) => void;
   menus: boolean;
 }
 
-export function CollectionListItem({ collection, history, deleteCollection, menus }: CollectionListItemProps) {
+export const CollectionListItem: FunctionComponent<CollectionListItemProps> = (props) : JSX.Element => {
+  const { collection, deleteCollection, menus } = props;
+  
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const history = useHistory();
+  
   function toggleModal() {
     setShowDeleteModal(state => !state);
   }
@@ -104,6 +104,4 @@ function mapStateToProps({ menus }: { menus: boolean }) {
   return { menus };
 }
 
-export default withRouter(
-  connect(mapStateToProps, { deleteCollection })(CollectionListItem)
-);
+export default connect(mapStateToProps, { deleteCollection })(CollectionListItem);

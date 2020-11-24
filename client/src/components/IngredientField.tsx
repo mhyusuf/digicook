@@ -1,9 +1,7 @@
-import React, { ChangeEventHandler } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import React, { ChangeEventHandler, FunctionComponent } from 'react';
 
 
-
-interface IngredientFieldProps extends RouteComponentProps {
+interface IngredientFieldProps {
   idx: number;
   onChange: ChangeEventHandler<any>;
   value: {
@@ -13,7 +11,8 @@ interface IngredientFieldProps extends RouteComponentProps {
   onRemove: (idx: number) => void;
 }
 
-function IngredientField({ idx, onChange, value, onRemove }: IngredientFieldProps) {
+const IngredientField: FunctionComponent<IngredientFieldProps> = (props) => {
+  const { idx, onChange, value, onRemove } = props;
   return (
     <>
       {idx === 0 && (

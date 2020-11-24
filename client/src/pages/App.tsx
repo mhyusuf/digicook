@@ -7,7 +7,7 @@ import { IState } from '../interfaces/state';
 import AuthenticatedApp from './AuthenticatedApp';
 import UnauthenticatedApp from './UnauthenticatedApp';
 
-function App ({ user, getUser }: {user?: IUser, getUser: ActionCreator<any>}) : JSX.Element {
+function App ({ user, getUser }: {user?: IUser, getUser: () => void}) : JSX.Element {
   // When user enters page
   useEffect(() => {
     getUser(); // Try to get user obj (check if user is logged in)

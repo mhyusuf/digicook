@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEventHandler, ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 
 import { getCollectionDetail } from '../actions';
 import RecipeList from '../containers/RecipeList';
 import Search from '../components/Search';
 
-function CollectionDetail({ match, collection, getCollectionDetail, history }) {
+function CollectionDetail({ match, collection, getCollectionDetail, history }: any) {
   const [query, setQuery] = useState('');
   useEffect(() => {
     getCollectionDetail(match.params.id, query);
@@ -19,7 +19,7 @@ function CollectionDetail({ match, collection, getCollectionDetail, history }) {
         <div className="right menu">
           <Search
             value={query}
-            onChange={e => setQuery(e.target.value)}
+            onChange={(e: any) => setQuery(e.target.value)}
             placeholder={`Search ${collection.name}`}
           />
           <div className="item">
@@ -32,14 +32,12 @@ function CollectionDetail({ match, collection, getCollectionDetail, history }) {
       <RecipeList recipes={collection._recipes} />
     </div>
   ) : (
-    'Loading'
+    <p>'Loading'</p>
   );
 }
 
-function mapStateToProps({ collections }) {
+function mapStateToProps({ collections }: any) {
   return { collection: collections.collectionDetail };
 }
 
-export default connect(mapStateToProps, { getCollectionDetail })(
-  CollectionDetail
-);
+export default connect(mapStateToProps, { getCollectionDetail })(CollectionDetail);

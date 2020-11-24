@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 
 import RecipeForm from '../containers/RecipeForm';
 import { getRecipe, editRecipe } from '../actions';
+import { ICollectionWithUserId, ICollectionWithUserObj } from '../interfaces/model';
 
-function RecipeEdit({ recipe, getRecipe, editRecipe, match, history }) {
+function RecipeEdit({ recipe, getRecipe, editRecipe, match, history }: any) {
   useEffect(() => {
     getRecipe(match.params.recipeId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,17 +34,17 @@ function RecipeEdit({ recipe, getRecipe, editRecipe, match, history }) {
       </div>
       {recipe._id ? (
         <RecipeForm
-          submitHandler={(...args) => editRecipe(recipe._id, ...args)}
+          submitHandler={(...args: any) => editRecipe(recipe._id, ...args)}
           initialState={initialState}
         />
       ) : (
-        'Loading'
+        <p>Loading</p>
       )}
     </>
   );
 }
 
-function mapStateToProps({ collections }) {
+function mapStateToProps({ collections }: any) {
   return { recipe: collections.recipe };
 }
 

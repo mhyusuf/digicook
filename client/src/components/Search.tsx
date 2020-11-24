@@ -1,9 +1,9 @@
 import React, { ChangeEventHandler } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-interface SearchProps extends RouteComponentProps {
+interface SearchProps {
   value: string;
-  onChange: () => ChangeEventHandler<string>;
+  onChange: (e: any) => void;
   placeholder: string;
 }
 

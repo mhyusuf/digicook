@@ -13,7 +13,7 @@ function RecipeDetail({
   match,
   history,
   menus
-}) {
+}: any) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
     setShowDeleteModal(state => !state);
@@ -72,7 +72,7 @@ function RecipeDetail({
                 </tr>
               </thead>
               <tbody>
-                {recipe.ingredients.map(({ _id, name, quantity }) => {
+                {recipe.ingredients.map(({ _id, name, quantity }: any) => {
                   return (
                     <tr key={_id} className="item">
                       <td data-label="Ingredient">{name}</td>
@@ -100,7 +100,7 @@ function RecipeDetail({
   );
 }
 
-function mapStateToProps({ collections, menus }) {
+function mapStateToProps({ collections, menus }: any) {
   return { recipe: collections.recipe, menus };
 }
 

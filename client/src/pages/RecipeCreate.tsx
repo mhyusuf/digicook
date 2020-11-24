@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { createRecipe } from '../actions';
 import RecipeForm from '../containers/RecipeForm';
 
-function RecipeCreate({ createRecipe }) {
-  const initalFormState = {
+const RecipeCreate: FunctionComponent<any> = ({ createRecipe }: any) => {
+  const intialFormState = {
     name: '',
     category: '',
     image: '',
@@ -27,7 +27,7 @@ function RecipeCreate({ createRecipe }) {
           </div>
         </div>
       </div>
-      <RecipeForm submitHandler={createRecipe} initialState={initalFormState} />
+      <RecipeForm submitHandler={createRecipe} initialState={intialFormState} />
     </>
   );
 }
