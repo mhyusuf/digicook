@@ -1,16 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, match, RouteComponentProps } from 'react-router-dom';
 
 import CollectionForm from '../containers/CollectionForm';
 import { getCollectionDetail, editCollection } from '../actions';
+import { CollectionDetailCollection } from '../interfaces/model';
+import { ICollectionValues } from '../interfaces/inputs';
+import { History } from 'history';
 
-function CollectionEdit({
-  collection,
-  getCollectionDetail,
-  editCollection,
-  match
-}: any) {
+interface MatchInterface {
+  id: string;
+}
+
+interface CollectionEditProps extends RouteComponentProps{
+  collection: CollectionDetailCollection;
+  getCollectionDetail:(_id:string, query?:string) => void;
+  editCollection: (_id:string, updates: ICollectionValues, history: History<any>) => void;
+  match: match<MatchInterface>;
+}
+
+const CollectionEdit: FunctionComponent<CollectionEditProps> = (props) => {
+  const { collection, getCollectionDetail, editCollection, match, history } = props;
+
   useEffect(() => {
     getCollectionDetail(match.params.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,10 +51,10 @@ function CollectionEdit({
         {collection._id ? (
           <CollectionForm
             initialState={initialState}
-            submitHandler={(...args: any) => editCollection(collection._id, ...args)}
+            submitHandler={(updates: ICollectionValues) => editCollection(collection._id, updates, history)}
           />
         ) : (
-          'Loading'
+          <p>'Loading'</p>
         )}
       </div>
     </>

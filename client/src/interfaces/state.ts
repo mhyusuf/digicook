@@ -1,15 +1,15 @@
 import { Schema } from 'mongoose';
-import { IUser, IRecipe, ICollectionWithUserObj, ICollectionWithUserId } from './model';
+import { IUser, IRecipe, ICollection } from './model';
 
 export interface IState {
   auth?: IUser
-  collections?: {
-    collectionList?: ICollectionWithUserId[] | ICollectionWithUserObj[];
-    collectionDetail?: ICollectionWithUserId | ICollectionWithUserObj;
-    recipeList?: {
+  collections: {
+    collectionList: ICollection[] | ICollection[];
+    collectionDetail: ICollection | ICollection;
+    recipeList: {
       _id: Schema.Types.ObjectId;
     }[];
-    recipe?: IRecipe;
+    recipe: IRecipe;
   }
-  menus?: boolean;
+  menus: boolean;
 }

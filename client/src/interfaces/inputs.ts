@@ -1,8 +1,11 @@
+import { IIngredient } from './model'
+
 export interface ICollectionValues {
   name?: string;
   description?: string;
-  isPrivate?: boolean;
+  isPrivate: boolean;
   imageData?: FormData;
+  image?: any;
 }
 
 export interface IRecipeValues {
@@ -10,9 +13,7 @@ export interface IRecipeValues {
   category?: string;
   instructions?: string;
   imageData?: FormData;
-  ingredients?: {
-    name: string;
-    quantity: string;
-  }[]
-  collection?: string
+  ingredients?: IIngredient[]
+  collection?: string;
+  image?: any;
 }

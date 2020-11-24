@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { ICollectionValues } from '../interfaces/inputs';
+import { History } from 'history';
+
 
 import CollectionForm from '../containers/CollectionForm';
 import { createCollection } from '../actions';
 
-function CollectionCreate({ createCollection }: any) {
-  const initialState = {
+interface CollectionCreateProps {
+  createCollection: (x: ICollectionValues, y: History<any>) => void
+}
+
+const CollectionCreate: FunctionComponent<CollectionCreateProps> = (props) => {
+  const { createCollection } = props;
+  const initialState: ICollectionValues = {
     name: '',
     description: '',
     image: '',
