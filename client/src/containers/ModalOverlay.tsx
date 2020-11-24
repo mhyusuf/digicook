@@ -1,14 +1,11 @@
-import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import React, { FunctionComponent } from 'react';
 
-interface ModalOverlayProps extends RouteComponentProps {
+interface ModalOverlayProps {
   show: boolean;
-  children: JSX.Element | JSX.Element[];
-  location: any;
-  match: any;
 }
 
-function ModalOverlay({ show, children }: any) {
+const ModalOverlay: FunctionComponent<ModalOverlayProps> = (props) => {
+  const { show, children } = props;
   return show ? (
     <div className="Modal">
       <div className="Modal__overlay">{children}</div>

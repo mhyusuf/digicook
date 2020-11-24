@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import CollectionForm from '../containers/CollectionForm';
 import { createCollection } from '../actions';
 
-function CollectionCreate({ createCollection }) {
+function CollectionCreate({ createCollection }: any) {
   const initialState = {
     name: '',
     description: '',

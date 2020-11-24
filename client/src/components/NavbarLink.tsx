@@ -1,12 +1,14 @@
-import React from 'react';
-import { NavLink, RouteComponentProps } from 'react-router-dom';
+import { PromiseProvider } from 'mongoose';
+import React, { FunctionComponent } from 'react';
+import { NavLink } from 'react-router-dom';
 
-interface NavbarLinkProps extends RouteComponentProps {
+interface NavbarLinkProps {
   text: string;
   to: string;
 }
 
-function NavbarLink({ text, to }: NavbarLinkProps) {
+const NavbarLink: FunctionComponent<NavbarLinkProps> = (props) => {
+  const { text, to } = props;
   return (
     <li data-test="NavbarLinkComponent">
       <NavLink // Component imported from react-router-dom

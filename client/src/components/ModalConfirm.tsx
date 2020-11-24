@@ -1,19 +1,14 @@
-import { History } from 'history';
-import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import { ActionCreator } from 'redux';
+import React, { FunctionComponent } from 'react';
 
-interface ModalConfirmProps extends RouteComponentProps {
+interface ModalConfirmProps {
   headerText: string;
   children: JSX.Element | JSX.Element[];
   onCancel: () => void;
-  onConfirm: () => ActionCreator<any>;
-  history: History<any>;
-  location: any;
-  match: any;
+  onConfirm: () => void;
 }
 
-function ModalConfirm({ headerText, children, onCancel, onConfirm }: any) {
+const ModalConfirm: FunctionComponent<ModalConfirmProps> = (props) => {
+  const { headerText, children, onCancel, onConfirm } = props;
   return (
     <div className="ui modal" style={{ display: 'block' }}>
       <div className="header">{headerText}</div>

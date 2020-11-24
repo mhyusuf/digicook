@@ -1,12 +1,13 @@
-import React, { EventHandler } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import React, { FunctionComponent } from 'react';
 
-interface StatusRadioProps extends RouteComponentProps {
+
+interface StatusRadioProps {
   value: boolean;
-  onStatusChange: (status: boolean) => EventHandler<any>;
+  onStatusChange: (status: boolean) => void;
 }
 
-function StatusRadio({ value, onStatusChange }: StatusRadioProps) {
+const StatusRadio: FunctionComponent<StatusRadioProps> = (props) => {
+  const { value, onStatusChange } = props;
   return (
     <div className="inline fields">
       <label>Collection status:</label>

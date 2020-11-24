@@ -1,38 +1,44 @@
-import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { EventHandler, useState } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import FormField from '../components/FormInput';
 import StatusRadio from '../components/StatusRadio';
 
-export function CollectionForm({ initialState, submitHandler, history }) {
+interface CollectionFormProps {
+  props: RouteComponentProps;
+  submitHandler: EventHandler<any>;
+  initialState: any;
+}
+
+export function CollectionForm({ initialState, submitHandler, ...props }: any) {
   const [formValues, setFormValues] = useState(initialState);
 
-  function handleSubmit(e) {
+  function handleSubmit(e: any) {
     e.preventDefault();
     const { name, description, image, isPrivate } = formValues;
     // The FormData type is why we later use the 'multer' library
     const imageData = new FormData();
     imageData.append('image', image);
-    submitHandler({ name, description, isPrivate, imageData }, history);
+    submitHandler({ name, description, isPrivate, imageData }, props.history);
     setFormValues({ name: '', description: '', image: '', isPrivate: false });
   }
 
-  function handleChange(e) {
-    setFormValues(formValues => ({
+  function handleChange(e: any) {
+    setFormValues((formValues: any) => ({
       ...formValues,
       [e.target.name]: e.target.value
     }));
   }
 
-  function handleImageChange(e) {
-    setFormValues(formValues => ({
+  function handleImageChange(e: any) {
+    setFormValues((formValues: any) => ({
       ...formValues,
       image: e.target.files[0]
     }));
   }
 
-  function handleStatusChange(status) {
-    setFormValues(formValues => ({
+  function handleStatusChange(status: boolean) : void {
+    setFormValues((formValues: any) => ({
       ...formValues,
       isPrivate: status
     }));

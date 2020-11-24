@@ -1,14 +1,28 @@
-import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { FunctionComponent, useState } from 'react';
+import { withRouter, match, RouteComponentProps } from 'react-router-dom';
 
 import FormField from '../components/FormInput';
 import IngredientField from '../components/IngredientField';
 import { CATEGORY_OPTIONS } from '../categoryOptions';
 
-function RecipeForm({ initialState, submitHandler, history, match }) {
-  const [formValues, setFormValues] = useState(initialState);
 
-  function handleSubmit(e) {
+interface MatchInterface {
+  collectionId: string;
+  recipeId: string;
+}
+
+interface RecipeFormProps extends RouteComponentProps {
+  initialState: any;
+  submitHandler: any;
+  match: match<MatchInterface>
+}
+
+const RecipeForm: FunctionComponent<RecipeFormProps> = (props) => {
+  const { initialState, submitHandler, match, history } = props;
+  const [formValues, setFormValues] = useState(initialState);
+  console.log(match.params.collectionId);
+
+  function handleSubmit(e: any) {
     e.preventDefault();
     const { name, category, image, ingredients, instructions } = formValues;
     const imageData = new FormData();
@@ -20,7 +34,7 @@ function RecipeForm({ initialState, submitHandler, history, match }) {
         imageData,
         ingredients,
         instructions,
-        collection: match.params.id
+        collection: match.params.collectionId
       },
       history
     );
@@ -33,23 +47,23 @@ function RecipeForm({ initialState, submitHandler, history, match }) {
     });
   }
 
-  function handleChange(e) {
-    setFormValues(formValues => ({
+  function handleChange(e: any) {
+    setFormValues((formValues: any) => ({
       ...formValues,
       [e.target.name]: e.target.value
     }));
   }
 
-  function handleImageChange(e) {
-    setFormValues(formValues => ({
+  function handleImageChange(e: any) {
+    setFormValues((formValues: any) => ({
       ...formValues,
       image: e.target.files[0]
     }));
   }
 
-  function addIngredientField(e) {
+  function addIngredientField(e: any) {
     e.preventDefault();
-    setFormValues(formValues => {
+    setFormValues((formValues: any) => {
       return {
         ...formValues,
         ingredients: [...formValues.ingredients, { name: '', quantity: '' }]
@@ -57,15 +71,15 @@ function RecipeForm({ initialState, submitHandler, history, match }) {
     });
   }
 
-  function handleIngredientChange(e) {
+  function handleIngredientChange(e: any) {
     const updatedIngredients = [...formValues.ingredients];
     updatedIngredients[e.target.dataset.idx][e.target.name] = e.target.value;
     setFormValues({ ...formValues, ingredients: updatedIngredients });
   }
 
-  function removeIngredientField(idx) {
+  function removeIngredientField(idx: number) {
     const updatedIngredients = formValues.ingredients.filter(
-      (ingredient, i) => {
+      (ingredient: any, i: number) => {
         return i !== idx;
       }
     );
@@ -98,7 +112,7 @@ function RecipeForm({ initialState, submitHandler, history, match }) {
             );
           })}
         </FormField>
-        {formValues.ingredients.map((ingredient, i) => {
+        {formValues.ingredients.map((ingredient: any, i: number) => {
           return (
             <IngredientField
               key={i}

@@ -28,7 +28,7 @@ export const getUser = () => async (dispatch: Dispatch<any>) => {
 
 // Sets the state of store's 'collectionList' to the return of a call to server's collectionController
 // This controller call returns all public collections matching an optional query (string) parameter
-export const getPublicCollections = (query: string) => async (dispatch: Dispatch<any>) => {
+export const getPublicCollections = (query?: string) => async (dispatch: Dispatch<any>) => {
   const queryString = query ? `&q=${query}` : '';
   const { data } = await axios.get(`/api/collections?pub=true${queryString}`);
   dispatch({ type: GET_COLLECTION_LIST, payload: data });
@@ -158,7 +158,7 @@ export const editRecipe = (_id: string, updates: IRecipeValues, history: History
 
 // Deletes recipe in DB matching passed _id
 // Filters recipes in store.collectionDetail to exclude any matching passed _id
-export const deleteRecipe = (_id: string, history: History<any>) => async (dispatch: Dispatch<any>) => {
+export const deleteRecipe = (_id: string) => async (dispatch: Dispatch<any>) => {
   await axios.delete(`/api/recipes/${_id}`);
   dispatch({ type: DELETE_RECIPE, payload: _id });
 };
