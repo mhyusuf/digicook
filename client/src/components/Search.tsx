@@ -1,5 +1,4 @@
-import React, { ChangeEventHandler } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import React from 'react';
 
 interface SearchProps {
   value: string;

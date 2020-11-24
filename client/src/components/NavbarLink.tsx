@@ -1,4 +1,3 @@
-import { PromiseProvider } from 'mongoose';
 import React, { FunctionComponent } from 'react';
 import { NavLink } from 'react-router-dom';
 

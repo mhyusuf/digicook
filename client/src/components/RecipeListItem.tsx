@@ -6,7 +6,6 @@ import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from './ModalConfirm';
 import { deleteRecipe } from '../actions';
 import { IRecipe } from '../interfaces/model';
-import { Schema } from 'mongoose';
 
 interface RecipeListItemProps {
   recipe: IRecipe;

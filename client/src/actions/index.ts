@@ -104,6 +104,7 @@ export const createRecipe = (values: IRecipeValues, history: History<any>) => as
     ingredients,
     collection
   } = values;
+  console.log(collection, "FROM ACTION CREATOR");
   const recipeRes = await axios.post('/api/recipes', {
     name,
     category,

@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { IIngredient } from './model'
 
 export interface ICollectionValues {

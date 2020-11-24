@@ -27,6 +27,6 @@ export interface RequestWithRecipeInfo extends RequestWithUserAuth{
     instructions: string;
     image: Buffer;
     ingredients: {name: string, quantity: string}[]
-    collection: Schema.Types.ObjectId
+    collection: string;
   }
 }
