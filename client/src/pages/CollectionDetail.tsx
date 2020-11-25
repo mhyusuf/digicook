@@ -32,7 +32,7 @@ const CollectionDetail: FunctionComponent<CollectionDetailProps> = (props) => {
         <div className="right menu">
           <Search
             value={query}
-            onChange={(e: any) => setQuery(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
             placeholder={`Search ${collection.name}`}
           />
           <div className="item">
@@ -49,7 +49,7 @@ const CollectionDetail: FunctionComponent<CollectionDetailProps> = (props) => {
   );
 }
 
-function mapStateToProps({ collections }: any) {
+function mapStateToProps({ collections }: {collections: {collectionDetail: CollectionDetailCollection}}) {
   return { collection: collections.collectionDetail };
 }
 

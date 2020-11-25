@@ -61,7 +61,7 @@ const CollectionEdit: FunctionComponent<CollectionEditProps> = (props) => {
   );
 }
 
-function mapStateToProps({ collections }: any) {
+function mapStateToProps({collections}: {collections: {collectionDetail: CollectionDetailCollection}}) {
   return { collection: collections.collectionDetail };
 }
 

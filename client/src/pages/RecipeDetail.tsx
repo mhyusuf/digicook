@@ -5,15 +5,14 @@ import { connect } from 'react-redux';
 import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from '../components/ModalConfirm';
 import { getRecipe, deleteRecipe } from '../actions';
-import { IRecipe } from '../interfaces/model';
-import { IState } from '../interfaces/state';
+import { IRecipeWithIds, IIngredientWithOwnId } from '../interfaces/model';
 
 interface MatchInterface {
   recipeId: string;
 }
 
 interface RecipeDetailProps extends RouteComponentProps{
-  recipe: IRecipe;
+  recipe: IRecipeWithIds;
   getRecipe: (x: string) => void;
   deleteRecipe: (x: string) => void;
   match: match<MatchInterface>;
@@ -69,7 +68,7 @@ const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
       <div className="ui attached segment RecipeDetail">
         <div className="RecipeDetail__top-box">
           <div className="RecipeDetail__img-box">
-            <img src={`/api/recipes/${recipe._id}/image`} alt={recipe.name} />
+            <img src={recipe._id && `/api/recipes/${recipe._id}/image`} alt={recipe.name} />
           </div>
           <div>
             <table className="ui celled table">
@@ -80,7 +79,7 @@ const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
                 </tr>
               </thead>
               <tbody>
-                {recipe.ingredients.map(({ _id, name, quantity }: any) => {
+                {recipe.ingredients.map(({ _id, name, quantity }: IIngredientWithOwnId) => {
                   return (
                     <tr key={`${_id}/${name}`} className="item">
                       <td data-label="Ingredient">{name}</td>
@@ -99,7 +98,7 @@ const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
         <ModalConfirm
           headerText="Delete recipe"
           onCancel={toggleModal}
-          onConfirm={() => deleteRecipe(recipe._id)}
+          onConfirm={() => deleteRecipe(recipe._id.toString())}
         >
           <p>Are you sure you want to delete this recipe?</p>
         </ModalConfirm>
@@ -108,7 +107,7 @@ const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
   );
 }
 
-function mapStateToProps({ collections, menus }: IState) {
+function mapStateToProps({ collections, menus }: {collections: {recipe: IRecipeWithIds}, menus: boolean }) {
   return { recipe: collections.recipe, menus };
 }
 

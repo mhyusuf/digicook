@@ -1,11 +1,11 @@
 import { Schema } from 'mongoose';
-import { IUser, IRecipe, ICollection } from './model';
+import { IUser, IRecipe, ICollection, CollectionDetailCollection} from './model';
 
 export interface IState {
-  auth?: IUser
+  auth: IUser
   collections: {
-    collectionList: ICollection[] | ICollection[];
-    collectionDetail: ICollection | ICollection;
+    collectionList: ICollection[];
+    collectionDetail: CollectionDetailCollection;
     recipeList: {
       _id: Schema.Types.ObjectId;
     }[];

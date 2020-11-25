@@ -1,33 +1,45 @@
 import { Request, Response } from 'express';
-import { Model, Schema } from 'mongoose';
+import { Schema, Types } from 'mongoose';
 import Collection, { ICollection } from '../models/collection';
-import { RequestWithQueryParam, RequestWithCollectionInfo, RequestWithUserAuth } from '../interfaces/requests';
-import Recipe, { IRecipe } from '../models/recipe';
-import User, { IUser } from '../models/user';
+import {
+  RequestWithQueryParam,
+  RequestWithCollectionInfo,
+  RequestWithUserAuth
+} from '../interfaces/requests';
+import Recipe from '../models/recipe';
+import { IUser } from '../models/user';
+import { ParsedQs } from 'qs';
 
 import imgService from '../services/imageUpload';
 const { processImage } = imgService;
 
 // Sends back collections to client from following parameters on req object:
 // q (search query string), user (_user mongo string), pub (Boolean, if public/private)
-exports.getCollections = async (req: Request, res: Response) : Promise<void> => {
+exports.getCollections = async (req: Request, res: Response): Promise<void> => {
   try {
-    const matchObj: any = {};
-    const { q, user, pub } = req.query;
-    // If a user is logged in, assign it to the match obj - 
-    if (user) matchObj._user = req.query.user;
+    const matchObj: {
+      _user?: any;
+      isPrivate?: boolean;
+      name?: { $regex: string; $options: string };
+    } = {};
+    const { q, user, pub }: ParsedQs = req.query;
+    // If a user is logged in, assign it to the match obj -
+    if (user) matchObj._user = Types.ObjectId(req.query.user.toString());
     if (pub === 'true') matchObj.isPrivate = false;
     // If a query string is provided, filter by passing it as RegEx, case-insensitive
     if (q) {
-      matchObj.name = {
-        $regex: q,
+      const nameStr = {
+        $regex: q.toString(),
         $options: 'i'
       };
+      matchObj.name = nameStr;
     }
-    
+
     // Assign and return matching collections,
     // replacing the _user string id with the full user obj
-    const collections: ICollection[] = await Collection.find(matchObj).populate('_user');
+    const collections: ICollection[] = await Collection.find(matchObj).populate(
+      '_user'
+    );
     res.send(collections);
   } catch (e) {
     res.sendStatus(500);
@@ -35,7 +47,10 @@ exports.getCollections = async (req: Request, res: Response) : Promise<void> => 
 };
 
 // Sends back png image to client of type Buffer given an id in the URL
-exports.getCollectionImage = async (req: Request, res: Response) : Promise<void> => {
+exports.getCollectionImage = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const collection: ICollection = await Collection.findById(req.params.id);
     res.set('Content-Type', 'image/png');
@@ -47,9 +62,12 @@ exports.getCollectionImage = async (req: Request, res: Response) : Promise<void>
 
 // Sends back a single collection to client, with recipe objs in place of their _id references
 // Accepts a URL param of id, and a query param of q
-exports.getCollectionDetails = async (req: RequestWithQueryParam, res: Response) : Promise<void> => {
+exports.getCollectionDetails = async (
+  req: RequestWithQueryParam,
+  res: Response
+): Promise<void> => {
   try {
-    const matchObj: any = {};
+    const matchObj: { name?: { $regex: string; $options: string } } = {};
     const q: string = req.query.q;
     if (q) {
       matchObj.name = {
@@ -71,7 +89,10 @@ exports.getCollectionDetails = async (req: RequestWithQueryParam, res: Response)
 };
 
 // Creates and sends back a new collection to client, given a name, description and isPrivate boolean
-exports.postCollection = async (req: RequestWithCollectionInfo, res: Response) : Promise<void> => {
+exports.postCollection = async (
+  req: RequestWithCollectionInfo,
+  res: Response
+): Promise<void> => {
   try {
     const { name, description, isPrivate } = req.body;
     const user: IUser = req.user;
@@ -90,7 +111,10 @@ exports.postCollection = async (req: RequestWithCollectionInfo, res: Response) :
 };
 
 // Sends back status code to client, given url param id and user object on request object
-exports.postCollectionImage = async (req: RequestWithUserAuth, res: Response) : Promise<void> => {
+exports.postCollectionImage = async (
+  req: RequestWithUserAuth,
+  res: Response
+): Promise<void> => {
   try {
     const _id: string = req.params.id;
     const reqUser: IUser = req.user;
@@ -113,7 +137,10 @@ exports.postCollectionImage = async (req: RequestWithUserAuth, res: Response) : 
 };
 
 // Sends back updated collection to client, given req.params id and req.body name and description
-exports.updateCollection = async (req: Request, res: Response) : Promise<void> => {
+exports.updateCollection = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const { id } = req.params;
     const { name, description } = req.body;
@@ -132,10 +159,15 @@ exports.updateCollection = async (req: Request, res: Response) : Promise<void> =
 };
 
 // Sends back status code to client, given req.params id
-exports.deleteCollection = async (req: Request, res: Response) : Promise<void> => {
+exports.deleteCollection = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const { id } = req.params;
-    const deletedCollection: ICollection = await Collection.findByIdAndDelete(id);
+    const deletedCollection: ICollection = await Collection.findByIdAndDelete(
+      id
+    );
     // Deletes all recipes related to the collection (cascade)
     await Recipe.deleteMany({ _collection: deletedCollection._id });
     res.sendStatus(204);

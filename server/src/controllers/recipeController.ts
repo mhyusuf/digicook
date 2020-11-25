@@ -57,6 +57,7 @@ exports.getRecipe = async (req: Request, res: Response) : Promise<void> => {
 // Given a req.params id, sends back a DB Recipe object's image to client
 exports.getRecipeImage = async (req: Request, res: Response) : Promise<void> => {
   try {
+    console.log(req.params);
     const recipe: IRecipe = await Recipe.findById(req.params.id);
     res.set('Content-Type', 'image/png');
     res.send(recipe.image);
@@ -71,7 +72,6 @@ exports.postRecipe = async (req: RequestWithRecipeInfo, res: Response) : Promise
   try {
     const { name, category, instructions, image, ingredients, collection } = req.body;
     const collectionObj = await Collection.findById(collection);
-    console.log(collectionObj);
     const recipe = await Recipe.create({
       name,
       category,

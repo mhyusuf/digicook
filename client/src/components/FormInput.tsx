@@ -4,7 +4,7 @@ interface FormInputProps {
   label: string;
   name: string;
   type: string;
-  onChange: ChangeEventHandler<any>;
+  onChange: ChangeEventHandler<HTMLElement>;
   value?: string;
 }
 

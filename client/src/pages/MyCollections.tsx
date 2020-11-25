@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { getUserCollections, showMenu } from '../actions';
 import CollectionList from '../containers/CollectionList';
 import Search from '../components/Search';
-import { MyCollectionsCollection } from '../interfaces/model';
+import { MyCollectionsCollection, IUser } from '../interfaces/model';
+import { IState } from '../interfaces/state'
 
 
 
@@ -33,7 +34,7 @@ const MyCollections: FunctionComponent<MyCollectionsProps> = (props) => {
         <div className="right menu">
           <Search
             value={query}
-            onChange={(e: any) => setQuery(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
             placeholder="Search my collections"
           />
           <div className="item">
@@ -57,8 +58,8 @@ const MyCollections: FunctionComponent<MyCollectionsProps> = (props) => {
   );
 }
 
-function mapStateToProps({ auth, collections }: any) {
-  return { _id: auth._id, collections: collections.collectionList };
+function mapStateToProps({ auth, collections }: {auth: IUser, collections: {collectionList: MyCollectionsCollection[]}}) {
+  return { _id: auth._id.toString(), collections: collections.collectionList };
 }
 
 export default connect(mapStateToProps, { getUserCollections, showMenu })(

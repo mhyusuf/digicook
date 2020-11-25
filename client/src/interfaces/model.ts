@@ -1,4 +1,5 @@
 import { Schema, Document } from 'mongoose';
+import { Action } from 'redux';
 
 export interface ICollection extends Document {
   name: string,
@@ -19,9 +20,13 @@ export interface ICollectionWithRecipeObjs extends ICollection {
 export interface ICollectionWithRecipeIds extends ICollection {
   _recipes: Schema.Types.ObjectId[]
 }
+export interface ICollectionWithOwnId extends ICollection {
+  _id: Schema.Types.ObjectId[]
+}
 
 export interface CollectionDetailCollection extends ICollectionWithUserId, ICollectionWithRecipeObjs{};
 export interface MyCollectionsCollection extends ICollectionWithRecipeIds, ICollectionWithUserObj{};
+export interface CollectionListCollection extends ICollectionWithRecipeIds{};
 
 
 export interface IRecipe extends Document {
@@ -34,9 +39,18 @@ export interface IRecipe extends Document {
   _user: Schema.Types.ObjectId | IUser,
 }
 
+export interface IRecipeWithIds extends IRecipe {
+  _id: Schema.Types.ObjectId,
+  ingredients: IIngredientWithOwnId[]
+}
+
 export interface IIngredient {
   name: string,
   quantity: string
+}
+
+export interface IIngredientWithOwnId extends IIngredient {
+  _id: Schema.Types.ObjectId,
 }
 
 export interface IUser extends Document {
@@ -44,4 +58,8 @@ export interface IUser extends Document {
   name: string,
   email: string,
   _id: Schema.Types.ObjectId,
+}
+
+export interface DigiCookAction extends Action {
+  payload: any;
 }
