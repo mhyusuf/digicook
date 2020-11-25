@@ -1,18 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { getPublicCollections, getPublicRecipes } from '../actions';
 import DiscoverCollections from './DiscoverCollections';
 import DiscoverRecipes from './DiscoverRecipes';
 import Search from '../components/Search';
+import { ICollectionWithUserObj, IRecipe } from '../interfaces/model';
 
+
+interface DiscoverProps {
+    collections: ICollectionWithUserObj[];
+    recipes: IRecipe[];
+    getPublicCollections: (query?: string) => void;
+    getPublicRecipes: (query?: string) => void;
+}
 // Deconstruct states and methods as props
-function Discover({
-  collections,
-  recipes,
-  getPublicCollections,
-  getPublicRecipes
-}: any) {
+const Discover: FunctionComponent<DiscoverProps> = (props) => {
+  const { collections, recipes, getPublicCollections, getPublicRecipes } = props;
   const [renderCollections, setRenderCollections] = useState(true);
   const [query, setQuery] = useState('');
   useEffect(() => {
@@ -37,7 +41,7 @@ function Discover({
         </div>
         <Search
           value={query}
-          onChange={(e: any) => setQuery(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
           placeholder={`Search ${
             renderCollections ? 'collections' : 'recipes'
           }`}
@@ -55,10 +59,10 @@ function Discover({
 }
 
 // Get states from the global state
-function mapStateToProps(state: any) {
+function mapStateToProps({collections}: {collections: {collectionList: ICollectionWithUserObj[], recipeList: IRecipe[]}}) {
   return {
-    collections: state.collections.collectionList,
-    recipes: state.collections.recipeList
+    collections: collections.collectionList,
+    recipes: collections.recipeList
   };
 }
 

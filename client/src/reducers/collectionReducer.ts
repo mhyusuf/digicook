@@ -1,4 +1,3 @@
-
 import { Schema } from 'mongoose';
 import {
   DELETE_RECIPE,
@@ -8,6 +7,7 @@ import {
   GET_RECIPE_LIST,
   DELETE_COLLECTION
 } from '../actions/types';
+import { DigiCookAction } from '../interfaces/model';
 
 const initialState = {
   collectionList: [],
@@ -24,7 +24,10 @@ const initialState = {
 
 // Reducers are functions which modify the store state, and are passed as an argument when initializing the store
 // These reducers correspond to the functions in '../actions/index.js'
-const collectionReducer = (state: any = initialState, action: any) => {
+const collectionReducer = (
+  state: any = initialState,
+  action: DigiCookAction
+) => {
   switch (action.type) {
     case GET_COLLECTION_LIST:
       return { ...state, collectionList: action.payload };
@@ -34,7 +37,7 @@ const collectionReducer = (state: any = initialState, action: any) => {
       return {
         ...state,
         collectionList: state.collectionList.filter(
-          ({ _id }: {_id: Schema.Types.ObjectId}) => _id !== action.payload
+          ({ _id }: { _id: Schema.Types.ObjectId }) => _id !== action.payload
         )
       };
     case GET_RECIPE_LIST:
@@ -47,7 +50,7 @@ const collectionReducer = (state: any = initialState, action: any) => {
         collectionDetail: {
           ...state.collectionDetail,
           _recipes: state.collectionDetail._recipes.filter(
-            ({ _id }: {_id: Schema.Types.ObjectId}) => _id !== action.payload
+            ({ _id }: { _id: Schema.Types.ObjectId }) => _id !== action.payload
           )
         }
       };

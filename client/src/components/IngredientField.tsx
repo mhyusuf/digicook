@@ -3,7 +3,7 @@ import React, { ChangeEventHandler, FunctionComponent } from 'react';
 
 interface IngredientFieldProps {
   idx: number;
-  onChange: ChangeEventHandler<any>;
+  onChange: ChangeEventHandler<HTMLInputElement>;
   value: {
     name: string;
     quantity: string;

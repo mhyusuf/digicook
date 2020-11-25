@@ -5,6 +5,7 @@ import { IRecipeValues } from '../interfaces/inputs';
 import FormField from '../components/FormInput';
 import IngredientField from '../components/IngredientField';
 import { CATEGORY_OPTIONS } from '../categoryOptions';
+import { IIngredient } from '../interfaces/model';
 
 interface MatchInterface {
   id: string;
@@ -25,7 +26,6 @@ const RecipeForm: FunctionComponent<RecipeFormProps> = (props) => {
     e.preventDefault();
     const { name, category, image, ingredients, instructions } = formValues;
     const collection = match.params.id;
-    console.log(collection, "IN RECIPE FORM");
     const imageData = new FormData();
     imageData.append('image', image);
     submitHandler(
@@ -115,7 +115,7 @@ const RecipeForm: FunctionComponent<RecipeFormProps> = (props) => {
             );
           })}
         </FormField>
-        {formValues.ingredients && formValues.ingredients.map((ingredient: any, i: number) => {
+        {formValues.ingredients && formValues.ingredients.map((ingredient: IIngredient, i: number) => {
           return formValues.ingredients ? (
             <IngredientField
               key={i}

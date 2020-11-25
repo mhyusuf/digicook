@@ -30,7 +30,7 @@ export const CollectionForm: FunctionComponent<CollectionFormProps> = (props) =>
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setFormValues((formValues: ICollectionValues) => ({
       ...formValues,
-      [e.currentTarget.name]: e.currentTarget.value
+      [e.target.name]: e.target.value
     }));
   }
 

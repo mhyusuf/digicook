@@ -12,6 +12,10 @@ export interface IRecipe extends Document {
   _user: Schema.Types.ObjectId,
 }
 
+export interface IRecipeWithId extends IRecipe {
+  _id: Schema.Types.ObjectId,
+}
+
 const recipeSchema = new Schema(
   {
     name: {

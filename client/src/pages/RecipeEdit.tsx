@@ -6,6 +6,7 @@ import { getRecipe, editRecipe } from '../actions';
 import { History } from 'history';
 import { IRecipe } from '../interfaces/model';
 import { IRecipeValues } from '../interfaces/inputs';
+import { IState } from '../interfaces/state';
 
 interface MatchInterface {
   recipeId: string
@@ -59,8 +60,8 @@ const RecipeEdit: FunctionComponent<RecipeEditProps> = (props) => {
   );
 }
 
-function mapStateToProps({ collections }: any) {
-  return { recipe: collections.recipe };
+function mapStateToProps(state: IState) {
+  return { recipe: state.collections.recipe };
 }
 
 export default connect(mapStateToProps, { getRecipe, editRecipe })(RecipeEdit);

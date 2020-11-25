@@ -7,7 +7,7 @@ function RecipeList({ recipes }: {recipes: IRecipe[]}) {
   return recipes ? (
     <div className="ui bottom attached segment">
       <div className="ui cards">
-        {recipes.map((recipe: any) => 
+        {recipes.map(recipe => 
           <RecipeListItem key={recipe._id} recipe={recipe} />
         )}
       </div>
