@@ -1,26 +1,36 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, match, RouteComponentProps } from 'react-router-dom';
+import { History } from 'history';
 
 import CollectionForm from '../containers/CollectionForm';
 import { getCollectionDetail, editCollection } from '../actions';
 import { CollectionDetailCollection } from '../interfaces/model';
 import { ICollectionValues } from '../interfaces/inputs';
-import { History } from 'history';
 
 interface MatchInterface {
   id: string;
 }
 
-interface CollectionEditProps extends RouteComponentProps{
+interface CollectionEditProps extends RouteComponentProps {
   collection: CollectionDetailCollection;
-  getCollectionDetail:(_id:string, query?:string) => void;
-  editCollection: (_id:string, updates: ICollectionValues, history: History<any>) => void;
+  getCollectionDetail: (_id: string, query?: string) => void;
+  editCollection: (
+    _id: string,
+    updates: ICollectionValues,
+    history: History<any>
+  ) => void;
   match: match<MatchInterface>;
 }
 
 const CollectionEdit: FunctionComponent<CollectionEditProps> = (props) => {
-  const { collection, getCollectionDetail, editCollection, match, history } = props;
+  const {
+    collection,
+    getCollectionDetail,
+    editCollection,
+    match,
+    history
+  } = props;
 
   useEffect(() => {
     getCollectionDetail(match.params.id);
@@ -51,7 +61,9 @@ const CollectionEdit: FunctionComponent<CollectionEditProps> = (props) => {
         {collection._id ? (
           <CollectionForm
             initialState={initialState}
-            submitHandler={(updates: ICollectionValues) => editCollection(collection._id, updates, history)}
+            submitHandler={(updates: ICollectionValues) =>
+              editCollection(collection._id, updates, history)
+            }
           />
         ) : (
           <p>'Loading'</p>
@@ -59,9 +71,13 @@ const CollectionEdit: FunctionComponent<CollectionEditProps> = (props) => {
       </div>
     </>
   );
-}
+};
 
-function mapStateToProps({collections}: {collections: {collectionDetail: CollectionDetailCollection}}) {
+function mapStateToProps({
+  collections
+}: {
+  collections: { collectionDetail: CollectionDetailCollection };
+}) {
   return { collection: collections.collectionDetail };
 }
 

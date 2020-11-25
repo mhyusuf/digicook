@@ -11,6 +11,6 @@ const ModalOverlay: FunctionComponent<ModalOverlayProps> = (props) => {
       <div className="Modal__overlay">{children}</div>
     </div>
   ) : null;
-}
+};
 
 export default ModalOverlay;

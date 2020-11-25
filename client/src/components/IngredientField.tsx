@@ -1,13 +1,12 @@
 import React, { ChangeEventHandler, FunctionComponent } from 'react';
 
-
 interface IngredientFieldProps {
   idx: number;
   onChange: ChangeEventHandler<HTMLInputElement>;
   value: {
     name: string;
     quantity: string;
-  }
+  };
   onRemove: (idx: number) => void;
 }
 
@@ -44,7 +43,7 @@ const IngredientField: FunctionComponent<IngredientFieldProps> = (props) => {
         <button
           className={`ui button`}
           disabled={idx === 0 ? true : false}
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
             onRemove(idx);
           }}
@@ -54,6 +53,6 @@ const IngredientField: FunctionComponent<IngredientFieldProps> = (props) => {
       </div>
     </>
   );
-}
+};
 
 export default IngredientField;

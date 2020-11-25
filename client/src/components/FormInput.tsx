@@ -9,17 +9,28 @@ interface FormInputProps {
 }
 
 const FormInput: FunctionComponent<FormInputProps> = (props) => {
-  const { label, name, type, onChange, value, children} = props;
-  
+  const { label, name, type, onChange, value, children } = props;
+
   function renderInput() {
     switch (type) {
       case 'textarea':
         return (
-          <textarea data-test="FormFieldInput textarea" name={name} rows={2} value={value} onChange={onChange} />
+          <textarea
+            data-test="FormFieldInput textarea"
+            name={name}
+            rows={2}
+            value={value}
+            onChange={onChange}
+          />
         );
       case 'select':
         return (
-          <select data-test="FormFieldInput select" name={name} value={value} onChange={onChange}>
+          <select
+            data-test="FormFieldInput select"
+            name={name}
+            value={value}
+            onChange={onChange}
+          >
             {children ? children : <div />}
           </select>
         );
@@ -43,6 +54,6 @@ const FormInput: FunctionComponent<FormInputProps> = (props) => {
       {renderInput()}
     </div>
   );
-}
+};
 
 export default FormInput;

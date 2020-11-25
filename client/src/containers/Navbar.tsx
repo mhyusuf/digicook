@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-function Navbar({ children }: {children: JSX.Element | JSX.Element[]}) {
+function Navbar({ children }: { children: JSX.Element | JSX.Element[] }) {
   const [showMenu, setShowMenu] = useState(false);
 
   function toggleMenu() {
-    setShowMenu(state => !state);
+    setShowMenu((state) => !state);
   }
 
   return (

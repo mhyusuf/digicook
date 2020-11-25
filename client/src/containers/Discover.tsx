@@ -2,21 +2,25 @@ import React, { useState, useEffect, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { getPublicCollections, getPublicRecipes } from '../actions';
+import { ICollectionWithUserObj, IRecipe } from '../interfaces/model';
 import DiscoverCollections from './DiscoverCollections';
 import DiscoverRecipes from './DiscoverRecipes';
 import Search from '../components/Search';
-import { ICollectionWithUserObj, IRecipe } from '../interfaces/model';
-
 
 interface DiscoverProps {
-    collections: ICollectionWithUserObj[];
-    recipes: IRecipe[];
-    getPublicCollections: (query?: string) => void;
-    getPublicRecipes: (query?: string) => void;
+  collections: ICollectionWithUserObj[];
+  recipes: IRecipe[];
+  getPublicCollections: (query?: string) => void;
+  getPublicRecipes: (query?: string) => void;
 }
 // Deconstruct states and methods as props
 const Discover: FunctionComponent<DiscoverProps> = (props) => {
-  const { collections, recipes, getPublicCollections, getPublicRecipes } = props;
+  const {
+    collections,
+    recipes,
+    getPublicCollections,
+    getPublicRecipes
+  } = props;
   const [renderCollections, setRenderCollections] = useState(true);
   const [query, setQuery] = useState('');
   useEffect(() => {
@@ -41,7 +45,9 @@ const Discover: FunctionComponent<DiscoverProps> = (props) => {
         </div>
         <Search
           value={query}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setQuery(e.target.value)
+          }
           placeholder={`Search ${
             renderCollections ? 'collections' : 'recipes'
           }`}
@@ -56,10 +62,17 @@ const Discover: FunctionComponent<DiscoverProps> = (props) => {
       </div>
     </>
   );
-}
+};
 
 // Get states from the global state
-function mapStateToProps({collections}: {collections: {collectionList: ICollectionWithUserObj[], recipeList: IRecipe[]}}) {
+function mapStateToProps({
+  collections
+}: {
+  collections: {
+    collectionList: ICollectionWithUserObj[];
+    recipeList: IRecipe[];
+  };
+}) {
   return {
     collections: collections.collectionList,
     recipes: collections.recipeList

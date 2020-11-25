@@ -11,7 +11,7 @@ interface MatchInterface {
   recipeId: string;
 }
 
-interface RecipeDetailProps extends RouteComponentProps{
+interface RecipeDetailProps extends RouteComponentProps {
   recipe: IRecipeWithIds;
   getRecipe: (x: string) => void;
   deleteRecipe: (x: string) => void;
@@ -23,7 +23,7 @@ const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
   const { recipe, getRecipe, deleteRecipe, match, history, menus } = props;
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
-    setShowDeleteModal(state => !state);
+    setShowDeleteModal((state) => !state);
   }
 
   useEffect(() => {
@@ -68,7 +68,10 @@ const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
       <div className="ui attached segment RecipeDetail">
         <div className="RecipeDetail__top-box">
           <div className="RecipeDetail__img-box">
-            <img src={recipe._id && `/api/recipes/${recipe._id}/image`} alt={recipe.name} />
+            <img
+              src={recipe._id && `/api/recipes/${recipe._id}/image`}
+              alt={recipe.name}
+            />
           </div>
           <div>
             <table className="ui celled table">
@@ -79,14 +82,16 @@ const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
                 </tr>
               </thead>
               <tbody>
-                {recipe.ingredients.map(({ _id, name, quantity }: IIngredientWithOwnId) => {
-                  return (
-                    <tr key={`${_id}/${name}`} className="item">
-                      <td data-label="Ingredient">{name}</td>
-                      <td date-label="Quantity">{quantity}</td>
-                    </tr>
-                  );
-                })}
+                {recipe.ingredients.map(
+                  ({ _id, name, quantity }: IIngredientWithOwnId) => {
+                    return (
+                      <tr key={`${_id}/${name}`} className="item">
+                        <td data-label="Ingredient">{name}</td>
+                        <td date-label="Quantity">{quantity}</td>
+                      </tr>
+                    );
+                  }
+                )}
               </tbody>
             </table>
           </div>
@@ -105,10 +110,18 @@ const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
       </ModalOverlay>
     </>
   );
-}
+};
 
-function mapStateToProps({ collections, menus }: {collections: {recipe: IRecipeWithIds}, menus: boolean }) {
+function mapStateToProps({
+  collections,
+  menus
+}: {
+  collections: { recipe: IRecipeWithIds };
+  menus: boolean;
+}) {
   return { recipe: collections.recipe, menus };
 }
 
-export default connect(mapStateToProps, { getRecipe, deleteRecipe })(RecipeDetail);
+export default connect(mapStateToProps, { getRecipe, deleteRecipe })(
+  RecipeDetail
+);

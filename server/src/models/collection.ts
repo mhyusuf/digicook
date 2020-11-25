@@ -1,13 +1,12 @@
 import { Schema, model, Document } from 'mongoose'; // Import mongoose schema class
 
-
 export interface ICollection extends Document {
-  name: string,
-  description: string,
-  image: Buffer,
-  isPrivate: boolean,
-  _user: Schema.Types.ObjectId,
-  _recipes: Schema.Types.ObjectId[]
+  name: string;
+  description: string;
+  image: Buffer;
+  isPrivate: boolean;
+  _user: Schema.Types.ObjectId;
+  _recipes: Schema.Types.ObjectId[];
 }
 
 // Create new collection schema

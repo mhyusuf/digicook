@@ -1,7 +1,11 @@
-import Collection, {ICollection} from '../models/collection';
-import Recipe, {IRecipe} from '../models/recipe';
-import User, {IUser} from '../models/user';
-import { RequestWithQueryParam, RequestWithRecipeInfo, RequestWithUserAuth } from '../interfaces/requests';
+import Collection, { ICollection } from '../models/collection';
+import Recipe, { IRecipe } from '../models/recipe';
+import User, { IUser } from '../models/user';
+import {
+  RequestWithQueryParam,
+  RequestWithRecipeInfo,
+  RequestWithUserAuth
+} from '../interfaces/requests';
 import mongoose, { Schema } from 'mongoose';
 import { Request, Response } from 'express';
 
@@ -9,7 +13,10 @@ import imgService from '../services/imageUpload';
 const { processImage } = imgService;
 
 // Sends back an array of Recipe objects to client, given a string as req.query.q
-exports.getRecipes = async (req: RequestWithQueryParam, res: Response) : Promise<void> => {
+exports.getRecipes = async (
+  req: RequestWithQueryParam,
+  res: Response
+): Promise<void> => {
   try {
     const q: string = req.query.q;
     // Aggregate is a Mongo method that executes database operations in given order
@@ -23,7 +30,7 @@ exports.getRecipes = async (req: RequestWithQueryParam, res: Response) : Promise
           localField: '_collection',
           // Local to the collection object, the field is called _id
           foreignField: '_id',
-          // This is used to reference as an internal variable in the lines below 
+          // This is used to reference as an internal variable in the lines below
           as: '_collection'
         }
       },
@@ -44,7 +51,7 @@ exports.getRecipes = async (req: RequestWithQueryParam, res: Response) : Promise
 };
 
 // Given a req.param id, sends back a DB Recipe object to client
-exports.getRecipe = async (req: Request, res: Response) : Promise<void> => {
+exports.getRecipe = async (req: Request, res: Response): Promise<void> => {
   try {
     const id: string = req.params.id;
     const recipe: IRecipe = await Recipe.findById(id);
@@ -55,9 +62,8 @@ exports.getRecipe = async (req: Request, res: Response) : Promise<void> => {
 };
 
 // Given a req.params id, sends back a DB Recipe object's image to client
-exports.getRecipeImage = async (req: Request, res: Response) : Promise<void> => {
+exports.getRecipeImage = async (req: Request, res: Response): Promise<void> => {
   try {
-    console.log(req.params);
     const recipe: IRecipe = await Recipe.findById(req.params.id);
     res.set('Content-Type', 'image/png');
     res.send(recipe.image);
@@ -66,11 +72,20 @@ exports.getRecipeImage = async (req: Request, res: Response) : Promise<void> => 
   }
 };
 
-
 // Creates and sends back a new Recipe object to client, given the parameters on req.body and req.user
-exports.postRecipe = async (req: RequestWithRecipeInfo, res: Response) : Promise<void> => {
+exports.postRecipe = async (
+  req: RequestWithRecipeInfo,
+  res: Response
+): Promise<void> => {
   try {
-    const { name, category, instructions, image, ingredients, collection } = req.body;
+    const {
+      name,
+      category,
+      instructions,
+      image,
+      ingredients,
+      collection
+    } = req.body;
     const collectionObj = await Collection.findById(collection);
     const recipe = await Recipe.create({
       name,
@@ -92,11 +107,17 @@ exports.postRecipe = async (req: RequestWithRecipeInfo, res: Response) : Promise
 
 // Finds recipe by ID and adds image property of type Buffer to Recipe object
 // Sends status code back to client
-exports.postRecipeImage = async (req: RequestWithUserAuth, res: Response) : Promise<void> => {
+exports.postRecipeImage = async (
+  req: RequestWithUserAuth,
+  res: Response
+): Promise<void> => {
   try {
     const idStr: string = req.params.id;
     const _user: Schema.Types.ObjectId = req.user._id;
-    const recipe = await Recipe.findOne({ _id: mongoose.Types.ObjectId(idStr), _user });
+    const recipe = await Recipe.findOne({
+      _id: mongoose.Types.ObjectId(idStr),
+      _user
+    });
     if (!recipe) throw new Error();
     const buffer = await processImage({
       buffer: req.file.buffer,
@@ -113,10 +134,20 @@ exports.postRecipeImage = async (req: RequestWithUserAuth, res: Response) : Prom
 };
 
 // Sends back updated Recipe object to client, given req.params id and req.body paramters
-exports.updateRecipe = async (req: RequestWithRecipeInfo, res: Response) : Promise<void> => {
+exports.updateRecipe = async (
+  req: RequestWithRecipeInfo,
+  res: Response
+): Promise<void> => {
   try {
     const id: string = req.params.id;
-    const { name, category, instructions, image, ingredients, collection } = req.body;
+    const {
+      name,
+      category,
+      instructions,
+      image,
+      ingredients,
+      collection
+    } = req.body;
     const updatedRecipe = await Recipe.findByIdAndUpdate(
       id,
       {
@@ -138,7 +169,7 @@ exports.updateRecipe = async (req: RequestWithRecipeInfo, res: Response) : Promi
 
 // Deletes DB Recipe, given req.params id
 // Sends back status code to client
-exports.deleteRecipe = async (req: Request, res: Response) : Promise<void> => {
+exports.deleteRecipe = async (req: Request, res: Response): Promise<void> => {
   try {
     const id: string = req.params.id;
     const deletedRecipe: IRecipe = await Recipe.findByIdAndDelete(id);

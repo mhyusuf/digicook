@@ -1,32 +1,32 @@
 import { Request } from 'express';
 import { Schema } from 'mongoose';
-import { IUser } from '../../models/user'
+import { IUser } from '../../models/user';
 
 export interface RequestWithUserAuth extends Request {
-  user?: IUser
+  user?: IUser;
 }
 
 export interface RequestWithQueryParam extends Request {
   query: {
-    q?: string
-  }
+    q?: string;
+  };
 }
 
-export interface RequestWithCollectionInfo extends RequestWithUserAuth{
+export interface RequestWithCollectionInfo extends RequestWithUserAuth {
   body: {
     name: string;
     description: string;
-    isPrivate: boolean
-  }
+    isPrivate: boolean;
+  };
 }
 
-export interface RequestWithRecipeInfo extends RequestWithUserAuth{
+export interface RequestWithRecipeInfo extends RequestWithUserAuth {
   body: {
     name: string;
     category: string;
     instructions: string;
     image: Buffer;
-    ingredients: {name: string, quantity: string}[]
+    ingredients: { name: string; quantity: string }[];
     collection: string;
-  }
+  };
 }

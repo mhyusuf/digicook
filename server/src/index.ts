@@ -8,7 +8,6 @@ const collectionRouter: express.Router = require('./routes/collectionRouter');
 const recipeRouter: express.Router = require('./routes/recipeRouter');
 import keys from './config/keys';
 
-
 // Connect to Mongo database
 const connectDB = require('./models');
 

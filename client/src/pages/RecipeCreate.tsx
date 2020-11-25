@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { History } from 'history';
+
 import { IRecipeValues } from '../interfaces/inputs';
 import { createRecipe } from '../actions';
 import RecipeForm from '../containers/RecipeForm';
@@ -10,7 +11,7 @@ interface CreateRecipeProps {
   createRecipe: (values: IRecipeValues, history: History<any>) => void;
 }
 
-const RecipeCreate: FunctionComponent<CreateRecipeProps> = ( props ) => {
+const RecipeCreate: FunctionComponent<CreateRecipeProps> = (props) => {
   const { createRecipe } = props;
   const intialFormState: IRecipeValues = {
     name: '',
@@ -36,6 +37,6 @@ const RecipeCreate: FunctionComponent<CreateRecipeProps> = ( props ) => {
       <RecipeForm submitHandler={createRecipe} initialState={intialFormState} />
     </>
   );
-}
+};
 
 export default connect(null, { createRecipe })(RecipeCreate);

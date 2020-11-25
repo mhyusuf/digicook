@@ -1,11 +1,11 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
+import { RouteComponentProps, match } from 'react-router-dom';
+
 import { getCollectionDetail } from '../actions';
 import RecipeList from '../containers/RecipeList';
 import Search from '../components/Search';
-import { RouteComponentProps, match } from 'react-router-dom';
 import { CollectionDetailCollection } from '../interfaces/model';
-
 
 interface MatchInterface {
   id: string;
@@ -14,7 +14,7 @@ interface MatchInterface {
 interface CollectionDetailProps extends RouteComponentProps {
   collection: CollectionDetailCollection;
   getCollectionDetail: (id: string, query?: string) => void;
-  match: match<MatchInterface>
+  match: match<MatchInterface>;
 }
 
 const CollectionDetail: FunctionComponent<CollectionDetailProps> = (props) => {
@@ -24,7 +24,7 @@ const CollectionDetail: FunctionComponent<CollectionDetailProps> = (props) => {
     getCollectionDetail(match.params.id, query);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
-  
+
   return collection ? (
     <div>
       <div className="ui attached tabular menu CollectionDetail__header">
@@ -32,7 +32,9 @@ const CollectionDetail: FunctionComponent<CollectionDetailProps> = (props) => {
         <div className="right menu">
           <Search
             value={query}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setQuery(e.target.value)
+            }
             placeholder={`Search ${collection.name}`}
           />
           <div className="item">
@@ -47,10 +49,16 @@ const CollectionDetail: FunctionComponent<CollectionDetailProps> = (props) => {
   ) : (
     <p>'Loading'</p>
   );
-}
+};
 
-function mapStateToProps({ collections }: {collections: {collectionDetail: CollectionDetailCollection}}) {
+function mapStateToProps({
+  collections
+}: {
+  collections: { collectionDetail: CollectionDetailCollection };
+}) {
   return { collection: collections.collectionDetail };
 }
 
-export default connect(mapStateToProps, { getCollectionDetail })(CollectionDetail);
+export default connect(mapStateToProps, { getCollectionDetail })(
+  CollectionDetail
+);

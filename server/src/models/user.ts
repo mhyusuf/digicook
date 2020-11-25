@@ -1,9 +1,9 @@
 import { Schema, Document, model } from 'mongoose'; // Import mongoose schema class
 
 export interface IUser extends Document {
-  googleId: string,
-  name: string,
-  email: string
+  googleId: string;
+  name: string;
+  email: string;
 }
 
 // Create new user schema

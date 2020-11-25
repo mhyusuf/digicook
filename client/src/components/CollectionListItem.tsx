@@ -7,26 +7,28 @@ import ModalConfirm from './ModalConfirm';
 import { deleteCollection } from '../actions';
 import { ICollectionWithUserObj } from '../interfaces/model';
 
-
 interface CollectionListItemProps {
   collection: ICollectionWithUserObj;
   deleteCollection: (_id: string) => void;
   menus: boolean;
 }
 
-export const CollectionListItem: FunctionComponent<CollectionListItemProps> = (props) : JSX.Element => {
+export const CollectionListItem: FunctionComponent<CollectionListItemProps> = (props) => {
   const { collection, deleteCollection, menus } = props;
-  
+
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const history = useHistory();
-  
+
   function toggleModal() {
-    setShowDeleteModal(state => !state);
+    setShowDeleteModal((state) => !state);
   }
   return (
     <>
-      <div data-test="CollectionListItemComponent" className="card CollectionListItem">
+      <div
+        data-test="CollectionListItemComponent"
+        className="card CollectionListItem"
+      >
         {!imageLoaded && (
           <div className="image">
             <div className="ui placeholder">
@@ -98,10 +100,12 @@ export const CollectionListItem: FunctionComponent<CollectionListItemProps> = (p
       </ModalOverlay>
     </>
   );
-}
+};
 
 function mapStateToProps({ menus }: { menus: boolean }) {
   return { menus };
 }
 
-export default connect(mapStateToProps, { deleteCollection })(CollectionListItem);
+export default connect(mapStateToProps, { deleteCollection })(
+  CollectionListItem
+);

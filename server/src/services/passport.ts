@@ -3,17 +3,20 @@ import { Strategy } from 'passport-google-oauth20';
 import keys from '../config/keys';
 import User, { IUser } from '../models/user';
 
-
 // Distill user object to just user id (on login attempt)
-passport.serializeUser((user: IUser, done: (error: Error, userId: String) => void): void => {
-  done(null, user.id);
-});
+passport.serializeUser(
+  (user: IUser, done: (error: Error, userId: String) => void): void => {
+    done(null, user.id);
+  }
+);
 
 // Finds user information by id, returns user as object to be stored on req (when user is logged in)
-passport.deserializeUser(async (id: string, done: (error: Error, user: IUser) => void) => {
-  const user: IUser = await User.findById(id);
-  done(null, user);
-});
+passport.deserializeUser(
+  async (id: string, done: (error: Error, user: IUser) => void) => {
+    const user: IUser = await User.findById(id);
+    done(null, user);
+  }
+);
 
 passport.use(
   new Strategy(
@@ -24,9 +27,14 @@ passport.use(
       callbackURL: '/auth/google/callback' // Define callback route to send users to after user submit login information
     },
     // After login, Google returns accessToken, refreshToken and profile
-    async (accessToken: string, refreshToken: string, profile: Profile, done: (error: Error, user: IUser) => void) => {
+    async (
+      accessToken: string,
+      refreshToken: string,
+      profile: Profile,
+      done: (error: Error, user: IUser) => void
+    ) => {
       const existingUser: IUser = await User.findOne({ googleId: profile.id }); // Find a user in our DB with google id
-      
+
       // If user exists, proceed to next callback
       if (existingUser) {
         return done(null, existingUser);

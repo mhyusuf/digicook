@@ -1,18 +1,20 @@
 import React, { FunctionComponent, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { History } from 'history';
 
 import FormField from '../components/FormInput';
 import StatusRadio from '../components/StatusRadio';
 import { ICollectionValues } from '../interfaces/inputs';
-import { History } from 'history';
-import { useHistory } from 'react-router-dom';
 
 interface CollectionFormProps {
   submitHandler: (updates: ICollectionValues, history: History<any>) => void;
   initialState: ICollectionValues;
 }
 
-export const CollectionForm: FunctionComponent<CollectionFormProps> = (props) => {
-  const { initialState, submitHandler} = props;
+export const CollectionForm: FunctionComponent<CollectionFormProps> = (
+  props
+) => {
+  const { initialState, submitHandler } = props;
   const history = useHistory();
   const [formValues, setFormValues] = useState(initialState);
 
@@ -26,7 +28,6 @@ export const CollectionForm: FunctionComponent<CollectionFormProps> = (props) =>
     setFormValues({ name: '', description: '', image: '', isPrivate: false });
   }
 
-
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setFormValues((formValues: ICollectionValues) => ({
       ...formValues,
@@ -34,16 +35,14 @@ export const CollectionForm: FunctionComponent<CollectionFormProps> = (props) =>
     }));
   }
 
-  
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
-
     setFormValues((formValues: ICollectionValues) => ({
       ...formValues,
       image: e.target.files && e.target.files[0]
     }));
   }
 
-  function handleStatusChange(status: boolean) : void {
+  function handleStatusChange(status: boolean): void {
     setFormValues((formValues: ICollectionValues) => ({
       ...formValues,
       isPrivate: status
@@ -51,7 +50,11 @@ export const CollectionForm: FunctionComponent<CollectionFormProps> = (props) =>
   }
 
   return (
-    <form data-test="CollectionFormComponent" className="ui form CollectionForm" onSubmit={handleSubmit}>
+    <form
+      data-test="CollectionFormComponent"
+      className="ui form CollectionForm"
+      onSubmit={handleSubmit}
+    >
       <FormField
         label="Collection name"
         name="name"
@@ -79,6 +82,6 @@ export const CollectionForm: FunctionComponent<CollectionFormProps> = (props) =>
       <button className="ui submit button">Submit</button>
     </form>
   );
-}
+};
 
 export default CollectionForm;

@@ -1,5 +1,4 @@
-import mongoose from 'mongoose';
-import { IIngredient } from './model'
+import { IIngredient } from './model';
 
 export interface ICollectionValues {
   name?: string;
@@ -14,7 +13,7 @@ export interface IRecipeValues {
   category?: string;
   instructions?: string;
   imageData?: FormData;
-  ingredients?: IIngredient[]
+  ingredients?: IIngredient[];
   collection?: string;
   image?: any;
 }

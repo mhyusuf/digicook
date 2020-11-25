@@ -2,7 +2,7 @@ import { Schema } from 'mongoose';
 import { IUser, IRecipe, ICollection, CollectionDetailCollection} from './model';
 
 export interface IState {
-  auth: IUser
+  auth: IUser;
   collections: {
     collectionList: ICollection[];
     collectionDetail: CollectionDetailCollection;
@@ -10,6 +10,6 @@ export interface IState {
       _id: Schema.Types.ObjectId;
     }[];
     recipe: IRecipe;
-  }
+  };
   menus: boolean;
 }
