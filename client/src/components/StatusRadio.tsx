@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
 
-
 interface StatusRadioProps {
   value: boolean;
   onStatusChange: (status: boolean) => void;
@@ -33,6 +32,6 @@ const StatusRadio: FunctionComponent<StatusRadioProps> = (props) => {
       </div>
     </div>
   );
-}
+};
 
 export default StatusRadio;

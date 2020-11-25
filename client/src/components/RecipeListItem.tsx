@@ -17,11 +17,14 @@ export const RecipeListItem: FunctionComponent<RecipeListItemProps> = (props) =>
   const { recipe, deleteRecipe, menus } = props;
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
-    setShowDeleteModal(state => !state);
+    setShowDeleteModal((state) => !state);
   }
   return (
     <>
-      <div data-test="RecipeListItemComponent" className="ui card RecipeListItem">
+      <div
+        data-test="RecipeListItemComponent"
+        className="ui card RecipeListItem"
+      >
         <Link
           className="image"
           to={`/collections/${recipe._collection}/recipes/${recipe._id}`}
@@ -71,9 +74,9 @@ export const RecipeListItem: FunctionComponent<RecipeListItemProps> = (props) =>
       </ModalOverlay>
     </>
   );
-}
+};
 
-function mapStateToProps({ menus }:{menus: boolean}) {
+function mapStateToProps({ menus }: { menus: boolean }) {
   return { menus };
 }
 

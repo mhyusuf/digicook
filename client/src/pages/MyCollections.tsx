@@ -6,15 +6,12 @@ import { getUserCollections, showMenu } from '../actions';
 import CollectionList from '../containers/CollectionList';
 import Search from '../components/Search';
 import { MyCollectionsCollection, IUser } from '../interfaces/model';
-import { IState } from '../interfaces/state'
-
-
 
 interface MyCollectionsProps {
   _id: string;
   collections: MyCollectionsCollection[];
-  getUserCollections: (id: string, query:string) => void;
-  showMenu: ()=>void;
+  getUserCollections: (id: string, query: string) => void;
+  showMenu: () => void;
 }
 
 const MyCollections: FunctionComponent<MyCollectionsProps> = (props) => {
@@ -26,7 +23,6 @@ const MyCollections: FunctionComponent<MyCollectionsProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
-
   return (
     <div className="Recipes">
       <div className="ui top attached tabular menu Recipes__header">
@@ -34,7 +30,9 @@ const MyCollections: FunctionComponent<MyCollectionsProps> = (props) => {
         <div className="right menu">
           <Search
             value={query}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setQuery(e.target.value)
+            }
             placeholder="Search my collections"
           />
           <div className="item">
@@ -56,9 +54,15 @@ const MyCollections: FunctionComponent<MyCollectionsProps> = (props) => {
       )}
     </div>
   );
-}
+};
 
-function mapStateToProps({ auth, collections }: {auth: IUser, collections: {collectionList: MyCollectionsCollection[]}}) {
+function mapStateToProps({
+  auth,
+  collections
+}: {
+  auth: IUser;
+  collections: { collectionList: MyCollectionsCollection[] };
+}) {
   return { _id: auth._id.toString(), collections: collections.collectionList };
 }
 

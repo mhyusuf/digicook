@@ -21,13 +21,17 @@ const upload = multer({
 // Then passed to a sharp method that returns a displayable image file
 
 interface ProcessImageInput {
-  buffer: Buffer,
-  width: number,
-  height: number
+  buffer: Buffer;
+  width: number;
+  height: number;
 }
 
-const processImage = async ({ buffer, width, height }: ProcessImageInput) : Promise<Buffer> => {
+const processImage = async ({
+  buffer,
+  width,
+  height
+}: ProcessImageInput): Promise<Buffer> => {
   return await sharp(buffer).resize({ width, height }).png().toBuffer();
-}
+};
 
 export default { upload, processImage };

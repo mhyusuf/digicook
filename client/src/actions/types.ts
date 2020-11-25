@@ -20,7 +20,7 @@ const actionTypes = {
   GET_RECIPE_LIST,
   DELETE_RECIPE,
   SHOW_MENU,
-  HIDE_MENU,
-}
+  HIDE_MENU
+};
 
 export default actionTypes;

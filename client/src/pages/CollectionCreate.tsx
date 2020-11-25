@@ -1,15 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { ICollectionValues } from '../interfaces/inputs';
 import { History } from 'history';
 
-
+import { ICollectionValues } from '../interfaces/inputs';
 import CollectionForm from '../containers/CollectionForm';
 import { createCollection } from '../actions';
 
 interface CollectionCreateProps {
-  createCollection: (x: ICollectionValues, y: History<any>) => void
+  createCollection: (x: ICollectionValues, y: History<any>) => void;
 }
 
 const CollectionCreate: FunctionComponent<CollectionCreateProps> = (props) => {
@@ -42,6 +41,6 @@ const CollectionCreate: FunctionComponent<CollectionCreateProps> = (props) => {
       </div>
     </>
   );
-}
+};
 
 export default connect(null, { createCollection })(CollectionCreate);

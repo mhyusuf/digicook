@@ -3,7 +3,7 @@ const router = Express.Router(); // Accesses Express router
 const requireLogin = require('../middleware/requireLogin'); // Import middlewear to validate logged in user
 import uploadService from '../services/imageUpload'; // Import image upload function
 
-const {upload} = uploadService;
+const { upload } = uploadService;
 // Import collection controller functions
 const {
   getCollections,
@@ -21,8 +21,13 @@ router.get('/:id/image', getCollectionImage);
 router.get('/:id', getCollectionDetails);
 
 // Require users to be logged in to access routes below
-router.post('/', requireLogin, postCollection); 
-router.post('/:id/image', requireLogin, upload.single('image'), postCollectionImage); 
+router.post('/', requireLogin, postCollection);
+router.post(
+  '/:id/image',
+  requireLogin,
+  upload.single('image'),
+  postCollectionImage
+);
 router.put('/:id', requireLogin, updateCollection);
 router.delete('/:id', requireLogin, deleteCollection);
 

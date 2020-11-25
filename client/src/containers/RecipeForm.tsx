@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 import { withRouter, match, RouteComponentProps, useHistory } from 'react-router-dom';
 import { History } from 'history';
+
 import { IRecipeValues } from '../interfaces/inputs';
 import FormField from '../components/FormInput';
 import IngredientField from '../components/IngredientField';
@@ -14,11 +15,11 @@ interface MatchInterface {
 interface RecipeFormProps extends RouteComponentProps {
   initialState: IRecipeValues;
   submitHandler: (values: IRecipeValues, history: History<any>) => void;
-  match: match<MatchInterface>
+  match: match<MatchInterface>;
 }
 
 const RecipeForm: FunctionComponent<RecipeFormProps> = (props) => {
-  const { initialState, submitHandler, match} = props;
+  const { initialState, submitHandler, match } = props;
   const [formValues, setFormValues] = useState(initialState);
   const history = useHistory();
 
@@ -65,27 +66,35 @@ const RecipeForm: FunctionComponent<RecipeFormProps> = (props) => {
   function addIngredientField(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     setFormValues((formValues: IRecipeValues) => {
-      return formValues.ingredients ? {
-        ...formValues,
-        ingredients: [...formValues.ingredients, { name: '', quantity: '' }]
-      } : {};
+      return formValues.ingredients
+        ? {
+            ...formValues,
+            ingredients: [...formValues.ingredients, { name: '', quantity: '' }]
+          }
+        : {};
     });
   }
 
   function handleIngredientChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const updatedIngredients = formValues.ingredients ? [...formValues.ingredients] : [];
+    const updatedIngredients = formValues.ingredients
+      ? [...formValues.ingredients]
+      : [];
     const dataset = e.target && e.target.dataset;
     const index = dataset.idx ? parseInt(dataset.idx) : 0;
-    Object.assign(updatedIngredients[index], { [e.target.name]: e.target.value });
+    Object.assign(updatedIngredients[index], {
+      [e.target.name]: e.target.value
+    });
     setFormValues({ ...formValues, ingredients: updatedIngredients });
   }
 
   function removeIngredientField(idx: number) {
-    const updatedIngredients = formValues.ingredients ? formValues.ingredients.filter(
-      (ingredient: {name: string, quantity: string }, i: number) => {
-        return i !== idx;
-      }
-    ) : [];
+    const updatedIngredients = formValues.ingredients
+      ? formValues.ingredients.filter(
+          (ingredient: { name: string; quantity: string }, i: number) => {
+            return i !== idx;
+          }
+        )
+      : [];
     setFormValues({ ...formValues, ingredients: updatedIngredients });
   }
 
@@ -107,7 +116,7 @@ const RecipeForm: FunctionComponent<RecipeFormProps> = (props) => {
           onChange={handleChange}
         >
           <option value=""></option>
-          {CATEGORY_OPTIONS.map(category => {
+          {CATEGORY_OPTIONS.map((category) => {
             return (
               <option key={category} value={category}>
                 {category}
@@ -115,17 +124,20 @@ const RecipeForm: FunctionComponent<RecipeFormProps> = (props) => {
             );
           })}
         </FormField>
-        {formValues.ingredients && formValues.ingredients.map((ingredient: IIngredient, i: number) => {
-          return formValues.ingredients ? (
-            <IngredientField
-              key={i}
-              idx={i}
-              onChange={handleIngredientChange}
-              value={formValues.ingredients[i]}
-              onRemove={removeIngredientField}
-            />
-          ) : <div />;
-        })}
+        {formValues.ingredients &&
+          formValues.ingredients.map((ingredient: IIngredient, i: number) => {
+            return formValues.ingredients ? (
+              <IngredientField
+                key={i}
+                idx={i}
+                onChange={handleIngredientChange}
+                value={formValues.ingredients[i]}
+                onRemove={removeIngredientField}
+              />
+            ) : (
+              <div />
+            );
+          })}
         <button className="ui button" onClick={addIngredientField}>
           Add ingredient
         </button>
@@ -146,6 +158,6 @@ const RecipeForm: FunctionComponent<RecipeFormProps> = (props) => {
       </form>
     </div>
   );
-}
+};
 
 export default withRouter(RecipeForm);

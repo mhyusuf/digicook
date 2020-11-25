@@ -20,6 +20,6 @@ const NavbarLink: FunctionComponent<NavbarLinkProps> = (props) => {
       </NavLink>
     </li>
   );
-}
+};
 
 export default NavbarLink;

@@ -23,6 +23,6 @@ const ModalConfirm: FunctionComponent<ModalConfirmProps> = (props) => {
       </div>
     </div>
   );
-}
+};
 
 export default ModalConfirm;

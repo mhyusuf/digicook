@@ -1,26 +1,31 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { match, useHistory } from 'react-router-dom';
+import { History } from 'history';
+
 import RecipeForm from '../containers/RecipeForm';
 import { getRecipe, editRecipe } from '../actions';
-import { History } from 'history';
 import { IRecipe } from '../interfaces/model';
 import { IRecipeValues } from '../interfaces/inputs';
 import { IState } from '../interfaces/state';
 
 interface MatchInterface {
-  recipeId: string
+  recipeId: string;
 }
 
 interface RecipeEditProps {
   recipe: IRecipe;
   getRecipe: (id: string) => void;
-  editRecipe: (id: string, updates: IRecipeValues, history: History<any>)=> void;
+  editRecipe: (
+    id: string,
+    updates: IRecipeValues,
+    history: History<any>
+  ) => void;
   match: match<MatchInterface>;
 }
 
 const RecipeEdit: FunctionComponent<RecipeEditProps> = (props) => {
-  const {recipe, getRecipe, editRecipe, match} = props;
+  const { recipe, getRecipe, editRecipe, match } = props;
   const history = useHistory();
   useEffect(() => {
     getRecipe(match.params.recipeId);
@@ -50,7 +55,9 @@ const RecipeEdit: FunctionComponent<RecipeEditProps> = (props) => {
       </div>
       {recipe._id ? (
         <RecipeForm
-          submitHandler={(updates: IRecipeValues) => editRecipe(recipe._id, updates, history)}
+          submitHandler={(updates: IRecipeValues) =>
+            editRecipe(recipe._id, updates, history)
+          }
           initialState={initialState}
         />
       ) : (
@@ -58,7 +65,7 @@ const RecipeEdit: FunctionComponent<RecipeEditProps> = (props) => {
       )}
     </>
   );
-}
+};
 
 function mapStateToProps(state: IState) {
   return { recipe: state.collections.recipe };
