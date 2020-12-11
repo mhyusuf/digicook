@@ -1,6 +1,9 @@
 # digicook
 digicook is a digital cookbook that allows you to organise and share your recipes.
 
+# Screenshots
+![Screenshots](https://github.com/mhyusuf/digicook/raw/master/images/readme-1.png)
+
 # Getting started
 This project requires [node-js/npm](https://www.google.com) and [docker](https://www.docker.com/get-started).
 
