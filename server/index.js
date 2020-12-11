@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
+const path = require('path');
 
 const { authRouter, collectionRouter, recipeRouter } = require('./routes');
 const connectDB = require('./models');
@@ -23,6 +24,13 @@ app.use(passport.session());
 app.use('/auth', authRouter);
 app.use('/api/collections', collectionRouter);
 app.use('/api/recipes', recipeRouter);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
+  });
+}
 
 connectDB().then(() => {
   console.log('Connected to MongoDB');
