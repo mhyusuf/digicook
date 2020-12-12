@@ -1,4 +1,6 @@
 dev.js
+dev.ts
 node_modules
 .DS_Store
 mock
+dist
