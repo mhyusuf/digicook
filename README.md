@@ -37,5 +37,6 @@ Your API server should be running at http://localhost:5000, your client server w
 
 Run `docker-compose stop` to stop the services, or `CTRL + C` and then `docker-compose down` to kill the services.
 
-# Author
+# Contributors
 Mohamed Yusuf - [GitHub](https://github.com/mhyusuf)
+Brett Glauser - [GitHub](https://github.com/bmcglauser)
