@@ -39,4 +39,5 @@ Run `docker-compose stop` to stop the services, or `CTRL + C` and then `docker-c
 
 # Contributors
 Mohamed Yusuf - [GitHub](https://github.com/mhyusuf)
+
 Brett Glauser - [GitHub](https://github.com/bmcglauser)
