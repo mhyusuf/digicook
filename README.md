@@ -1,5 +1,7 @@
 # digicook
-digicook is a digital cookbook that allows you to organise and share your recipes.
+digicook is a robust and elegant application for uploading and sharing recipes with friends, family and the world. The app allows you to post and edit recipes using an intuitive interface and organise your recipes into collections. You can choose to keep your recipe collections private or share them with the digicook community on the discover page. digicook stores your recipes in the cloud, so you can easily access them on any device through our responsive web app.
+
+Digicook is built with React, Redux, Express(Node.js) and MongoDB.
 
 # Screenshots
 ![Screenshots](https://github.com/mhyusuf/digicook/raw/master/images/readme-1.png)
