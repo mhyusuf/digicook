@@ -1,5 +1,10 @@
 import React, { FunctionComponent, useState } from 'react';
-import { withRouter, match, RouteComponentProps, useHistory } from 'react-router-dom';
+import {
+  withRouter,
+  match,
+  RouteComponentProps,
+  useHistory,
+} from 'react-router-dom';
 import { History } from 'history';
 
 import { IRecipeValues } from '../interfaces/inputs';
@@ -36,30 +41,30 @@ const RecipeForm: FunctionComponent<RecipeFormProps> = (props) => {
         imageData,
         ingredients,
         instructions,
-        collection
+        collection,
       },
-      history
+      history,
     );
     setFormValues({
       name: '',
       category: '',
       image: '',
       ingredients: [{ name: '', quantity: '' }],
-      instructions: ''
+      instructions: '',
     });
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setFormValues((formValues: IRecipeValues) => ({
       ...formValues,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   }
 
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     setFormValues((formValues: IRecipeValues) => ({
       ...formValues,
-      image: e.target.files ? e.target.files[0] : []
+      image: e.target.files ? e.target.files[0] : [],
     }));
   }
 
@@ -69,7 +74,10 @@ const RecipeForm: FunctionComponent<RecipeFormProps> = (props) => {
       return formValues.ingredients
         ? {
             ...formValues,
-            ingredients: [...formValues.ingredients, { name: '', quantity: '' }]
+            ingredients: [
+              ...formValues.ingredients,
+              { name: '', quantity: '' },
+            ],
           }
         : {};
     });
@@ -82,7 +90,7 @@ const RecipeForm: FunctionComponent<RecipeFormProps> = (props) => {
     const dataset = e.target && e.target.dataset;
     const index = dataset.idx ? parseInt(dataset.idx) : 0;
     Object.assign(updatedIngredients[index], {
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
     setFormValues({ ...formValues, ingredients: updatedIngredients });
   }
@@ -92,7 +100,7 @@ const RecipeForm: FunctionComponent<RecipeFormProps> = (props) => {
       ? formValues.ingredients.filter(
           (ingredient: { name: string; quantity: string }, i: number) => {
             return i !== idx;
-          }
+          },
         )
       : [];
     setFormValues({ ...formValues, ingredients: updatedIngredients });

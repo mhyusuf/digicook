@@ -2,6 +2,6 @@
 module.exports = (query: string) =>
   query
     ? {
-        $text: { $search: query }
+        $text: { $search: query },
       }
     : {};

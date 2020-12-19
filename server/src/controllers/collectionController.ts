@@ -4,7 +4,7 @@ import Collection, { ICollection } from '../models/collection';
 import {
   RequestWithQueryParam,
   RequestWithCollectionInfo,
-  RequestWithUserAuth
+  RequestWithUserAuth,
 } from '../interfaces/requests';
 import Recipe from '../models/recipe';
 import { IUser } from '../models/user';
@@ -30,7 +30,7 @@ exports.getCollections = async (req: Request, res: Response): Promise<void> => {
     if (q) {
       const nameStr = {
         $regex: q.toString(),
-        $options: 'i'
+        $options: 'i',
       };
       matchObj.name = nameStr;
     }
@@ -38,7 +38,7 @@ exports.getCollections = async (req: Request, res: Response): Promise<void> => {
     // Assign and return matching collections,
     // replacing the _user string id with the full user obj
     const collections: ICollection[] = await Collection.find(matchObj).populate(
-      '_user'
+      '_user',
     );
     res.send(collections);
   } catch (e) {
@@ -49,7 +49,7 @@ exports.getCollections = async (req: Request, res: Response): Promise<void> => {
 // Sends back png image to client of type Buffer given an id in the URL
 exports.getCollectionImage = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const collection: ICollection = await Collection.findById(req.params.id);
@@ -64,7 +64,7 @@ exports.getCollectionImage = async (
 // Accepts a URL param of id, and a query param of q
 exports.getCollectionDetails = async (
   req: RequestWithQueryParam,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const matchObj: { name?: { $regex: string; $options: string } } = {};
@@ -72,14 +72,14 @@ exports.getCollectionDetails = async (
     if (q) {
       matchObj.name = {
         $regex: q,
-        $options: 'i'
+        $options: 'i',
       };
     }
     const _id = req.params.id;
     const collection: ICollection = await Collection.findById(_id)
       .populate({
         path: '_recipes',
-        matchObj
+        matchObj,
       })
       .exec();
     res.send(collection);
@@ -91,7 +91,7 @@ exports.getCollectionDetails = async (
 // Creates and sends back a new collection to client, given a name, description and isPrivate boolean
 exports.postCollection = async (
   req: RequestWithCollectionInfo,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { name, description, isPrivate } = req.body;
@@ -102,7 +102,7 @@ exports.postCollection = async (
       image: Buffer.from([]),
       isPrivate,
       _user: user._id,
-      _recipes: []
+      _recipes: [],
     });
     res.status(201).send(collection);
   } catch (e) {
@@ -113,7 +113,7 @@ exports.postCollection = async (
 // Sends back status code to client, given url param id and user object on request object
 exports.postCollectionImage = async (
   req: RequestWithUserAuth,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const _id: string = req.params.id;
@@ -125,7 +125,7 @@ exports.postCollectionImage = async (
     const buffer = await processImage({
       buffer: req.file.buffer,
       width: 360,
-      height: 360
+      height: 360,
     });
     // Save the image buffer to the DB collection object and save
     collection.image = buffer;
@@ -139,7 +139,7 @@ exports.postCollectionImage = async (
 // Sends back updated collection to client, given req.params id and req.body name and description
 exports.updateCollection = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { id } = req.params;
@@ -148,9 +148,9 @@ exports.updateCollection = async (
       id,
       {
         name,
-        description
+        description,
       },
-      { new: true }
+      { new: true },
     );
     res.send(updatedCollection);
   } catch (e) {
@@ -161,12 +161,12 @@ exports.updateCollection = async (
 // Sends back status code to client, given req.params id
 exports.deleteCollection = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { id } = req.params;
     const deletedCollection: ICollection = await Collection.findByIdAndDelete(
-      id
+      id,
     );
     // Deletes all recipes related to the collection (cascade)
     await Recipe.deleteMany({ _collection: deletedCollection._id });

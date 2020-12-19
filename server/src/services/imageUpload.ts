@@ -9,12 +9,12 @@ const upload = multer({
     if (!file.originalname.match(/\.(jpg|jpeg|png|gif|svg|tiff)$/)) {
       return cb(
         new Error(
-          'Unrecognized file extension. Supported file types are jpg, jpeg, png, gif, svg, tiff.'
-        )
+          'Unrecognized file extension. Supported file types are jpg, jpeg, png, gif, svg, tiff.',
+        ),
       );
     }
     cb(null, true);
-  }
+  },
 });
 
 // Defines a function that takes in a Buffer, and two numerical dimensions,
@@ -29,7 +29,7 @@ interface ProcessImageInput {
 const processImage = async ({
   buffer,
   width,
-  height
+  height,
 }: ProcessImageInput): Promise<Buffer> => {
   return await sharp(buffer).resize({ width, height }).png().toBuffer();
 };

@@ -18,7 +18,7 @@ interface CollectionEditProps extends RouteComponentProps {
   editCollection: (
     _id: string,
     updates: ICollectionValues,
-    history: History<any>
+    history: History<any>,
   ) => void;
   match: match<MatchInterface>;
 }
@@ -29,7 +29,7 @@ const CollectionEdit: FunctionComponent<CollectionEditProps> = (props) => {
     getCollectionDetail,
     editCollection,
     match,
-    history
+    history,
   } = props;
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const CollectionEdit: FunctionComponent<CollectionEditProps> = (props) => {
     name: collection.name,
     description: collection.description,
     image: '',
-    isPrivate: collection.isPrivate
+    isPrivate: collection.isPrivate,
   };
 
   return (
@@ -74,7 +74,7 @@ const CollectionEdit: FunctionComponent<CollectionEditProps> = (props) => {
 };
 
 function mapStateToProps({
-  collections
+  collections,
 }: {
   collections: { collectionDetail: CollectionDetailCollection };
 }) {
@@ -83,5 +83,5 @@ function mapStateToProps({
 
 export default connect(mapStateToProps, {
   getCollectionDetail,
-  editCollection
+  editCollection,
 })(CollectionEdit);

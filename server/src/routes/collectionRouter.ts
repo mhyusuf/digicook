@@ -12,7 +12,7 @@ const {
   postCollection,
   postCollectionImage,
   updateCollection,
-  deleteCollection
+  deleteCollection,
 } = require('../controllers/collectionController');
 
 // Set up paths with corresponding callback functions
@@ -26,7 +26,7 @@ router.post(
   '/:id/image',
   requireLogin,
   upload.single('image'),
-  postCollectionImage
+  postCollectionImage,
 );
 router.put('/:id', requireLogin, updateCollection);
 router.delete('/:id', requireLogin, deleteCollection);

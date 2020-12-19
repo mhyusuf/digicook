@@ -4,7 +4,7 @@
   position: relative;
 
   &__icon {
-    left: .8rem;
+    left: 0.8rem;
     position: absolute;
     top: 1rem;
     width: $m-size;
@@ -13,19 +13,20 @@
   &__clear {
     cursor: pointer;
     position: absolute;
-    right: .8rem;
+    right: 0.8rem;
     top: 1rem;
     width: $s-size;
   }
 
   &__input {
     border: 1px solid grey;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     height: $l-size;
-    padding: .2rem 2.3rem .2rem 3rem;
+    padding: 0.2rem 2.3rem 0.2rem 3rem;
     width: 100%;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       background-color: white;
       border: 1.5px solid #009688;
       outline: none;

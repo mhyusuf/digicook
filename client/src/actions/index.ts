@@ -13,9 +13,8 @@ import {
   GET_RECIPE_LIST,
   DELETE_RECIPE,
   SHOW_MENU,
-  HIDE_MENU
+  HIDE_MENU,
 } from './types';
-
 
 // These actions, which leverage redux-thunk, return functions that will dispatch payloads to reducers
 // The target function is encoded in the 'type' proprety of the return objects below
@@ -30,7 +29,7 @@ export const getUser = () => async (dispatch: Dispatch<DigiCookAction>) => {
 // Sets the state of store's 'collectionList' to the return of a call to server's collectionController
 // This controller call returns all public collections matching an optional query (string) parameter
 export const getPublicCollections = (query?: string) => async (
-  dispatch: Dispatch<DigiCookAction>
+  dispatch: Dispatch<DigiCookAction>,
 ) => {
   const queryString = query ? `&q=${query}` : '';
   const { data } = await axios.get(`/api/collections?pub=true${queryString}`);
@@ -40,11 +39,11 @@ export const getPublicCollections = (query?: string) => async (
 // Sets the state of store's 'collectionList' to the return of a call to server's collectionController
 // This controller call returns all collections that match the passed userId and an optional query (string) parameter
 export const getUserCollections = (_id: string, query?: string) => async (
-  dispatch: Dispatch<DigiCookAction>
+  dispatch: Dispatch<DigiCookAction>,
 ) => {
   const queryString = query ? `&q=${query}` : '';
   const { data } = await axios.get(
-    `/api/collections?user=${_id}${queryString}`
+    `/api/collections?user=${_id}${queryString}`,
   );
   dispatch({ type: GET_COLLECTION_LIST, payload: data });
 };
@@ -56,13 +55,13 @@ export const getUserCollections = (_id: string, query?: string) => async (
 
 export const createCollection = (
   values: ICollectionValues,
-  history: History<any>
+  history: History<any>,
 ) => async (dispatch: Dispatch<DigiCookAction>) => {
   const { name, description, isPrivate, imageData } = values;
   const collectionRes = await axios.post('/api/collections', {
     name,
     description,
-    isPrivate
+    isPrivate,
   });
   const collectionId = collectionRes.data._id;
   await axios.post(`/api/collections/${collectionId}/image`, imageData);
@@ -75,7 +74,7 @@ export const createCollection = (
 export const editCollection = (
   _id: string,
   updates: ICollectionValues,
-  history: History<any>
+  history: History<any>,
 ) => async (dispatch: Dispatch<DigiCookAction>) => {
   const { name, description, isPrivate, imageData } = updates;
   await axios.put(`/api/collections/${_id}`, { name, description, isPrivate });
@@ -89,7 +88,7 @@ export const editCollection = (
 // Deletes collection in DB matching passed _id
 // Filters collections in store to exclude any matching passed _id
 export const deleteCollection = (_id: string) => async (
-  dispatch: Dispatch<DigiCookAction>
+  dispatch: Dispatch<DigiCookAction>,
 ) => {
   await axios.delete(`/api/collections/${_id}`);
   dispatch({ type: DELETE_COLLECTION, payload: _id });
@@ -98,7 +97,7 @@ export const deleteCollection = (_id: string) => async (
 // Sets store.collectionDetail to data returned from call to server's collectionController
 // Controller method returns DB collection object populated with corresponding Recipe objects
 export const getCollectionDetail = (_id: string, query?: string) => async (
-  dispatch: Dispatch<DigiCookAction>
+  dispatch: Dispatch<DigiCookAction>,
 ) => {
   const queryString = query ? `?q=${query}` : '';
   const { data } = await axios.get(`/api/collections/${_id}${queryString}`);
@@ -112,7 +111,7 @@ export const getCollectionDetail = (_id: string, query?: string) => async (
 
 export const createRecipe = (
   values: IRecipeValues,
-  history: History<any>
+  history: History<any>,
 ) => async (dispatch: Dispatch<DigiCookAction>) => {
   const {
     name,
@@ -120,14 +119,14 @@ export const createRecipe = (
     instructions,
     imageData,
     ingredients,
-    collection
+    collection,
   } = values;
   const recipeRes = await axios.post('/api/recipes', {
     name,
     category,
     instructions,
     ingredients,
-    collection
+    collection,
   });
   const recipeId = recipeRes.data._id;
   await axios.post(`/api/recipes/${recipeId}/image`, imageData);
@@ -137,7 +136,7 @@ export const createRecipe = (
 // Sets the store.recipe to the return of a call to the server's recipeController
 // Controller method returns Recipe object from DB matching passed _id
 export const getRecipe = (_id: string) => async (
-  dispatch: Dispatch<DigiCookAction>
+  dispatch: Dispatch<DigiCookAction>,
 ) => {
   const { data } = await axios.get(`/api/recipes/${_id}`);
   dispatch({ type: GET_RECIPE, payload: data });
@@ -146,7 +145,7 @@ export const getRecipe = (_id: string) => async (
 // Sets the store.recipeList to the return of a call to the server's recipeController
 // Controller method returns an array of (public) Recipe objects matching the optional query (string) argument
 export const getPublicRecipes = (query?: string) => async (
-  dispatch: Dispatch<DigiCookAction>
+  dispatch: Dispatch<DigiCookAction>,
 ) => {
   const queryString = query ? `&q=${query}` : '';
   const { data } = await axios.get(`/api/recipes?pub=true${queryString}`);
@@ -158,7 +157,7 @@ export const getPublicRecipes = (query?: string) => async (
 export const editRecipe = (
   _id: string,
   updates: IRecipeValues,
-  history: History<any>
+  history: History<any>,
 ) => async (dispatch: Dispatch<DigiCookAction>) => {
   const {
     name,
@@ -166,14 +165,14 @@ export const editRecipe = (
     instructions,
     imageData,
     ingredients,
-    collection
+    collection,
   } = updates;
   const recipeRes = await axios.put(`/api/recipes/${_id}`, {
     name,
     category,
     instructions,
     ingredients,
-    collection
+    collection,
   });
   if (imageData && imageData.get('image')) {
     const recipeId = recipeRes.data._id;
@@ -185,7 +184,7 @@ export const editRecipe = (
 // Deletes recipe in DB matching passed _id
 // Filters recipes in store.collectionDetail to exclude any matching passed _id
 export const deleteRecipe = (_id: string) => async (
-  dispatch: Dispatch<DigiCookAction>
+  dispatch: Dispatch<DigiCookAction>,
 ) => {
   await axios.delete(`/api/recipes/${_id}`);
   dispatch({ type: DELETE_RECIPE, payload: _id });
@@ -215,7 +214,7 @@ const actions = {
   editRecipe,
   deleteRecipe,
   showMenu,
-  hideMenu
+  hideMenu,
 };
 
 export default actions;

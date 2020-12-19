@@ -10,13 +10,13 @@ export interface IUser extends Document {
 const userSchema = new Schema({
   googleId: String,
   name: String,
-  email: String
+  email: String,
 });
 
 userSchema.virtual('collections', {
   ref: 'Collection',
   localField: '_id',
-  foreignField: '_user'
+  foreignField: '_user',
 });
 
 export default model<IUser>('User', userSchema); // Export model

@@ -13,7 +13,9 @@ interface CollectionListItemProps {
   menus: boolean;
 }
 
-export const CollectionListItem: FunctionComponent<CollectionListItemProps> = (props) => {
+export const CollectionListItem: FunctionComponent<CollectionListItemProps> = (
+  props,
+) => {
   const { collection, deleteCollection, menus } = props;
 
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -107,5 +109,5 @@ function mapStateToProps({ menus }: { menus: boolean }) {
 }
 
 export default connect(mapStateToProps, { deleteCollection })(
-  CollectionListItem
+  CollectionListItem,
 );

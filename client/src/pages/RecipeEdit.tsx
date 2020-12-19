@@ -19,7 +19,7 @@ interface RecipeEditProps {
   editRecipe: (
     id: string,
     updates: IRecipeValues,
-    history: History<any>
+    history: History<any>,
   ) => void;
   match: match<MatchInterface>;
 }
@@ -37,7 +37,7 @@ const RecipeEdit: FunctionComponent<RecipeEditProps> = (props) => {
     category: recipe.category,
     image: '',
     ingredients: recipe.ingredients,
-    instructions: recipe.instructions
+    instructions: recipe.instructions,
   };
 
   return (

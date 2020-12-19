@@ -22,7 +22,7 @@ describe('GetPublicRecipes', () => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200,
-        response: expectedState
+        response: expectedState,
       });
     });
 
@@ -51,7 +51,7 @@ describe('GetRecipe', () => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200,
-        response: expectedState
+        response: expectedState,
       });
     });
 

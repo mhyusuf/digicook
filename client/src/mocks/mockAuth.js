@@ -4,7 +4,7 @@ exports.fakeAuthedState = {
     googleId: '107236975444538131971',
     name: 'Derek Clearwater',
     email: 'derek.clearwater@gmail.com',
-    __v: 0
+    __v: 0,
   },
   collections: {
     collectionList: [
@@ -18,16 +18,15 @@ exports.fakeAuthedState = {
           googleId: '107236975444538131971',
           name: 'Derek Clearwater',
           email: 'derek.clearwater@gmail.com',
-          __v: 0
+          __v: 0,
         },
         description: 'Literal shit from bulls',
         __v: 0,
         image: {
           type: 'Buffer',
-          data: [
-          ]
-        }
-      }
+          data: [],
+        },
+      },
     ],
     collectionDetail: {},
     recipeList: [],
@@ -38,13 +37,13 @@ exports.fakeAuthedState = {
       ingredients: [
         {
           name: '',
-          quantity: ''
-        }
+          quantity: '',
+        },
       ],
-      instructions: ''
-    }
+      instructions: '',
+    },
   },
-  menus: true
+  menus: true,
 };
 
 exports.fakeUnauthedState = {
@@ -60,16 +59,15 @@ exports.fakeUnauthedState = {
           googleId: '107236975444538131971',
           name: 'Derek Clearwater',
           email: 'derek.clearwater@gmail.com',
-          __v: 0
+          __v: 0,
         },
         description: 'Literal shit from bulls',
         __v: 0,
         image: {
           type: 'Buffer',
-          data: [
-          ]
-        }
-      }
+          data: [],
+        },
+      },
     ],
     collectionDetail: {},
     recipeList: [],
@@ -80,11 +78,11 @@ exports.fakeUnauthedState = {
       ingredients: [
         {
           name: '',
-          quantity: ''
-        }
+          quantity: '',
+        },
       ],
-      instructions: ''
-    }
+      instructions: '',
+    },
   },
-  menus: true
+  menus: true,
 };

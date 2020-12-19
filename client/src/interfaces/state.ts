@@ -1,5 +1,10 @@
 import { Schema } from 'mongoose';
-import { IUser, IRecipe, ICollection, CollectionDetailCollection} from './model';
+import {
+  IUser,
+  IRecipe,
+  ICollection,
+  CollectionDetailCollection,
+} from './model';
 
 export interface IState {
   auth: IUser;

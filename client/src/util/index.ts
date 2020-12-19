@@ -16,7 +16,7 @@ const testStore = (initialState: IState) => {
 
 const util = {
   findByDataTest,
-  testStore
+  testStore,
 };
 
 export default util;

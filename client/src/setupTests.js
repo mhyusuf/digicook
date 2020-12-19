@@ -4,5 +4,5 @@ import '@testing-library/jest-dom';
 
 Enzyme.configure({
   adapter: new EnzymeAdaptor(),
-  disableLifecycleMethods: true
-})
+  disableLifecycleMethods: true,
+});

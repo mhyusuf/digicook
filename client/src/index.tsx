@@ -14,7 +14,7 @@ import './styles/styles.scss';
 /* Create global state (storage) using Redux */
 const store = createStore(
   reducers, // TO DO
-  composeWithDevTools(applyMiddleware(reduxThunk)) // TO DO
+  composeWithDevTools(applyMiddleware(reduxThunk)), // TO DO
 );
 
 /* Render app component and make Redux global state avalible in all sub-components */
@@ -23,7 +23,6 @@ ReactDOM.render(
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>
-  ,
-  document.getElementById('root')
+  </React.StrictMode>,
+  document.getElementById('root'),
 );

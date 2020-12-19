@@ -11,5 +11,5 @@ import menuReducer from './menuReducer';
 export default combineReducers({
   auth: authReducer,
   collections: collectionReducer,
-  menus: menuReducer
+  menus: menuReducer,
 });

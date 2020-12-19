@@ -17,7 +17,7 @@ const CollectionCreate: FunctionComponent<CollectionCreateProps> = (props) => {
     name: '',
     description: '',
     image: '',
-    isPrivate: false
+    isPrivate: false,
   };
 
   return (

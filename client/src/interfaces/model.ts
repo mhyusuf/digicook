@@ -24,8 +24,12 @@ export interface ICollectionWithOwnId extends ICollection {
   _id: Schema.Types.ObjectId[];
 }
 
-export interface CollectionDetailCollection extends ICollectionWithUserId, ICollectionWithRecipeObjs {}
-export interface MyCollectionsCollection extends ICollectionWithRecipeIds, ICollectionWithUserObj {}
+export interface CollectionDetailCollection
+  extends ICollectionWithUserId,
+    ICollectionWithRecipeObjs {}
+export interface MyCollectionsCollection
+  extends ICollectionWithRecipeIds,
+    ICollectionWithUserObj {}
 export interface CollectionListCollection extends ICollectionWithRecipeIds {}
 
 export interface IRecipe extends Document {

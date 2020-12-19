@@ -18,7 +18,7 @@ const RecipeCreate: FunctionComponent<CreateRecipeProps> = (props) => {
     category: '',
     image: '',
     ingredients: [{ name: '', quantity: '' }],
-    instructions: ''
+    instructions: '',
   };
 
   return (

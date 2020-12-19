@@ -13,7 +13,9 @@ interface RecipeListItemProps {
   menus: boolean;
 }
 
-export const RecipeListItem: FunctionComponent<RecipeListItemProps> = (props) => {
+export const RecipeListItem: FunctionComponent<RecipeListItemProps> = (
+  props,
+) => {
   const { recipe, deleteRecipe, menus } = props;
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {

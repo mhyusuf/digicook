@@ -6,7 +6,7 @@ import cookieSession from 'cookie-session';
 const authRouter: express.Router = require('./routes/authRouter');
 const collectionRouter: express.Router = require('./routes/collectionRouter');
 const recipeRouter: express.Router = require('./routes/recipeRouter');
-import keys from './config/keys';
+const keys = require('./config/keys');
 
 // Connect to Mongo database
 const connectDB = require('./models');
@@ -28,8 +28,8 @@ const cookieKey: string = keys.cookieKey;
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: [cookieKey]
-  })
+    keys: [cookieKey],
+  }),
 );
 app.use(passport.initialize());
 app.use(passport.session());

@@ -12,7 +12,7 @@ const {
   postRecipe,
   postRecipeImage,
   updateRecipe,
-  deleteRecipe
+  deleteRecipe,
 } = require('../controllers/recipeController');
 
 // Set up paths with corresponding callback functions
@@ -26,7 +26,7 @@ router.post(
   '/:id/image',
   requireLogin,
   upload.single('image'),
-  postRecipeImage
+  postRecipeImage,
 );
 router.put('/:id', updateRecipe);
 router.put('/:id/image', requireLogin, upload.single('image'), postRecipeImage);

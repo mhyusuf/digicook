@@ -20,35 +20,35 @@ const recipeSchema = new Schema(
   {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     category: {
       type: String,
-      required: true
+      required: true,
     },
     instructions: {
       type: String,
-      required: true
+      required: true,
     },
     image: {
-      type: Buffer // Store buffer stream of bytes
+      type: Buffer, // Store buffer stream of bytes
     },
     ingredients: {
       type: [{ name: String, quantity: String }],
-      required: true
+      required: true,
     },
     _collection: {
       type: Schema.Types.ObjectId,
-      ref: 'Collection'
+      ref: 'Collection',
     },
     _user: {
       type: Schema.Types.ObjectId,
-      ref: 'User'
-    }
+      ref: 'User',
+    },
   },
   {
-    timestamps: true // Add created at / updated at properties to document
-  }
+    timestamps: true, // Add created at / updated at properties to document
+  },
 );
 
 export default model<IRecipe>('Recipe', recipeSchema); // Export model

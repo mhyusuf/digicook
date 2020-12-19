@@ -19,7 +19,7 @@ const Discover: FunctionComponent<DiscoverProps> = (props) => {
     collections,
     recipes,
     getPublicCollections,
-    getPublicRecipes
+    getPublicRecipes,
   } = props;
   const [renderCollections, setRenderCollections] = useState(true);
   const [query, setQuery] = useState('');
@@ -66,7 +66,7 @@ const Discover: FunctionComponent<DiscoverProps> = (props) => {
 
 // Get states from the global state
 function mapStateToProps({
-  collections
+  collections,
 }: {
   collections: {
     collectionList: ICollectionWithUserObj[];
@@ -75,12 +75,12 @@ function mapStateToProps({
 }) {
   return {
     collections: collections.collectionList,
-    recipes: collections.recipeList
+    recipes: collections.recipeList,
   };
 }
 
 // Makes selected states and methods (collections, recipes) avalible as props
 export default connect(mapStateToProps, {
   getPublicCollections,
-  getPublicRecipes
+  getPublicRecipes,
 })(Discover);

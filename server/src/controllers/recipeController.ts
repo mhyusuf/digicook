@@ -4,7 +4,7 @@ import User, { IUser } from '../models/user';
 import {
   RequestWithQueryParam,
   RequestWithRecipeInfo,
-  RequestWithUserAuth
+  RequestWithUserAuth,
 } from '../interfaces/requests';
 import mongoose, { Schema } from 'mongoose';
 import { Request, Response } from 'express';
@@ -15,7 +15,7 @@ const { processImage } = imgService;
 // Sends back an array of Recipe objects to client, given a string as req.query.q
 exports.getRecipes = async (
   req: RequestWithQueryParam,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const q: string = req.query.q;
@@ -31,17 +31,17 @@ exports.getRecipes = async (
           // Local to the collection object, the field is called _id
           foreignField: '_id',
           // This is used to reference as an internal variable in the lines below
-          as: '_collection'
-        }
+          as: '_collection',
+        },
       },
       // Turns the single object array into a single object
       { $unwind: { path: '$_collection' } },
       {
         $match: {
           '_collection.isPrivate': false,
-          name: { $regex: q || '', $options: 'i' }
-        }
-      }
+          name: { $regex: q || '', $options: 'i' },
+        },
+      },
     ]);
     // Returns an array of populated Recipe objects
     res.send(recipes);
@@ -75,7 +75,7 @@ exports.getRecipeImage = async (req: Request, res: Response): Promise<void> => {
 // Creates and sends back a new Recipe object to client, given the parameters on req.body and req.user
 exports.postRecipe = async (
   req: RequestWithRecipeInfo,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const {
@@ -84,7 +84,7 @@ exports.postRecipe = async (
       instructions,
       image,
       ingredients,
-      collection
+      collection,
     } = req.body;
     const collectionObj = await Collection.findById(collection);
     const recipe = await Recipe.create({
@@ -94,10 +94,10 @@ exports.postRecipe = async (
       image,
       ingredients,
       _collection: collectionObj._id,
-      _user: req.user._id
+      _user: req.user._id,
     });
     await Collection.findByIdAndUpdate(collection, {
-      $addToSet: { _recipes: recipe._id }
+      $addToSet: { _recipes: recipe._id },
     });
     res.status(201).send(recipe);
   } catch (e) {
@@ -109,20 +109,20 @@ exports.postRecipe = async (
 // Sends status code back to client
 exports.postRecipeImage = async (
   req: RequestWithUserAuth,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const idStr: string = req.params.id;
     const _user: Schema.Types.ObjectId = req.user._id;
     const recipe = await Recipe.findOne({
       _id: mongoose.Types.ObjectId(idStr),
-      _user
+      _user,
     });
     if (!recipe) throw new Error();
     const buffer = await processImage({
       buffer: req.file.buffer,
       width: 360,
-      height: 360
+      height: 360,
     });
     recipe.image = buffer;
     await recipe.save();
@@ -136,7 +136,7 @@ exports.postRecipeImage = async (
 // Sends back updated Recipe object to client, given req.params id and req.body paramters
 exports.updateRecipe = async (
   req: RequestWithRecipeInfo,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const id: string = req.params.id;
@@ -146,7 +146,7 @@ exports.updateRecipe = async (
       instructions,
       image,
       ingredients,
-      collection
+      collection,
     } = req.body;
     const updatedRecipe = await Recipe.findByIdAndUpdate(
       id,
@@ -156,9 +156,9 @@ exports.updateRecipe = async (
         instructions,
         image,
         ingredients,
-        collection
+        collection,
       },
-      { new: true }
+      { new: true },
     );
     res.send(updatedRecipe);
   } catch (e) {
@@ -174,7 +174,7 @@ exports.deleteRecipe = async (req: Request, res: Response): Promise<void> => {
     const id: string = req.params.id;
     const deletedRecipe: IRecipe = await Recipe.findByIdAndDelete(id);
     await Collection.findByIdAndUpdate(deletedRecipe._collection, {
-      $pull: { _recipes: deletedRecipe._id }
+      $pull: { _recipes: deletedRecipe._id },
     });
     res.sendStatus(204);
   } catch (e) {

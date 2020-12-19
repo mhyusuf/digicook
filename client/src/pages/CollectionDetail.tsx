@@ -52,7 +52,7 @@ const CollectionDetail: FunctionComponent<CollectionDetailProps> = (props) => {
 };
 
 function mapStateToProps({
-  collections
+  collections,
 }: {
   collections: { collectionDetail: CollectionDetailCollection };
 }) {
@@ -60,5 +60,5 @@ function mapStateToProps({
 }
 
 export default connect(mapStateToProps, { getCollectionDetail })(
-  CollectionDetail
+  CollectionDetail,
 );

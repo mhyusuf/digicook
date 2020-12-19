@@ -6,7 +6,7 @@ import {
   GET_COLLECTION_LIST,
   GET_RECIPE,
   GET_RECIPE_LIST,
-  DELETE_COLLECTION
+  DELETE_COLLECTION,
 } from '../actions/types';
 import { DigiCookAction } from '../interfaces/model';
 
@@ -19,15 +19,15 @@ const initialState = {
     category: '',
     image: '',
     ingredients: [{ name: '', quantity: '' }],
-    instructions: ''
-  }
+    instructions: '',
+  },
 };
 
 // Reducers are functions which modify the store state, and are passed as an argument when initializing the store
 // These reducers correspond to the functions in '../actions/index.js'
 const collectionReducer = (
   state: any = initialState,
-  action: DigiCookAction
+  action: DigiCookAction,
 ) => {
   switch (action.type) {
     case GET_COLLECTION_LIST:
@@ -38,8 +38,8 @@ const collectionReducer = (
       return {
         ...state,
         collectionList: state.collectionList.filter(
-          ({ _id }: { _id: Schema.Types.ObjectId }) => _id !== action.payload
-        )
+          ({ _id }: { _id: Schema.Types.ObjectId }) => _id !== action.payload,
+        ),
       };
     case GET_RECIPE_LIST:
       return { ...state, recipeList: action.payload };
@@ -51,9 +51,9 @@ const collectionReducer = (
         collectionDetail: {
           ...state.collectionDetail,
           _recipes: state.collectionDetail._recipes.filter(
-            ({ _id }: { _id: Schema.Types.ObjectId }) => _id !== action.payload
-          )
-        }
+            ({ _id }: { _id: Schema.Types.ObjectId }) => _id !== action.payload,
+          ),
+        },
       };
     default:
       return state;

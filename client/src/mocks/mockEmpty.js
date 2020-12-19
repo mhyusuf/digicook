@@ -3,16 +3,16 @@ export const emptyCollection = {
   _recipes: [
     {
       name: '',
-      quantity: ''
+      quantity: '',
     },
     {
       name: '',
-      quantity: ''
+      quantity: '',
     },
     {
       name: '',
-      quantity: ''
-    }
+      quantity: '',
+    },
   ],
   _id: '',
   name: '',
@@ -21,15 +21,15 @@ export const emptyCollection = {
     googleId: '',
     name: '',
     email: '',
-    __v: 0
+    __v: 0,
   },
   description: '',
   __v: 0,
   image: {
     type: 'Buffer',
-    data: []
-  }
-}
+    data: [],
+  },
+};
 
 export const emptyRecipe = {
   name: '',
@@ -38,18 +38,18 @@ export const emptyRecipe = {
   ingredients: [
     {
       name: '',
-      quantity: ''
+      quantity: '',
     },
     {
       name: '',
-      quantity: ''
+      quantity: '',
     },
     {
       name: '',
-      quantity: ''
-    }
+      quantity: '',
+    },
   ],
-  instructions: ''
+  instructions: '',
 };
 
 export const emptyUser = {
@@ -57,5 +57,5 @@ export const emptyUser = {
   googleId: '',
   name: '',
   email: '',
-  __v: 0
-}
+  __v: 0,
+};

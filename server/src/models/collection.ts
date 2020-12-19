@@ -13,29 +13,29 @@ export interface ICollection extends Document {
 const collectionSchema: Schema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
     type: String,
-    required: true
+    required: true,
   },
   image: {
-    type: Buffer
+    type: Buffer,
   },
   isPrivate: {
     type: Boolean,
-    default: false
+    default: false,
   },
   _user: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
   },
   _recipes: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Recipe'
-    }
-  ]
+      ref: 'Recipe',
+    },
+  ],
 });
 
 collectionSchema.index({ name: 'text', description: 'text' });

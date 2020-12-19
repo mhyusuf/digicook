@@ -5,7 +5,6 @@ import actions from '.';
 import mockState from '../mocks/mockState';
 
 describe('GetPublicCollections', () => {
-
   beforeEach(() => {
     moxios.install();
   });
@@ -15,7 +14,6 @@ describe('GetPublicCollections', () => {
   });
 
   test('Store is correctly updated', () => {
-
     const expectedState = mockState.collections.collectionList;
     const store = util.testStore();
 
@@ -23,16 +21,13 @@ describe('GetPublicCollections', () => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200,
-        response: expectedState
+        response: expectedState,
       });
     });
 
-    return store.dispatch(actions.getPublicCollections())
-      .then(() => {
-        const newState = store.getState();
-        expect(newState.collections.collectionList).toBe(expectedState);
-      });
-
+    return store.dispatch(actions.getPublicCollections()).then(() => {
+      const newState = store.getState();
+      expect(newState.collections.collectionList).toBe(expectedState);
+    });
   });
-
 });

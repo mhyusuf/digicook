@@ -12,7 +12,7 @@ interface CollectionFormProps {
 }
 
 export const CollectionForm: FunctionComponent<CollectionFormProps> = (
-  props
+  props,
 ) => {
   const { initialState, submitHandler } = props;
   const history = useHistory();
@@ -31,21 +31,21 @@ export const CollectionForm: FunctionComponent<CollectionFormProps> = (
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setFormValues((formValues: ICollectionValues) => ({
       ...formValues,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   }
 
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     setFormValues((formValues: ICollectionValues) => ({
       ...formValues,
-      image: e.target.files && e.target.files[0]
+      image: e.target.files && e.target.files[0],
     }));
   }
 
   function handleStatusChange(status: boolean): void {
     setFormValues((formValues: ICollectionValues) => ({
       ...formValues,
-      isPrivate: status
+      isPrivate: status,
     }));
   }
 

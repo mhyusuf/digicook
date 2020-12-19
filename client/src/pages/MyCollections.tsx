@@ -58,7 +58,7 @@ const MyCollections: FunctionComponent<MyCollectionsProps> = (props) => {
 
 function mapStateToProps({
   auth,
-  collections
+  collections,
 }: {
   auth: IUser;
   collections: { collectionList: MyCollectionsCollection[] };
@@ -67,5 +67,5 @@ function mapStateToProps({
 }
 
 export default connect(mapStateToProps, { getUserCollections, showMenu })(
-  MyCollections
+  MyCollections,
 );

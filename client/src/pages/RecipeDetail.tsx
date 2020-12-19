@@ -90,7 +90,7 @@ const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
                         <td date-label="Quantity">{quantity}</td>
                       </tr>
                     );
-                  }
+                  },
                 )}
               </tbody>
             </table>
@@ -114,7 +114,7 @@ const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
 
 function mapStateToProps({
   collections,
-  menus
+  menus,
 }: {
   collections: { recipe: IRecipeWithIds };
   menus: boolean;
@@ -123,5 +123,5 @@ function mapStateToProps({
 }
 
 export default connect(mapStateToProps, { getRecipe, deleteRecipe })(
-  RecipeDetail
+  RecipeDetail,
 );

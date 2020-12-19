@@ -1,4 +1,3 @@
-
 // This is a hard-coded ENUM to display in the select-input when filtering recipies
 export const CATEGORY_OPTIONS = [
   'beef',
@@ -14,5 +13,5 @@ export const CATEGORY_OPTIONS = [
   'vegan',
   'vegetarian',
   'breakfast',
-  'goat'
+  'goat',
 ];
