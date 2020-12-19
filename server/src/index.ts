@@ -1,4 +1,5 @@
 // Import modules & keys
+import path from 'path';
 import express from 'express';
 import passport from 'passport';
 import cookieSession from 'cookie-session';
@@ -38,6 +39,15 @@ app.use(passport.session());
 app.use('/auth', authRouter);
 app.use('/api/collections', collectionRouter);
 app.use('/api/recipes', recipeRouter);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, '../../client', 'build', 'index.html'),
+    );
+  });
+}
 
 // After DB connection, listen on PORT
 connectDB().then(() => {
