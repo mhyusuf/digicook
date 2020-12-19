@@ -2,7 +2,7 @@
   "name": "digicook",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/dist/index.js",
   "engines": {
     "node": "15.4.0",
     "npm": "6.14.10"
