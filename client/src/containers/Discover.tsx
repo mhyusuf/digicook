@@ -13,7 +13,6 @@ interface DiscoverProps {
   getPublicCollections: (query?: string) => void;
   getPublicRecipes: (query?: string) => void;
 }
-// Deconstruct states and methods as props
 const Discover: FunctionComponent<DiscoverProps> = (props) => {
   const {
     collections,
@@ -64,7 +63,6 @@ const Discover: FunctionComponent<DiscoverProps> = (props) => {
   );
 };
 
-// Get states from the global state
 function mapStateToProps({
   collections,
 }: {
@@ -79,7 +77,6 @@ function mapStateToProps({
   };
 }
 
-// Makes selected states and methods (collections, recipes) avalible as props
 export default connect(mapStateToProps, {
   getPublicCollections,
   getPublicRecipes,

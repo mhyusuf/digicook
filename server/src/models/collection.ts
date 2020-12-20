@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose'; // Import mongoose schema class
+import { Schema, model, Document } from 'mongoose';
 
 export interface ICollection extends Document {
   name: string;
@@ -9,7 +9,6 @@ export interface ICollection extends Document {
   _recipes: Schema.Types.ObjectId[];
 }
 
-// Create new collection schema
 const collectionSchema: Schema = new Schema({
   name: {
     type: String,

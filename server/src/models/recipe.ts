@@ -1,7 +1,5 @@
 import { Schema, model, Document } from 'mongoose'; // Import mongoose schema class
 
-// Create new recipie schema
-
 export interface IRecipe extends Document {
   name: string;
   category: string;
@@ -31,7 +29,7 @@ const recipeSchema = new Schema(
       required: true,
     },
     image: {
-      type: Buffer, // Store buffer stream of bytes
+      type: Buffer,
     },
     ingredients: {
       type: [{ name: String, quantity: String }],
@@ -47,7 +45,7 @@ const recipeSchema = new Schema(
     },
   },
   {
-    timestamps: true, // Add created at / updated at properties to document
+    timestamps: true,
   },
 );
 

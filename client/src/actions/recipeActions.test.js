@@ -1,4 +1,3 @@
-// import '@types/jest';
 import moxios from 'moxios';
 import util from '../util';
 import actions from '.';

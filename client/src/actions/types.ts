@@ -1,4 +1,3 @@
-// Defines the type string as variables so that es-lint will catch typos more easily
 export const GET_USER = 'GET_USER';
 export const GET_COLLECTION_LIST = 'GET_COLLECTION_LIST';
 export const GET_COLLECTION_DETAIL = 'GET_COLLECTION_DETAIL';

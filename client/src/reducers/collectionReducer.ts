@@ -23,8 +23,6 @@ const initialState = {
   },
 };
 
-// Reducers are functions which modify the store state, and are passed as an argument when initializing the store
-// These reducers correspond to the functions in '../actions/index.js'
 const collectionReducer = (
   state: any = initialState,
   action: DigiCookAction,

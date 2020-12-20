@@ -12,7 +12,7 @@ exports.fakeAuthedState = {
         isPrivate: false,
         _recipes: [],
         _id: '5fb64ffce8d419ff602cd0cc',
-        name: 'Bullshit',
+        name: 'Something',
         _user: {
           _id: '5fb64fcfe8d419ff602cd0cb',
           googleId: '107236975444538131971',
@@ -20,7 +20,7 @@ exports.fakeAuthedState = {
           email: 'derek.clearwater@gmail.com',
           __v: 0,
         },
-        description: 'Literal shit from bulls',
+        description: 'Something',
         __v: 0,
         image: {
           type: 'Buffer',
@@ -53,7 +53,7 @@ exports.fakeUnauthedState = {
         isPrivate: false,
         _recipes: [],
         _id: '5fb64ffce8d419ff602cd0cc',
-        name: 'Bullshit',
+        name: 'Something',
         _user: {
           _id: '5fb64fcfe8d419ff602cd0cb',
           googleId: '107236975444538131971',
@@ -61,7 +61,7 @@ exports.fakeUnauthedState = {
           email: 'derek.clearwater@gmail.com',
           __v: 0,
         },
-        description: 'Literal shit from bulls',
+        description: 'Something',
         __v: 0,
         image: {
           type: 'Buffer',

@@ -1,4 +1,4 @@
-import { Schema, Document, model } from 'mongoose'; // Import mongoose schema class
+import { Schema, Document, model } from 'mongoose';
 
 export interface IUser extends Document {
   googleId: string;
@@ -6,7 +6,6 @@ export interface IUser extends Document {
   email: string;
 }
 
-// Create new user schema
 const userSchema = new Schema({
   googleId: String,
   name: String,
@@ -19,4 +18,4 @@ userSchema.virtual('collections', {
   foreignField: '_user',
 });
 
-export default model<IUser>('User', userSchema); // Export model
+export default model<IUser>('User', userSchema);

@@ -21,7 +21,6 @@ export const CollectionForm: FunctionComponent<CollectionFormProps> = (
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const { name, description, image, isPrivate } = formValues;
-    // The FormData type is why we later use the 'multer' library
     const imageData = new FormData();
     imageData.append('image', image);
     submitHandler({ name, description, isPrivate, imageData }, history);

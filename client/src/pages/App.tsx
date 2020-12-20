@@ -14,16 +14,15 @@ interface AppProps {
 
 const App: FunctionComponent<AppProps> = (props) => {
   const { user, getUser } = props;
-  // When user enters page
   useEffect(() => {
-    getUser(); // Try to get user obj (check if user is logged in)
+    getUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  return user ? <AuthenticatedApp /> : <UnauthenticatedApp />; // Render logged in / logged out version of app if user exists or not
+  return user ? <AuthenticatedApp /> : <UnauthenticatedApp />;
 };
 
 function mapStateToProps(state: IState) {
-  return { user: state.auth }; // Get user object from global state
+  return { user: state.auth };
 }
 
-export default connect(mapStateToProps, { getUser })(App); // Make user obj and getUser avalible as props
+export default connect(mapStateToProps, { getUser })(App);

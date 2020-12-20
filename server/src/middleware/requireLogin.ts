@@ -1,7 +1,6 @@
 import { Response, NextFunction } from 'express';
 import { RequestWithUserAuth } from '../interfaces/requests';
 
-// If user exists on req objects (user is logged in) - proceed to callback - else, throw error
 module.exports = (
   req: RequestWithUserAuth,
   res: Response,

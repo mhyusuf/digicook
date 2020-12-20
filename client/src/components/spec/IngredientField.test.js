@@ -1,10 +1,7 @@
-// import '@types/jest'
 import React from 'react';
 import { shallow } from 'enzyme';
 import IngredientField from '../IngredientField';
 import util from '../../util';
-
-// const { label, name, type, onChange, value, children } = props;
 
 describe('IngredientField Component', () => {
   it('Should render primary component without errors', () => {
