@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Schema, Types } from 'mongoose';
+import { Types } from 'mongoose';
 import Collection, { ICollection } from '../models/collection';
 import {
   RequestWithQueryParam,
@@ -107,7 +107,7 @@ exports.postCollectionImage = async (
   try {
     const _id: string = req.params.id;
     const reqUser: IUser = req.user;
-    const _user: Schema.Types.ObjectId = reqUser._id;
+    const _user: Types.ObjectId = reqUser._id;
     const collection: ICollection = await Collection.findOne({ _id, _user });
     if (!collection) throw new Error();
     const buffer = await processImage({

@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose'; // Import mongoose schema class
+import { Schema, model, Document, Types } from 'mongoose'; // Import mongoose schema class
 
 export interface IRecipe extends Document {
   name: string;
@@ -6,12 +6,12 @@ export interface IRecipe extends Document {
   instructions: string;
   image: Buffer;
   ingredients: { name: string; quantity: string }[];
-  _collection: Schema.Types.ObjectId;
-  _user: Schema.Types.ObjectId;
+  _collection: Types.ObjectId;
+  _user: Types.ObjectId;
 }
 
 export interface IRecipeWithId extends IRecipe {
-  _id: Schema.Types.ObjectId;
+  _id: Types.ObjectId;
 }
 
 const recipeSchema = new Schema(

@@ -1,12 +1,12 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Types } from 'mongoose';
 
 export interface ICollection extends Document {
   name: string;
   description: string;
   image: Buffer;
   isPrivate: boolean;
-  _user: Schema.Types.ObjectId;
-  _recipes: Schema.Types.ObjectId[];
+  _user: Types.ObjectId;
+  _recipes: Types.ObjectId[];
 }
 
 const collectionSchema: Schema = new Schema({

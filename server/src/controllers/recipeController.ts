@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import Collection, { ICollection } from '../models/collection';
 import Recipe, { IRecipe } from '../models/recipe';
 import User, { IUser } from '../models/user';
@@ -99,7 +100,7 @@ exports.postRecipeImage = async (
 ): Promise<void> => {
   try {
     const idStr: string = req.params.id;
-    const _user: Schema.Types.ObjectId = req.user._id;
+    const _user: Types.ObjectId = req.user._id;
     const recipe = await Recipe.findOne({
       _id: mongoose.Types.ObjectId(idStr),
       _user,
