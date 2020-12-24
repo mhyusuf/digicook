@@ -26,7 +26,7 @@ export const CollectionListItem: FunctionComponent<CollectionListItemProps> = (
   function toggleModal() {
     setShowDeleteModal((state) => !state);
   }
-  console.log(user?._id === collection._user._id);
+
   return (
     <>
       <div

@@ -1,18 +1,40 @@
 import React, { FunctionComponent } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { History } from 'history';
+import axios from 'axios';
+import { useMutation } from '@apollo/client';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
+import { CREATE_RECIPE } from '../services/mutationService';
+import { Recipe } from '../interfaces/recipe';
 import { IRecipeValues } from '../interfaces/inputs';
-import { createRecipe } from '../actions';
 import RecipeForm from '../containers/RecipeForm';
 
-interface CreateRecipeProps {
-  createRecipe: (values: IRecipeValues, history: History<any>) => void;
-}
+const RecipeCreate: FunctionComponent<RouteComponentProps> = ({ history }) => {
+  const [createRecipe] = useMutation<{ createRecipe: Recipe }>(CREATE_RECIPE);
 
-const RecipeCreate: FunctionComponent<CreateRecipeProps> = (props) => {
-  const { createRecipe } = props;
+  async function handleSubmit(values: IRecipeValues) {
+    const {
+      name,
+      category,
+      ingredients,
+      instructions,
+      imageData,
+      collection,
+    } = values;
+    console.log(collection);
+    const res = await createRecipe({
+      variables: {
+        name,
+        category,
+        ingredients,
+        instructions,
+        _collection: collection,
+      },
+    });
+    const { _id } = res.data!.createRecipe;
+    await axios.post(`/api/recipes/${_id}/image`, imageData);
+    history.push('/user');
+  }
+
   const intialFormState: IRecipeValues = {
     name: '',
     category: '',
@@ -34,9 +56,9 @@ const RecipeCreate: FunctionComponent<CreateRecipeProps> = (props) => {
           </div>
         </div>
       </div>
-      <RecipeForm submitHandler={createRecipe} initialState={intialFormState} />
+      <RecipeForm submitHandler={handleSubmit} initialState={intialFormState} />
     </>
   );
 };
 
-export default connect(null, { createRecipe })(RecipeCreate);
+export default RecipeCreate;

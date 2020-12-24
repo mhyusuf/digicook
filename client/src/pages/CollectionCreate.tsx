@@ -1,18 +1,29 @@
 import React, { FunctionComponent } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { History } from 'history';
+import axios from 'axios';
+import { useMutation } from '@apollo/client';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
+import { CREATE_COLLECTION } from '../services/mutationService';
+import { Collection } from '../interfaces/collection';
 import { ICollectionValues } from '../interfaces/inputs';
 import CollectionForm from '../containers/CollectionForm';
-import { createCollection } from '../actions';
 
-interface CollectionCreateProps {
-  createCollection: (x: ICollectionValues, y: History<any>) => void;
-}
+const CollectionCreate: FunctionComponent<RouteComponentProps> = ({
+  history,
+}) => {
+  const [createCollection] = useMutation<{ createCollection: Collection }>(
+    CREATE_COLLECTION,
+  );
 
-const CollectionCreate: FunctionComponent<CollectionCreateProps> = (props) => {
-  const { createCollection } = props;
+  async function handleSubmit(values: ICollectionValues) {
+    const { name, description, isPrivate, imageData } = values;
+    const res = await createCollection({
+      variables: { name, description, isPrivate },
+    });
+    const { _id } = res.data!.createCollection;
+    await axios.post(`/api/collections/${_id}/image`, imageData);
+    history.push('/user');
+  }
   const initialState: ICollectionValues = {
     name: '',
     description: '',
@@ -36,11 +47,11 @@ const CollectionCreate: FunctionComponent<CollectionCreateProps> = (props) => {
       <div className="ui attached segment">
         <CollectionForm
           initialState={initialState}
-          submitHandler={createCollection}
+          submitHandler={handleSubmit}
         />
       </div>
     </>
   );
 };
 
-export default connect(null, { createCollection })(CollectionCreate);
+export default CollectionCreate;
