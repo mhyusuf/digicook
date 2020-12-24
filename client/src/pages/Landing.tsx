@@ -1,13 +1,8 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 
-import { hideMenu } from '../actions';
 import Discover from '../containers/Discover';
 
-export function Landing({ hideMenu }: { hideMenu: () => void }) {
-  useEffect(() => {
-    hideMenu(); // Hide menu on load
-  });
+export function Landing() {
   return (
     <div>
       <Discover />
@@ -15,4 +10,4 @@ export function Landing({ hideMenu }: { hideMenu: () => void }) {
   );
 }
 
-export default connect(null, { hideMenu })(Landing);
+export default Landing;

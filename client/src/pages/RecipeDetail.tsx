@@ -1,37 +1,43 @@
-import React, { useState, useEffect, FunctionComponent } from 'react';
+import React, { useState, useContext, FunctionComponent } from 'react';
 import { Link, match, RouteComponentProps } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 import { connect } from 'react-redux';
 
+import { UserContext } from '../context/user';
+import { Recipe } from '../interfaces/recipe';
+import { GET_RECIPE_DETAIL } from '../services/queryService';
 import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from '../components/ModalConfirm';
-import { getRecipe, deleteRecipe } from '../actions';
-import { IRecipeWithIds, IIngredientWithOwnId } from '../interfaces/model';
+import { deleteRecipe } from '../actions';
 
-interface MatchInterface {
+interface RecipeData {
+  getRecipeDetail: Recipe;
+}
+
+interface Params {
   recipeId: string;
 }
 
 interface RecipeDetailProps extends RouteComponentProps {
-  recipe: IRecipeWithIds;
-  getRecipe: (x: string) => void;
   deleteRecipe: (x: string) => void;
-  match: match<MatchInterface>;
-  menus: boolean;
+  match: match<Params>;
 }
 
 const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
-  const { recipe, getRecipe, deleteRecipe, match, history, menus } = props;
+  const { deleteRecipe, match, history } = props;
+  const user = useContext(UserContext);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
     setShowDeleteModal((state) => !state);
   }
 
-  useEffect(() => {
-    getRecipe(match.params.recipeId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { loading, data } = useQuery<RecipeData>(GET_RECIPE_DETAIL, {
+    variables: { _id: match.params.recipeId },
+  });
 
-  return (
+  const recipe = data?.getRecipeDetail;
+  const showMenu = user?._id === recipe?._user._id;
+  return recipe ? (
     <>
       <div className="ui top attached tabular menu RecipeDetail__header">
         <div className="item active">{recipe.name}</div>
@@ -44,7 +50,7 @@ const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
               <i className="angle left icon"></i>
               Go back
             </button>
-            {menus && (
+            {showMenu && (
               <>
                 <Link
                   to={`/collections/${recipe._collection}/edit-recipe/${recipe._id}`}
@@ -82,16 +88,14 @@ const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
                 </tr>
               </thead>
               <tbody>
-                {recipe.ingredients.map(
-                  ({ _id, name, quantity }: IIngredientWithOwnId) => {
-                    return (
-                      <tr key={`${_id}/${name}`} className="item">
-                        <td data-label="Ingredient">{name}</td>
-                        <td date-label="Quantity">{quantity}</td>
-                      </tr>
-                    );
-                  },
-                )}
+                {recipe.ingredients.map(({ name, quantity }, i: number) => {
+                  return (
+                    <tr key={`${i}/${name}`} className="item">
+                      <td data-label="Ingredient">{name}</td>
+                      <td date-label="Quantity">{quantity}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -109,19 +113,7 @@ const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
         </ModalConfirm>
       </ModalOverlay>
     </>
-  );
+  ) : null;
 };
 
-function mapStateToProps({
-  collections,
-  menus,
-}: {
-  collections: { recipe: IRecipeWithIds };
-  menus: boolean;
-}) {
-  return { recipe: collections.recipe, menus };
-}
-
-export default connect(mapStateToProps, { getRecipe, deleteRecipe })(
-  RecipeDetail,
-);
+export default connect(null, { deleteRecipe })(RecipeDetail);

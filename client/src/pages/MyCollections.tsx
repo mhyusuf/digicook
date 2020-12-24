@@ -1,11 +1,9 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { connect } from 'react-redux';
 
 import { GET_USER_COLLECTIONS } from '../services/queryService';
 import { Collection } from '../interfaces/collection';
-import { showMenu } from '../actions';
 import CollectionList from '../containers/CollectionList';
 import Search from '../components/Search';
 
@@ -13,17 +11,8 @@ interface CollectionData {
   getUserCollections: Collection[];
 }
 
-interface MyCollectionsProps {
-  showMenu: () => void;
-}
-
-const MyCollections: FunctionComponent<MyCollectionsProps> = (props) => {
-  const { showMenu } = props;
+const MyCollections: FunctionComponent = () => {
   const [query, setQuery] = useState('');
-  useEffect(() => {
-    showMenu();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const { loading, data } = useQuery<CollectionData>(GET_USER_COLLECTIONS, {
     variables: { query },
@@ -63,4 +52,4 @@ const MyCollections: FunctionComponent<MyCollectionsProps> = (props) => {
   );
 };
 
-export default connect(null, { showMenu })(MyCollections);
+export default MyCollections;

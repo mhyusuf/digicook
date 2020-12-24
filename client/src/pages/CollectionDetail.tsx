@@ -1,29 +1,45 @@
-import React, { useState, useEffect, FunctionComponent } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, FunctionComponent } from 'react';
+import { useQuery } from '@apollo/client';
 import { RouteComponentProps, match } from 'react-router-dom';
 
-import { getCollectionDetail } from '../actions';
+import {
+  GET_COLLECTION_BY_ID,
+  GET_RECIPES_BY_COLLECTION,
+} from '../services/queryService';
+import { Collection } from '../interfaces/collection';
+import { Recipe } from '../interfaces/recipe';
 import RecipeList from '../containers/RecipeList';
 import Search from '../components/Search';
-import { CollectionDetailCollection } from '../interfaces/model';
 
-interface MatchInterface {
+interface CollectionData {
+  getCollectionById: Collection;
+}
+
+interface RecipeData {
+  getRecipesByCollection: Recipe[];
+}
+
+interface Params {
   id: string;
 }
 
 interface CollectionDetailProps extends RouteComponentProps {
-  collection: CollectionDetailCollection;
-  getCollectionDetail: (id: string, query?: string) => void;
-  match: match<MatchInterface>;
+  match: match<Params>;
 }
 
 const CollectionDetail: FunctionComponent<CollectionDetailProps> = (props) => {
-  const { match, collection, getCollectionDetail, history } = props;
+  const { match, history } = props;
   const [query, setQuery] = useState('');
-  useEffect(() => {
-    getCollectionDetail(match.params.id, query);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
+
+  const colQuery = useQuery<CollectionData>(GET_COLLECTION_BY_ID, {
+    variables: { _id: match.params.id },
+  });
+  const recQuery = useQuery<RecipeData>(GET_RECIPES_BY_COLLECTION, {
+    variables: { _collection: match.params.id, query },
+  });
+
+  const collection = colQuery.data?.getCollectionById;
+  const recipes = recQuery.data?.getRecipesByCollection || [];
 
   return collection ? (
     <div>
@@ -44,21 +60,11 @@ const CollectionDetail: FunctionComponent<CollectionDetailProps> = (props) => {
           </div>
         </div>
       </div>
-      {/* <RecipeList recipes={collection._recipes} /> */}
+      <RecipeList recipes={recipes} />
     </div>
   ) : (
     <p>'Loading'</p>
   );
 };
 
-function mapStateToProps({
-  collections,
-}: {
-  collections: { collectionDetail: CollectionDetailCollection };
-}) {
-  return { collection: collections.collectionDetail };
-}
-
-export default connect(mapStateToProps, { getCollectionDetail })(
-  CollectionDetail,
-);
+export default CollectionDetail;

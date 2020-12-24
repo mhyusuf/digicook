@@ -1,7 +1,8 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { UserContext } from '../context/user';
 import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from './ModalConfirm';
 import { deleteCollection } from '../actions';
@@ -10,14 +11,14 @@ import { Collection } from '../interfaces/collection';
 interface CollectionListItemProps {
   collection: Collection;
   deleteCollection: (_id: string) => void;
-  menus: boolean;
 }
 
 export const CollectionListItem: FunctionComponent<CollectionListItemProps> = (
   props,
 ) => {
-  const { collection, deleteCollection, menus } = props;
-
+  const { collection, deleteCollection } = props;
+  const user = useContext(UserContext);
+  const showMenu = user?._id === collection._user._id;
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const history = useHistory();
@@ -25,6 +26,7 @@ export const CollectionListItem: FunctionComponent<CollectionListItemProps> = (
   function toggleModal() {
     setShowDeleteModal((state) => !state);
   }
+  console.log(user?._id === collection._user._id);
   return (
     <>
       <div
@@ -56,7 +58,7 @@ export const CollectionListItem: FunctionComponent<CollectionListItemProps> = (
           <div className="meta">{collection._user.name}</div>
           <div className="description">{collection.description}</div>
         </div>
-        {menus && (
+        {showMenu && (
           <div
             className="ui bottom attached menu"
             style={{ overflow: 'hidden' }}
@@ -104,10 +106,4 @@ export const CollectionListItem: FunctionComponent<CollectionListItemProps> = (
   );
 };
 
-function mapStateToProps({ menus }: { menus: boolean }) {
-  return { menus };
-}
-
-export default connect(mapStateToProps, { deleteCollection })(
-  CollectionListItem,
-);
+export default connect(null, { deleteCollection })(CollectionListItem);

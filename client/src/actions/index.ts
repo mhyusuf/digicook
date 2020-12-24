@@ -12,8 +12,6 @@ import {
   GET_RECIPE,
   GET_RECIPE_LIST,
   DELETE_RECIPE,
-  SHOW_MENU,
-  HIDE_MENU,
 } from './types';
 
 export const getUser = () => async (dispatch: Dispatch<DigiCookAction>) => {
@@ -155,14 +153,6 @@ export const deleteRecipe = (_id: string) => async (
   dispatch({ type: DELETE_RECIPE, payload: _id });
 };
 
-export const showMenu = () => {
-  return { type: SHOW_MENU, payload: true };
-};
-
-export const hideMenu = () => {
-  return { type: HIDE_MENU, payload: false };
-};
-
 const actions = {
   getUser,
   getPublicCollections,
@@ -176,8 +166,6 @@ const actions = {
   getPublicRecipes,
   editRecipe,
   deleteRecipe,
-  showMenu,
-  hideMenu,
 };
 
 export default actions;

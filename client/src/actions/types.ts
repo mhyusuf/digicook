@@ -6,8 +6,6 @@ export const DELETE_COLLECTION = 'DELETE_COLLECTION';
 export const GET_RECIPE = 'GET_RECIPE';
 export const GET_RECIPE_LIST = 'GET_RECIPE_LIST';
 export const DELETE_RECIPE = 'DELETE_RECIPE';
-export const SHOW_MENU = 'SHOW_MENU';
-export const HIDE_MENU = 'HIDE_MENU';
 
 const actionTypes = {
   GET_USER,
@@ -18,8 +16,6 @@ const actionTypes = {
   GET_RECIPE,
   GET_RECIPE_LIST,
   DELETE_RECIPE,
-  SHOW_MENU,
-  HIDE_MENU,
 };
 
 export default actionTypes;

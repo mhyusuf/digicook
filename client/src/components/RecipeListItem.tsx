@@ -1,7 +1,8 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { UserContext } from '../context/user';
 import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from './ModalConfirm';
 import { deleteRecipe } from '../actions';
@@ -10,13 +11,14 @@ import { Recipe } from '../interfaces/recipe';
 interface RecipeListItemProps {
   recipe: Recipe;
   deleteRecipe: (_id: string) => void;
-  menus: boolean;
 }
 
 export const RecipeListItem: FunctionComponent<RecipeListItemProps> = (
   props,
 ) => {
-  const { recipe, deleteRecipe, menus } = props;
+  const { recipe, deleteRecipe } = props;
+  const user = useContext(UserContext);
+  const showMenu = user?._id === recipe._user._id;
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
     setShowDeleteModal((state) => !state);
@@ -42,7 +44,7 @@ export const RecipeListItem: FunctionComponent<RecipeListItemProps> = (
             <p>{recipe.category}</p>
           </div>
         </Link>
-        {menus && (
+        {showMenu && (
           <div
             className="ui two item bottom attached menu"
             style={{ overflow: 'hidden' }}
@@ -78,8 +80,4 @@ export const RecipeListItem: FunctionComponent<RecipeListItemProps> = (
   );
 };
 
-function mapStateToProps({ menus }: { menus: boolean }) {
-  return { menus };
-}
-
-export default connect(mapStateToProps, { deleteRecipe })(RecipeListItem);
+export default connect(null, { deleteRecipe })(RecipeListItem);
