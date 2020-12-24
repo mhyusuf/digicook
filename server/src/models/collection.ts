@@ -3,7 +3,7 @@ import { Schema, model, Document, Types } from 'mongoose';
 export interface ICollection extends Document {
   name: string;
   description: string;
-  image: Buffer;
+  image?: Buffer;
   isPrivate: boolean;
   _user: Types.ObjectId;
   _recipes: Types.ObjectId[];

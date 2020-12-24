@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import Collection, { ICollection } from '../models/collection';
+import Collection from '../models/collection';
 import Recipe, { IRecipe } from '../models/recipe';
 import { IUser } from '../models/user';
 
@@ -29,15 +29,24 @@ export function getPublicRecipes(query: string) {
         name: searchString,
       },
     },
+    {
+      $lookup: {
+        from: 'users',
+        localField: '_user',
+        foreignField: '_id',
+        as: '_user',
+      },
+    },
+    { $unwind: { path: '$_user' } },
   ]);
 }
 
 export function getUserCollections(user: IUser) {
-  return Collection.find({ _user: user._id });
+  return Collection.find({ _user: user._id }).populate('_user');
 }
 
 export function getCollectionById(_id: string) {
-  return Collection.findById(_id);
+  return Collection.findById(_id).populate('_user');
 }
 
 export function getRecipesByCollection(_collectionId: string, query: string) {
@@ -45,9 +54,9 @@ export function getRecipesByCollection(_collectionId: string, query: string) {
   return Recipe.find({
     _collection: new Types.ObjectId(_collectionId),
     name: searchString,
-  });
+  }).populate('_user');
 }
 
 export function getRecipeDetail(_id: string) {
-  return Recipe.findById(_id);
+  return Recipe.findById(_id).populate('_user');
 }

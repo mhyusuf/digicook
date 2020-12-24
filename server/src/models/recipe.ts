@@ -4,14 +4,15 @@ export interface IRecipe extends Document {
   name: string;
   category: string;
   instructions: string;
-  image: Buffer;
-  ingredients: { name: string; quantity: string }[];
+  image?: Buffer;
+  ingredients: IIngredient[];
   _collection: Types.ObjectId;
   _user: Types.ObjectId;
 }
 
-export interface IRecipeWithId extends IRecipe {
-  _id: Types.ObjectId;
+export interface IIngredient {
+  name: string;
+  quantity: string;
 }
 
 const recipeSchema = new Schema(

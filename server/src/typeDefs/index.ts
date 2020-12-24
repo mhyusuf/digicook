@@ -7,7 +7,7 @@ const typeDefs = gql`
     getCollectionById(_id: String): Collection
     getPublicRecipes(query: String): [Recipe]
     getRecipesByCollection(_collection: String, query: String): [Recipe]
-    getRecipeDetail(id: String!): Recipe
+    getRecipeDetail(_id: String!): Recipe
   }
 
   type User {
@@ -32,7 +32,7 @@ const typeDefs = gql`
     instructions: String!
     ingredients: [Ingredient]
     _collection: String!
-    _user: String!
+    _user: User!
   }
 
   type Ingredient {
@@ -47,12 +47,12 @@ const typeDefs = gql`
       isPrivate: Boolean
     ): Collection
     updateCollection(
-      id: String
+      _id: String
       name: String
       description: String
-      isPrivate: String
+      isPrivate: Boolean
     ): Collection
-    deleteCollection(id: String): Recipe
+    deleteCollection(_id: String): Collection
     createRecipe(
       name: String
       category: String
@@ -61,13 +61,13 @@ const typeDefs = gql`
       _collection: String
     ): Recipe
     updateRecipe(
-      id: String
+      _id: String
       name: String
       category: String
       instructions: String
       ingredients: [IngredientInput]
     ): Recipe
-    deleteRecipe(id: String): Recipe
+    deleteRecipe(_id: String): Recipe
   }
 
   input IngredientInput {
