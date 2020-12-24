@@ -1,32 +1,36 @@
-import React, { useState, useEffect, FunctionComponent } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, FunctionComponent } from 'react';
+import { useQuery } from '@apollo/client';
 
-import { getPublicCollections, getPublicRecipes } from '../actions';
-import { ICollectionWithUserObj, IRecipe } from '../interfaces/model';
+import {
+  GET_PUBLIC_COLLECTIONS,
+  GET_PUBLIC_RECIPES,
+} from '../services/queryService';
+import { Collection } from '../interfaces/collection';
+import { Recipe } from '../interfaces/recipe';
 import DiscoverCollections from './DiscoverCollections';
 import DiscoverRecipes from './DiscoverRecipes';
 import Search from '../components/Search';
 
-interface DiscoverProps {
-  collections: ICollectionWithUserObj[];
-  recipes: IRecipe[];
-  getPublicCollections: (query?: string) => void;
-  getPublicRecipes: (query?: string) => void;
+interface CollectionData {
+  getPublicCollections: Collection[];
 }
-const Discover: FunctionComponent<DiscoverProps> = (props) => {
-  const {
-    collections,
-    recipes,
-    getPublicCollections,
-    getPublicRecipes,
-  } = props;
+
+interface RecipeData {
+  getPublicRecipes: Recipe[];
+}
+
+const Discover: FunctionComponent = () => {
   const [renderCollections, setRenderCollections] = useState(true);
   const [query, setQuery] = useState('');
-  useEffect(() => {
-    renderCollections ? getPublicCollections(query) : getPublicRecipes(query);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [renderCollections, query]);
 
+  const colQuery = useQuery<CollectionData>(GET_PUBLIC_COLLECTIONS, {
+    variables: { query },
+    skip: !renderCollections,
+  });
+  const recQuery = useQuery<RecipeData>(GET_PUBLIC_RECIPES, {
+    variables: { query },
+    skip: renderCollections,
+  });
   return (
     <>
       <div className="ui top attached tabular menu Discover__header">
@@ -54,30 +58,15 @@ const Discover: FunctionComponent<DiscoverProps> = (props) => {
       </div>
       <div className="ui bottom attached segment">
         {renderCollections ? (
-          <DiscoverCollections collections={collections} />
+          <DiscoverCollections
+            collections={colQuery.data?.getPublicCollections || []}
+          />
         ) : (
-          <DiscoverRecipes recipes={recipes} />
+          <DiscoverRecipes recipes={recQuery.data?.getPublicRecipes || []} />
         )}
       </div>
     </>
   );
 };
 
-function mapStateToProps({
-  collections,
-}: {
-  collections: {
-    collectionList: ICollectionWithUserObj[];
-    recipeList: IRecipe[];
-  };
-}) {
-  return {
-    collections: collections.collectionList,
-    recipes: collections.recipeList,
-  };
-}
-
-export default connect(mapStateToProps, {
-  getPublicCollections,
-  getPublicRecipes,
-})(Discover);
+export default Discover;

@@ -1,13 +1,9 @@
 import React from 'react';
 
-import { ICollectionWithUserObj } from '../interfaces/model';
+import { Collection } from '../interfaces/collection';
 import CollectionList from './CollectionList';
 
-function DiscoverCollections({
-  collections,
-}: {
-  collections: ICollectionWithUserObj[];
-}) {
+function DiscoverCollections({ collections }: { collections: Collection[] }) {
   return collections.length ? (
     <CollectionList collections={collections} />
   ) : (

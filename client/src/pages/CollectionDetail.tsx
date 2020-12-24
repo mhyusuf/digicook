@@ -44,7 +44,7 @@ const CollectionDetail: FunctionComponent<CollectionDetailProps> = (props) => {
           </div>
         </div>
       </div>
-      <RecipeList recipes={collection._recipes} />
+      {/* <RecipeList recipes={collection._recipes} /> */}
     </div>
   ) : (
     <p>'Loading'</p>

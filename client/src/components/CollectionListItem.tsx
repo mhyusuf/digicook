@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from './ModalConfirm';
 import { deleteCollection } from '../actions';
-import { ICollectionWithUserObj } from '../interfaces/model';
+import { Collection } from '../interfaces/collection';
 
 interface CollectionListItemProps {
-  collection: ICollectionWithUserObj;
+  collection: Collection;
   deleteCollection: (_id: string) => void;
   menus: boolean;
 }

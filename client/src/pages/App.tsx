@@ -1,28 +1,21 @@
-import React, { FunctionComponent, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
-import { getUser } from '../actions';
-import { IUser } from '../interfaces/model';
-import { IState } from '../interfaces/state';
+import { getCurrentUser } from '../services/apiService';
+import { User } from '../interfaces/user';
+import { UserContext } from '../context/user';
 import AuthenticatedApp from './AuthenticatedApp';
 import UnauthenticatedApp from './UnauthenticatedApp';
 
-interface AppProps {
-  user?: IUser;
-  getUser: () => void;
-}
-
-const App: FunctionComponent<AppProps> = (props) => {
-  const { user, getUser } = props;
+const App: FunctionComponent = () => {
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   useEffect(() => {
-    getUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getCurrentUser().then((user) => setCurrentUser(user));
   }, []);
-  return user ? <AuthenticatedApp /> : <UnauthenticatedApp />;
+  return (
+    <UserContext.Provider value={currentUser}>
+      {currentUser ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+    </UserContext.Provider>
+  );
 };
 
-function mapStateToProps(state: IState) {
-  return { user: state.auth };
-}
-
-export default connect(mapStateToProps, { getUser })(App);
+export default App;

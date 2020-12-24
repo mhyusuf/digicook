@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { IRecipe } from '../interfaces/model';
+import { Recipe } from '../interfaces/recipe';
 import RecipeList from './RecipeList';
 
-function DiscoverRecipes({ recipes }: { recipes: IRecipe[] }) {
+function DiscoverRecipes({ recipes }: { recipes: Recipe[] }) {
   return recipes.length ? (
     <RecipeList recipes={recipes} />
   ) : (

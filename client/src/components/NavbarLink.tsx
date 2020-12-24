@@ -10,7 +10,7 @@ const NavbarLink: FunctionComponent<NavbarLinkProps> = (props) => {
   const { text, to } = props;
   return (
     <li data-test="NavbarLinkComponent">
-      <NavLink // Component imported from react-router-dom
+      <NavLink
         activeClassName="nav-link-active"
         exact
         to={to}

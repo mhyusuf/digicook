@@ -12,6 +12,7 @@ const typeDefs = gql`
 
   type User {
     _id: String!
+    name: String!
     googleId: String!
     email: String!
   }

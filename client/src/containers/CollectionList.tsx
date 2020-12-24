@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
 
-import { ICollectionWithUserObj } from '../interfaces/model';
+import { Collection } from '../interfaces/collection';
 import CollectionListItem from '../components/CollectionListItem';
 
 interface CollectionListProps {
-  collections: ICollectionWithUserObj[];
+  collections: Collection[];
 }
 
 const CollectionList: FunctionComponent<CollectionListProps> = (props) => {

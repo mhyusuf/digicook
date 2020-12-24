@@ -1,9 +1,9 @@
 import React from 'react';
 
 import RecipeListItem from '../components/RecipeListItem';
-import { IRecipe } from '../interfaces/model';
+import { Recipe } from '../interfaces/recipe';
 
-function RecipeList({ recipes }: { recipes: IRecipe[] }) {
+function RecipeList({ recipes }: { recipes: Recipe[] }) {
   return recipes ? (
     <div className="ui bottom attached segment">
       <div className="ui cards">

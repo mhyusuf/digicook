@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from './ModalConfirm';
 import { deleteRecipe } from '../actions';
-import { IRecipe } from '../interfaces/model';
+import { Recipe } from '../interfaces/recipe';
 
 interface RecipeListItemProps {
-  recipe: IRecipe;
+  recipe: Recipe;
   deleteRecipe: (_id: string) => void;
   menus: boolean;
 }
