@@ -7,7 +7,6 @@ import { GET_COLLECTION_BY_ID } from '../services/queryService';
 import { UPDATE_COLLECTION } from '../services/mutationService';
 import { Collection } from '../interfaces/collection';
 import CollectionForm from '../containers/CollectionForm';
-import { ICollectionValues } from '../interfaces/inputs';
 
 interface CollectionData {
   getCollectionById: Collection;
@@ -57,7 +56,7 @@ const CollectionEdit: FunctionComponent<CollectionEditProps> = (props) => {
         {collection ? (
           <CollectionForm
             initialState={initialState}
-            submitHandler={async (updates: ICollectionValues) => {
+            submitHandler={async (updates) => {
               const { name, description, isPrivate, imageData } = updates;
               await updateCollection({
                 variables: {

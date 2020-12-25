@@ -1,19 +1,19 @@
-import { IIngredient } from './model';
+import { Ingredient } from './recipe';
 
-export interface ICollectionValues {
-  name?: string;
-  description?: string;
+export interface CollectionValues {
+  name: string;
+  description: string;
   isPrivate: boolean;
-  imageData?: FormData;
+  imageData: FormData;
   image?: any;
 }
 
-export interface IRecipeValues {
-  name?: string;
-  category?: string;
-  instructions?: string;
-  imageData?: FormData;
-  ingredients?: IIngredient[];
-  collection?: string;
+export interface RecipeValues {
+  name: string;
+  category: string;
+  instructions: string;
+  imageData: FormData;
+  ingredients: Ingredient[];
+  collection: string;
   image?: any;
 }

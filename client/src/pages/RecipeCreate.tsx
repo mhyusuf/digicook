@@ -5,13 +5,14 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 
 import { CREATE_RECIPE } from '../services/mutationService';
 import { Recipe } from '../interfaces/recipe';
-import { IRecipeValues } from '../interfaces/inputs';
+import { RecipeValues } from '../interfaces/inputs';
+import { RecipeFormState } from '../interfaces/forms';
 import RecipeForm from '../containers/RecipeForm';
 
 const RecipeCreate: FunctionComponent<RouteComponentProps> = ({ history }) => {
   const [createRecipe] = useMutation<{ createRecipe: Recipe }>(CREATE_RECIPE);
 
-  async function handleSubmit(values: IRecipeValues) {
+  async function handleSubmit(values: RecipeValues) {
     const {
       name,
       category,
@@ -34,7 +35,7 @@ const RecipeCreate: FunctionComponent<RouteComponentProps> = ({ history }) => {
     history.push('/user');
   }
 
-  const intialFormState: IRecipeValues = {
+  const intialFormState: RecipeFormState = {
     name: '',
     category: '',
     image: '',

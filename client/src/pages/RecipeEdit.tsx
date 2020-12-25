@@ -7,8 +7,8 @@ import { GET_RECIPE_DETAIL } from '../services/queryService';
 import { UPDATE_RECIPE } from '../services/mutationService';
 import { Recipe } from '../interfaces/recipe';
 import RecipeForm from '../containers/RecipeForm';
-import { IRecipe } from '../interfaces/model';
-import { IRecipeValues } from '../interfaces/inputs';
+import { RecipeValues } from '../interfaces/inputs';
+import { RecipeFormState } from '../interfaces/forms';
 
 interface RecipeData {
   getRecipeDetail: Recipe;
@@ -19,7 +19,7 @@ interface Params {
 }
 
 interface RecipeEditProps {
-  recipe: IRecipe;
+  recipe: Recipe;
   getRecipe: (id: string) => void;
   match: match<Params>;
 }
@@ -35,12 +35,12 @@ const RecipeEdit: FunctionComponent<RecipeEditProps> = (props) => {
   const [updateRecipe] = useMutation<{ updateRecipe: Recipe }>(UPDATE_RECIPE);
 
   const recipe = data?.getRecipeDetail;
-  const initialState = {
-    name: recipe?.name,
-    category: recipe?.category,
+  const initialState: RecipeFormState = {
+    name: recipe?.name || '',
+    category: recipe?.category || '',
     image: '',
-    ingredients: recipe?.ingredients,
-    instructions: recipe?.instructions,
+    ingredients: recipe?.ingredients || [{ name: '', quantity: '' }],
+    instructions: recipe?.instructions || '',
   };
 
   return (
@@ -58,7 +58,7 @@ const RecipeEdit: FunctionComponent<RecipeEditProps> = (props) => {
       </div>
       {recipe ? (
         <RecipeForm
-          submitHandler={async (updates: IRecipeValues) => {
+          submitHandler={async (updates: RecipeValues) => {
             const {
               name,
               category,

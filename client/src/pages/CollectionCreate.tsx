@@ -5,7 +5,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 
 import { CREATE_COLLECTION } from '../services/mutationService';
 import { Collection } from '../interfaces/collection';
-import { ICollectionValues } from '../interfaces/inputs';
+import { CollectionValues } from '../interfaces/inputs';
 import CollectionForm from '../containers/CollectionForm';
 
 const CollectionCreate: FunctionComponent<RouteComponentProps> = ({
@@ -15,7 +15,7 @@ const CollectionCreate: FunctionComponent<RouteComponentProps> = ({
     CREATE_COLLECTION,
   );
 
-  async function handleSubmit(values: ICollectionValues) {
+  async function handleSubmit(values: CollectionValues) {
     const { name, description, isPrivate, imageData } = values;
     const res = await createCollection({
       variables: { name, description, isPrivate },
@@ -24,7 +24,7 @@ const CollectionCreate: FunctionComponent<RouteComponentProps> = ({
     await axios.post(`/api/collections/${_id}/image`, imageData);
     history.push('/user');
   }
-  const initialState: ICollectionValues = {
+  const initialState = {
     name: '',
     description: '',
     image: '',

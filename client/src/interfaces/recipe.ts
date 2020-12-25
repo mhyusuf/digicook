@@ -2,7 +2,7 @@ import { Document, Types } from 'mongoose';
 
 import { User } from './user';
 
-interface Ingredient {
+export interface Ingredient {
   name: string;
   quantity: string;
 }

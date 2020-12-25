@@ -1,21 +1,19 @@
 import React, { FunctionComponent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { History } from 'history';
 
 import FormField from '../components/FormInput';
 import StatusRadio from '../components/StatusRadio';
-import { ICollectionValues } from '../interfaces/inputs';
+import { CollectionValues } from '../interfaces/inputs';
+import { CollectionFormState } from '../interfaces/forms';
 
 interface CollectionFormProps {
-  submitHandler: (updates: ICollectionValues, history: History<any>) => void;
-  initialState: ICollectionValues;
+  submitHandler: (updates: CollectionValues) => void;
+  initialState: CollectionFormState;
 }
 
 export const CollectionForm: FunctionComponent<CollectionFormProps> = (
   props,
 ) => {
   const { initialState, submitHandler } = props;
-  const history = useHistory();
   const [formValues, setFormValues] = useState(initialState);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -23,26 +21,26 @@ export const CollectionForm: FunctionComponent<CollectionFormProps> = (
     const { name, description, image, isPrivate } = formValues;
     const imageData = new FormData();
     imageData.append('image', image);
-    submitHandler({ name, description, isPrivate, imageData }, history);
+    submitHandler({ name, description, isPrivate, imageData });
     setFormValues({ name: '', description: '', image: '', isPrivate: false });
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setFormValues((formValues: ICollectionValues) => ({
+    setFormValues((formValues) => ({
       ...formValues,
       [e.target.name]: e.target.value,
     }));
   }
 
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setFormValues((formValues: ICollectionValues) => ({
+    setFormValues((formValues) => ({
       ...formValues,
       image: e.target.files && e.target.files[0],
     }));
   }
 
   function handleStatusChange(status: boolean): void {
-    setFormValues((formValues: ICollectionValues) => ({
+    setFormValues((formValues) => ({
       ...formValues,
       isPrivate: status,
     }));
