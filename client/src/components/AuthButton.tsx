@@ -1,23 +1,23 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 
 interface AuthProps {
   isLoggedIn: boolean;
 }
 
-function AuthButton({ isLoggedIn }: AuthProps) {
+const AuthButton: FunctionComponent<AuthProps> = ({ isLoggedIn }) => {
   return isLoggedIn ? (
-    <li data-test="AuthButtonComponent, LoggedIn">
+    <li>
       <a href="/auth/logout" className="nav-links">
         Log out
       </a>
     </li>
   ) : (
-    <li data-test="AuthButtonComponent, LoggedOut">
+    <li>
       <a href="/auth/google" className="nav-links">
         Login with Google
       </a>
     </li>
   );
-}
+};
 
 export default AuthButton;

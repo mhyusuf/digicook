@@ -9,7 +9,7 @@ interface NavbarLinkProps {
 const NavbarLink: FunctionComponent<NavbarLinkProps> = (props) => {
   const { text, to } = props;
   return (
-    <li data-test="NavbarLinkComponent">
+    <li>
       <NavLink
         activeClassName="nav-link-active"
         exact

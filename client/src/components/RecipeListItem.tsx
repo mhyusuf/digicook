@@ -24,10 +24,7 @@ export const RecipeListItem: FunctionComponent<RecipeListItemProps> = ({
   }
   return (
     <>
-      <div
-        data-test="RecipeListItemComponent"
-        className="ui card RecipeListItem"
-      >
+      <div className="ui card RecipeListItem">
         <Link
           className="image"
           to={`/collections/${recipe._collection}/recipes/${recipe._id}`}

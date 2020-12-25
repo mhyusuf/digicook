@@ -15,11 +15,11 @@ const IngredientField: FunctionComponent<IngredientFieldProps> = (props) => {
   return (
     <>
       {idx === 0 && (
-        <div data-test="IngredientFieldComponent-conditional" className="field">
+        <div className="field">
           <label>Ingredients</label>
         </div>
       )}
-      <div data-test="IngredientFieldComponent" className="fields">
+      <div className="fields">
         <div className="eight wide field">
           <input
             placeholder="Ingredient"

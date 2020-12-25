@@ -30,10 +30,7 @@ export const CollectionListItem: FunctionComponent<CollectionListItemProps> = ({
 
   return (
     <>
-      <div
-        data-test="CollectionListItemComponent"
-        className="card CollectionListItem"
-      >
+      <div className="card CollectionListItem">
         {!imageLoaded && (
           <div className="image">
             <div className="ui placeholder">

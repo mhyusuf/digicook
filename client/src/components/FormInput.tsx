@@ -15,29 +15,17 @@ const FormInput: FunctionComponent<FormInputProps> = (props) => {
     switch (type) {
       case 'textarea':
         return (
-          <textarea
-            data-test="FormFieldInput textarea"
-            name={name}
-            rows={2}
-            value={value}
-            onChange={onChange}
-          />
+          <textarea name={name} rows={2} value={value} onChange={onChange} />
         );
       case 'select':
         return (
-          <select
-            data-test="FormFieldInput select"
-            name={name}
-            value={value}
-            onChange={onChange}
-          >
+          <select name={name} value={value} onChange={onChange}>
             {children ? children : <div />}
           </select>
         );
       default:
         return (
           <input
-            data-test="FormFieldInput default"
             id={name}
             name={name}
             type={type}
@@ -49,7 +37,7 @@ const FormInput: FunctionComponent<FormInputProps> = (props) => {
   }
 
   return (
-    <div data-test="FormFieldComponent" className="field">
+    <div className="field">
       <label htmlFor={name}>{label}</label>
       {renderInput()}
     </div>

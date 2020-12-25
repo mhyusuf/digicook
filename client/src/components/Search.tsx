@@ -8,7 +8,7 @@ interface SearchProps {
 
 function Search({ value, onChange, placeholder }: SearchProps) {
   return (
-    <div data-test="SearchComponent" className="right menu">
+    <div className="right menu">
       <div className="item">
         <div className="ui transparent icon input">
           <input

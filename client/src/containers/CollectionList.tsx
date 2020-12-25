@@ -10,7 +10,7 @@ interface CollectionListProps {
 const CollectionList: FunctionComponent<CollectionListProps> = (props) => {
   const { collections } = props;
   return (
-    <div data-test="CollectionListComponent" className="ui cards">
+    <div className="ui cards">
       {collections.map((collection) => (
         <CollectionListItem key={collection._id} collection={collection} />
       ))}

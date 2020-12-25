@@ -47,11 +47,7 @@ export const CollectionForm: FunctionComponent<CollectionFormProps> = (
   }
 
   return (
-    <form
-      data-test="CollectionFormComponent"
-      className="ui form CollectionForm"
-      onSubmit={handleSubmit}
-    >
+    <form className="ui form CollectionForm" onSubmit={handleSubmit}>
       <FormField
         label="Collection name"
         name="name"
