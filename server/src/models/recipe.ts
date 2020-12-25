@@ -1,4 +1,4 @@
-import { Schema, model, Document, Types } from 'mongoose'; // Import mongoose schema class
+import { Schema, model, Document, Types } from 'mongoose';
 
 export interface IRecipe extends Document {
   name: string;
@@ -50,4 +50,4 @@ const recipeSchema = new Schema(
   },
 );
 
-export default model<IRecipe>('Recipe', recipeSchema); // Export model
+export default model<IRecipe>('Recipe', recipeSchema);

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const { mongoURI } = require('../config/keys');
 
-module.exports = () =>
+export default () =>
   mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,

@@ -1,16 +1,16 @@
 import { Request, Response } from 'express';
 
-const login = (req: Request, res: Response): void => {
+export function login(req: Request, res: Response) {
   res.redirect('/user');
-};
+}
 
-const logout = (req: Request, res: Response): void => {
+export function logout(req: Request, res: Response) {
   req.logout();
   res.redirect('/');
-};
+}
 
-const currentUser = (req: Request, res: Response): void => {
+export function currentUser(req: Request, res: Response) {
   res.send(req.user);
-};
+}
 
 export default { login, logout, currentUser };

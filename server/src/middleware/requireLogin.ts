@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import { RequestWithUserAuth } from '../interfaces/requests';
 
-module.exports = (
+export default (
   req: RequestWithUserAuth,
   res: Response,
   next: NextFunction,

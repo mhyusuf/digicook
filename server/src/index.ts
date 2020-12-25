@@ -6,11 +6,11 @@ import { ApolloServer } from 'apollo-server-express';
 
 import typeDefs from './typeDefs';
 import resolvers from './resolvers';
-const authRouter: express.Router = require('./routes/authRouter');
-const collectionRouter: express.Router = require('./routes/collectionRouter');
-const recipeRouter: express.Router = require('./routes/recipeRouter');
-const keys = require('./config/keys');
-const connectDB = require('./models');
+import authRouter from './routes/authRouter';
+import collectionRouter from './routes/collectionRouter';
+import recipeRouter from './routes/recipeRouter';
+import connectDB from './models';
+const { cookieKey } = require('./config/keys');
 require('./services/passport');
 
 const PORT = process.env.PORT || 5000;
@@ -18,9 +18,6 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-const cookieKey: string = keys.cookieKey;
-
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -29,6 +26,9 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use('/auth', authRouter);
+app.use('/api/collections', collectionRouter);
+app.use('/api/recipes', recipeRouter);
 
 const server = new ApolloServer({
   typeDefs,
@@ -38,10 +38,6 @@ const server = new ApolloServer({
   },
 });
 server.applyMiddleware({ app });
-
-app.use('/auth', authRouter);
-app.use('/api/collections', collectionRouter);
-app.use('/api/recipes', recipeRouter);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

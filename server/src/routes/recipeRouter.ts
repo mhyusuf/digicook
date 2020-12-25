@@ -1,32 +1,20 @@
-import Express from 'express';
-const router = Express.Router();
-const requireLogin = require('../middleware/requireLogin');
-import uploadService from '../services/imageUpload';
+import { Router } from 'express';
 
-const { upload } = uploadService;
-const {
-  getRecipes,
-  getRecipe,
+import requireLogin from '../middleware/requireLogin';
+import { upload } from '../services/imageUpload';
+import {
   getRecipeImage,
-  postRecipe,
   postRecipeImage,
-  updateRecipe,
-  deleteRecipe,
-} = require('../controllers/recipeController');
+} from '../controllers/recipeController';
 
-router.get('/', getRecipes);
-router.get('/:id', getRecipe);
+const router = Router();
+
 router.get('/:id/image', getRecipeImage);
-
-router.post('/', requireLogin, postRecipe);
 router.post(
   '/:id/image',
   requireLogin,
   upload.single('image'),
   postRecipeImage,
 );
-router.put('/:id', updateRecipe);
-router.put('/:id/image', requireLogin, upload.single('image'), postRecipeImage);
-router.delete('/:id', deleteRecipe);
 
-module.exports = router;
+export default router;

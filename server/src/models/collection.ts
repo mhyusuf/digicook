@@ -39,4 +39,4 @@ const collectionSchema: Schema = new Schema({
 
 collectionSchema.index({ name: 'text', description: 'text' });
 
-export default model<ICollection>('Collection', collectionSchema); // Export model
+export default model<ICollection>('Collection', collectionSchema);

@@ -1,7 +1,7 @@
 import multer from 'multer';
 import sharp from 'sharp';
 
-const upload = multer({
+export const upload = multer({
   limits: { fileSize: 1000000 },
   fileFilter(req, file, cb): void {
     if (!file.originalname.match(/\.(jpg|jpeg|png|gif|svg|tiff)$/)) {
@@ -21,12 +21,10 @@ interface ProcessImageInput {
   height: number;
 }
 
-const processImage = async ({
+export const processImage = async ({
   buffer,
   width,
   height,
 }: ProcessImageInput): Promise<Buffer> => {
   return sharp(buffer).resize({ width, height }).png().toBuffer();
 };
-
-export default { upload, processImage };
