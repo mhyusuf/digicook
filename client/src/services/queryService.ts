@@ -59,6 +59,7 @@ export const GET_RECIPES_BY_COLLECTION = gql`
       _id
       name
       category
+      _collection
       _user {
         _id
         name
