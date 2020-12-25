@@ -1,25 +1,25 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
 
 import { UserContext } from '../context/user';
+import { DELETE_RECIPE } from '../services/mutationService';
+import { Recipe } from '../interfaces/recipe';
 import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from './ModalConfirm';
-import { deleteRecipe } from '../actions';
-import { Recipe } from '../interfaces/recipe';
 
 interface RecipeListItemProps {
   recipe: Recipe;
-  deleteRecipe: (_id: string) => void;
 }
 
-export const RecipeListItem: FunctionComponent<RecipeListItemProps> = (
-  props,
-) => {
-  const { recipe, deleteRecipe } = props;
+export const RecipeListItem: FunctionComponent<RecipeListItemProps> = ({
+  recipe,
+}) => {
   const user = useContext(UserContext);
   const showMenu = user?._id === recipe._user._id;
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteRecipe] = useMutation<{ deleteRecipe: Recipe }>(DELETE_RECIPE);
+  const history = useHistory();
   function toggleModal() {
     setShowDeleteModal((state) => !state);
   }
@@ -71,7 +71,10 @@ export const RecipeListItem: FunctionComponent<RecipeListItemProps> = (
         <ModalConfirm
           headerText="Delete recipe"
           onCancel={toggleModal}
-          onConfirm={() => deleteRecipe(recipe._id)}
+          onConfirm={async () => {
+            await deleteRecipe({ variables: { _id: recipe._id } });
+            history.go(0);
+          }}
         >
           <p>Are you sure you want to delete this recipe?</p>
         </ModalConfirm>
@@ -80,4 +83,4 @@ export const RecipeListItem: FunctionComponent<RecipeListItemProps> = (
   );
 };
 
-export default connect(null, { deleteRecipe })(RecipeListItem);
+export default RecipeListItem;

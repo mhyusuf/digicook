@@ -20,7 +20,6 @@ const RecipeCreate: FunctionComponent<RouteComponentProps> = ({ history }) => {
       imageData,
       collection,
     } = values;
-    console.log(collection);
     const res = await createRecipe({
       variables: {
         name,

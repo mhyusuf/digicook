@@ -1,14 +1,13 @@
 import React, { useState, useContext, FunctionComponent } from 'react';
 import { Link, match, RouteComponentProps } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import { connect } from 'react-redux';
+import { useQuery, useMutation } from '@apollo/client';
 
 import { UserContext } from '../context/user';
+import { DELETE_RECIPE } from '../services/mutationService';
 import { Recipe } from '../interfaces/recipe';
 import { GET_RECIPE_DETAIL } from '../services/queryService';
 import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from '../components/ModalConfirm';
-import { deleteRecipe } from '../actions';
 
 interface RecipeData {
   getRecipeDetail: Recipe;
@@ -19,13 +18,15 @@ interface Params {
 }
 
 interface RecipeDetailProps extends RouteComponentProps {
-  deleteRecipe: (x: string) => void;
   match: match<Params>;
 }
 
-const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
-  const { deleteRecipe, match, history } = props;
+const RecipeDetail: FunctionComponent<RecipeDetailProps> = ({
+  match,
+  history,
+}) => {
   const user = useContext(UserContext);
+  const [deleteRecipe] = useMutation<{ deleteRecipe: Recipe }>(DELETE_RECIPE);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   function toggleModal() {
     setShowDeleteModal((state) => !state);
@@ -107,7 +108,10 @@ const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
         <ModalConfirm
           headerText="Delete recipe"
           onCancel={toggleModal}
-          onConfirm={() => deleteRecipe(recipe._id.toString())}
+          onConfirm={async () => {
+            await deleteRecipe({ variables: { _id: recipe._id } });
+            history.goBack();
+          }}
         >
           <p>Are you sure you want to delete this recipe?</p>
         </ModalConfirm>
@@ -116,4 +120,4 @@ const RecipeDetail: FunctionComponent<RecipeDetailProps> = (props) => {
   ) : null;
 };
 
-export default connect(null, { deleteRecipe })(RecipeDetail);
+export default RecipeDetail;

@@ -107,3 +107,19 @@ export const UPDATE_RECIPE = gql`
     }
   }
 `;
+
+export const DELETE_COLLECTION = gql`
+  mutation deleteCollection($_id: String) {
+    deleteCollection(_id: $_id) {
+      _id
+    }
+  }
+`;
+
+export const DELETE_RECIPE = gql`
+  mutation deleteRecipe($_id: String) {
+    deleteRecipe(_id: $_id) {
+      _id
+    }
+  }
+`;

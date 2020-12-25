@@ -1,26 +1,27 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useMutation } from '@apollo/client';
 
 import { UserContext } from '../context/user';
+import { DELETE_COLLECTION } from '../services/mutationService';
+import { Collection } from '../interfaces/collection';
 import ModalOverlay from '../containers/ModalOverlay';
 import ModalConfirm from './ModalConfirm';
-import { deleteCollection } from '../actions';
-import { Collection } from '../interfaces/collection';
 
 interface CollectionListItemProps {
   collection: Collection;
-  deleteCollection: (_id: string) => void;
 }
 
-export const CollectionListItem: FunctionComponent<CollectionListItemProps> = (
-  props,
-) => {
-  const { collection, deleteCollection } = props;
+export const CollectionListItem: FunctionComponent<CollectionListItemProps> = ({
+  collection,
+}) => {
   const user = useContext(UserContext);
   const showMenu = user?._id === collection._user._id;
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteCollection] = useMutation<{ deleteCollection: Collection }>(
+    DELETE_COLLECTION,
+  );
   const history = useHistory();
 
   function toggleModal() {
@@ -94,7 +95,10 @@ export const CollectionListItem: FunctionComponent<CollectionListItemProps> = (
         <ModalConfirm
           headerText="Delete collection"
           onCancel={toggleModal}
-          onConfirm={() => deleteCollection(collection._id)}
+          onConfirm={async () => {
+            await deleteCollection({ variables: { _id: collection._id } });
+            history.go(0);
+          }}
         >
           <p>Are you sure you want to delete this collection?</p>
           <div className="ui warning message">
@@ -106,4 +110,4 @@ export const CollectionListItem: FunctionComponent<CollectionListItemProps> = (
   );
 };
 
-export default connect(null, { deleteCollection })(CollectionListItem);
+export default CollectionListItem;
