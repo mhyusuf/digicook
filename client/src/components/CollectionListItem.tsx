@@ -97,7 +97,7 @@ export const CollectionListItem: FunctionComponent<CollectionListItemProps> = ({
           onCancel={toggleModal}
           onConfirm={async () => {
             await deleteCollection({ variables: { _id: collection._id } });
-            history.go(0);
+            toggleModal();
           }}
         >
           <p>Are you sure you want to delete this collection?</p>

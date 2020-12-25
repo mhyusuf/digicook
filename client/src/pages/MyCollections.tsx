@@ -16,6 +16,7 @@ const MyCollections: FunctionComponent = () => {
 
   const { loading, data } = useQuery<CollectionData>(GET_USER_COLLECTIONS, {
     variables: { query },
+    pollInterval: 500,
   });
 
   const collections = data?.getUserCollections;

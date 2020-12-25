@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
 import { UserContext } from '../context/user';
@@ -19,7 +19,6 @@ export const RecipeListItem: FunctionComponent<RecipeListItemProps> = ({
   const showMenu = user?._id === recipe._user._id;
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteRecipe] = useMutation<{ deleteRecipe: Recipe }>(DELETE_RECIPE);
-  const history = useHistory();
   function toggleModal() {
     setShowDeleteModal((state) => !state);
   }
@@ -73,7 +72,7 @@ export const RecipeListItem: FunctionComponent<RecipeListItemProps> = ({
           onCancel={toggleModal}
           onConfirm={async () => {
             await deleteRecipe({ variables: { _id: recipe._id } });
-            history.go(0);
+            toggleModal();
           }}
         >
           <p>Are you sure you want to delete this recipe?</p>

@@ -53,8 +53,14 @@ export const GET_COLLECTION_BY_ID = gql`
   }
 `;
 
-export const GET_RECIPES_BY_COLLECTION = gql`
-  query getRecipesByCollection($_collection: String, $query: String) {
+export const GET_COLLECTION_DETAIL = gql`
+  query getCollectionDetail($_collection: String, $query: String) {
+    getCollectionById(_id: $_collection) {
+      _id
+      name
+      description
+      isPrivate
+    }
     getRecipesByCollection(_collection: $_collection, query: $query) {
       _id
       name
@@ -79,6 +85,7 @@ export const GET_RECIPE_DETAIL = gql`
         quantity
       }
       instructions
+      _collection
       _user {
         _id
         name

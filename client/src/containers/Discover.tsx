@@ -26,10 +26,12 @@ const Discover: FunctionComponent = () => {
   const colQuery = useQuery<CollectionData>(GET_PUBLIC_COLLECTIONS, {
     variables: { query },
     skip: !renderCollections,
+    pollInterval: 500,
   });
   const recQuery = useQuery<RecipeData>(GET_PUBLIC_RECIPES, {
     variables: { query },
     skip: renderCollections,
+    pollInterval: 500,
   });
   return (
     <>

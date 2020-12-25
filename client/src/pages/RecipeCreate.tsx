@@ -32,7 +32,7 @@ const RecipeCreate: FunctionComponent<RouteComponentProps> = ({ history }) => {
     });
     const { _id } = res.data!.createRecipe;
     await axios.post(`/api/recipes/${_id}/image`, imageData);
-    history.push('/user');
+    history.push(`/collections/${collection}`);
   }
 
   const intialFormState: RecipeFormState = {

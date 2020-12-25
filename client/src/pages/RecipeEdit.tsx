@@ -81,7 +81,7 @@ const RecipeEdit: FunctionComponent<RecipeEditProps> = (props) => {
                 imageData,
               );
             }
-            history.goBack();
+            history.push(`/collections/${recipe._collection}`);
           }}
           initialState={initialState}
         />

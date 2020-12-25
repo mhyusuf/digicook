@@ -2,20 +2,14 @@ import React, { useState, FunctionComponent } from 'react';
 import { useQuery } from '@apollo/client';
 import { RouteComponentProps, match } from 'react-router-dom';
 
-import {
-  GET_COLLECTION_BY_ID,
-  GET_RECIPES_BY_COLLECTION,
-} from '../services/queryService';
+import { GET_COLLECTION_DETAIL } from '../services/queryService';
 import { Collection } from '../interfaces/collection';
 import { Recipe } from '../interfaces/recipe';
 import RecipeList from '../containers/RecipeList';
 import Search from '../components/Search';
 
-interface CollectionData {
+interface CollectionDetailData {
   getCollectionById: Collection;
-}
-
-interface RecipeData {
   getRecipesByCollection: Recipe[];
 }
 
@@ -31,15 +25,16 @@ const CollectionDetail: FunctionComponent<CollectionDetailProps> = (props) => {
   const { match, history } = props;
   const [query, setQuery] = useState('');
 
-  const colQuery = useQuery<CollectionData>(GET_COLLECTION_BY_ID, {
-    variables: { _id: match.params.id },
-  });
-  const recQuery = useQuery<RecipeData>(GET_RECIPES_BY_COLLECTION, {
-    variables: { _collection: match.params.id, query },
-  });
+  const { loading, data } = useQuery<CollectionDetailData>(
+    GET_COLLECTION_DETAIL,
+    {
+      variables: { _collection: match.params.id, query },
+      pollInterval: 500,
+    },
+  );
 
-  const collection = colQuery.data?.getCollectionById;
-  const recipes = recQuery.data?.getRecipesByCollection || [];
+  const collection = data?.getCollectionById;
+  const recipes = data?.getRecipesByCollection || [];
 
   return collection ? (
     <div>
