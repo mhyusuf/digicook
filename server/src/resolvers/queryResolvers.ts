@@ -13,8 +13,11 @@ export const Query = {
     getPublicCollections(query),
   getPublicRecipes: (_: {}, { query }: { query?: string }) =>
     getPublicRecipes(query),
-  getUserCollections: (_: {}, __: {}, { user }: { user?: IUser }) =>
-    getUserCollections(user),
+  getUserCollections: (
+    _: {},
+    { query }: { query?: string },
+    { user }: { user?: IUser },
+  ) => getUserCollections(user),
   getCollectionById: (_: {}, { _id }: { _id: string }) =>
     getCollectionById(_id),
   getRecipesByCollection: (
