@@ -1,47 +1,43 @@
-import React, { FunctionComponent, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { FunctionComponent } from 'react';
+import axios from 'axios';
+import { useQuery, useMutation } from '@apollo/client';
 import { Link, match, RouteComponentProps } from 'react-router-dom';
-import { History } from 'history';
 
+import { GET_COLLECTION_BY_ID } from '../services/queryService';
+import { UPDATE_COLLECTION } from '../services/mutationService';
+import { Collection } from '../interfaces/collection';
 import CollectionForm from '../containers/CollectionForm';
-import { getCollectionDetail, editCollection } from '../actions';
-import { CollectionDetailCollection } from '../interfaces/model';
 import { ICollectionValues } from '../interfaces/inputs';
 
-interface MatchInterface {
+interface CollectionData {
+  getCollectionById: Collection;
+}
+
+interface Params {
   id: string;
 }
 
 interface CollectionEditProps extends RouteComponentProps {
-  collection: CollectionDetailCollection;
-  getCollectionDetail: (_id: string, query?: string) => void;
-  editCollection: (
-    _id: string,
-    updates: ICollectionValues,
-    history: History<any>,
-  ) => void;
-  match: match<MatchInterface>;
+  match: match<Params>;
 }
 
 const CollectionEdit: FunctionComponent<CollectionEditProps> = (props) => {
-  const {
-    collection,
-    getCollectionDetail,
-    editCollection,
-    match,
-    history,
-  } = props;
+  const { match, history } = props;
 
-  useEffect(() => {
-    getCollectionDetail(match.params.id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { loading, data } = useQuery<CollectionData>(GET_COLLECTION_BY_ID, {
+    variables: { _id: match.params.id },
+  });
 
+  const [updateCollection] = useMutation<{ updateCollection: Collection }>(
+    UPDATE_COLLECTION,
+  );
+
+  const collection = data?.getCollectionById;
   const initialState = {
-    name: collection.name,
-    description: collection.description,
+    name: collection?.name || '',
+    description: collection?.description || '',
     image: '',
-    isPrivate: collection.isPrivate,
+    isPrivate: collection?.isPrivate || false,
   };
 
   return (
@@ -58,12 +54,24 @@ const CollectionEdit: FunctionComponent<CollectionEditProps> = (props) => {
         </div>
       </div>
       <div className="ui attached segment">
-        {collection._id ? (
+        {collection ? (
           <CollectionForm
             initialState={initialState}
-            submitHandler={(updates: ICollectionValues) =>
-              editCollection(collection._id, updates, history)
-            }
+            submitHandler={async (updates: ICollectionValues) => {
+              const { name, description, isPrivate, imageData } = updates;
+              await updateCollection({
+                variables: {
+                  _id: match.params.id,
+                  name,
+                  description,
+                  isPrivate,
+                },
+              });
+              if (imageData && imageData.get('image')) {
+                await axios.post(`/api/collections/${match.params.id}/image`);
+              }
+              history.goBack();
+            }}
           />
         ) : (
           <p>'Loading'</p>
@@ -73,15 +81,4 @@ const CollectionEdit: FunctionComponent<CollectionEditProps> = (props) => {
   );
 };
 
-function mapStateToProps({
-  collections,
-}: {
-  collections: { collectionDetail: CollectionDetailCollection };
-}) {
-  return { collection: collections.collectionDetail };
-}
-
-export default connect(mapStateToProps, {
-  getCollectionDetail,
-  editCollection,
-})(CollectionEdit);
+export default CollectionEdit;

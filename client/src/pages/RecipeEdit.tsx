@@ -1,43 +1,46 @@
-import React, { FunctionComponent, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { FunctionComponent } from 'react';
+import axios from 'axios';
+import { useQuery, useMutation } from '@apollo/client';
 import { match, useHistory } from 'react-router-dom';
-import { History } from 'history';
 
+import { GET_RECIPE_DETAIL } from '../services/queryService';
+import { UPDATE_RECIPE } from '../services/mutationService';
+import { Recipe } from '../interfaces/recipe';
 import RecipeForm from '../containers/RecipeForm';
-import { getRecipe, editRecipe } from '../actions';
 import { IRecipe } from '../interfaces/model';
 import { IRecipeValues } from '../interfaces/inputs';
-import { IState } from '../interfaces/state';
 
-interface MatchInterface {
+interface RecipeData {
+  getRecipeDetail: Recipe;
+}
+
+interface Params {
   recipeId: string;
 }
 
 interface RecipeEditProps {
   recipe: IRecipe;
   getRecipe: (id: string) => void;
-  editRecipe: (
-    id: string,
-    updates: IRecipeValues,
-    history: History<any>,
-  ) => void;
-  match: match<MatchInterface>;
+  match: match<Params>;
 }
 
 const RecipeEdit: FunctionComponent<RecipeEditProps> = (props) => {
-  const { recipe, getRecipe, editRecipe, match } = props;
+  const { match } = props;
   const history = useHistory();
-  useEffect(() => {
-    getRecipe(match.params.recipeId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
+  const { loading, data } = useQuery<RecipeData>(GET_RECIPE_DETAIL, {
+    variables: { _id: match.params.recipeId },
+  });
+
+  const [updateRecipe] = useMutation<{ updateRecipe: Recipe }>(UPDATE_RECIPE);
+
+  const recipe = data?.getRecipeDetail;
   const initialState = {
-    name: recipe.name,
-    category: recipe.category,
+    name: recipe?.name,
+    category: recipe?.category,
     image: '',
-    ingredients: recipe.ingredients,
-    instructions: recipe.instructions,
+    ingredients: recipe?.ingredients,
+    instructions: recipe?.instructions,
   };
 
   return (
@@ -53,11 +56,33 @@ const RecipeEdit: FunctionComponent<RecipeEditProps> = (props) => {
           </div>
         </div>
       </div>
-      {recipe._id ? (
+      {recipe ? (
         <RecipeForm
-          submitHandler={(updates: IRecipeValues) =>
-            editRecipe(recipe._id, updates, history)
-          }
+          submitHandler={async (updates: IRecipeValues) => {
+            const {
+              name,
+              category,
+              instructions,
+              imageData,
+              ingredients,
+            } = updates;
+            await updateRecipe({
+              variables: {
+                _id: match.params.recipeId,
+                name,
+                category,
+                instructions,
+                ingredients,
+              },
+            });
+            if (imageData && imageData.get('image')) {
+              await axios.post(
+                `/api/recipes/${match.params.recipeId}/image`,
+                imageData,
+              );
+            }
+            history.goBack();
+          }}
           initialState={initialState}
         />
       ) : (
@@ -67,8 +92,4 @@ const RecipeEdit: FunctionComponent<RecipeEditProps> = (props) => {
   );
 };
 
-function mapStateToProps(state: IState) {
-  return { recipe: state.collections.recipe };
-}
-
-export default connect(mapStateToProps, { getRecipe, editRecipe })(RecipeEdit);
+export default RecipeEdit;
