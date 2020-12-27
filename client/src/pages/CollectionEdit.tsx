@@ -67,9 +67,13 @@ const CollectionEdit: FunctionComponent<CollectionEditProps> = (props) => {
                 },
               });
               if (imageData && imageData.get('image')) {
-                await axios.post(`/api/collections/${match.params.id}/image`);
+                await axios.post(
+                  `/api/collections/${match.params.id}/image`,
+                  imageData,
+                );
               }
               history.push('/user');
+              history.go(0);
             }}
           />
         ) : (

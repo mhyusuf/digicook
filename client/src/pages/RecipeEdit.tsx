@@ -82,6 +82,7 @@ const RecipeEdit: FunctionComponent<RecipeEditProps> = (props) => {
               );
             }
             history.push(`/collections/${recipe._collection}`);
+            history.go(0);
           }}
           initialState={initialState}
         />
